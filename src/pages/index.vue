@@ -1,13 +1,13 @@
 <template>
-<div class="">
+
   <!-- index
   <br/>
   <router-link to="/reg">reg</router-link>
   <br/>
   <router-link to="/login">login</router-link> -->
-  <div class="swiper-container">
+  <!-- <div class="swiper-container">
        <div class="swiper-wrapper">
-           <div class="swiper-slide">
+           <div class="swiper-slide" style="height: 740px;">
              <img src="/static/img/1.png" alt="">
            </div>
            <div class="swiper-slide">
@@ -27,16 +27,31 @@
            </div>
        </div>
        <div class="swiper-pagination"></div>
-   </div>
-</div>
+   </div> -->
+
+   <div id="fullpage">
+      <div class="section">
+        <img src="/static/img/1.png" alt="">
+      </div>
+      <div class="section">
+        <img src="/static/img/2.png" alt="">
+      </div>
+      <div class="section">
+        <img src="/static/img/3.png" alt="">
+      </div>
+      <div class="section">
+        <img src="/static/img/4.png" alt="">
+      </div>
+
+  </div>
+
 
 </template>
 <script lang="babel">
-import '../../static/css/swiper.min.css'
+
 import { mapGetters } from 'vuex'
-window.onload = function(){
-  var swiper = new Swiper('.swiper-container')
-}
+
+
 
 export default {
   components: {
@@ -92,4 +107,15 @@ html, body {
      -webkit-align-items: center;
      align-items: center;
  }
+ .swiper-slide img{
+   display: block;
+   width: 100%;
+ }
+
+ #fullpage .section img{
+   display: block;
+   width: 100%;
+   margin-top: -18px;
+ }
+
 </style>

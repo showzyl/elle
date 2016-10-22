@@ -1,5 +1,5 @@
 ### vuejs 2.0版
-### tool is use [mmf-blog-vue2](https://github.com/lincenying/mmf-blog-vue2)
+### tool is use `[mmf-blog-vue2](https://github.com/lincenying/mmf-blog-vue2)`
 
 ```
 // 安装依赖
