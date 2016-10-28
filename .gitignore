@@ -4,3 +4,7 @@ node_modules/
 dist/
 static/dll/
 npm-debug.log
+.idea/elle.iml
+.idea/modules.xml
+.idea/workspace.xml
+static/img/rightbtn.png
