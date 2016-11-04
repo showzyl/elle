@@ -8,6 +8,6 @@ table{border-collapse:collapse;border-spacing:0}
 img{border:0;vertical-align:middle;width:100%}
 em,i{font-style:normal;}
 a{text-decoration:none; color: #333; }
-input{outline:none}
+input{outline:none} /* out border */
 .opacity{opacity:0;}
 .none{ display: none }

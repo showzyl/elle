@@ -1,6 +1,6 @@
 <template>
     <div id="">
-        <commonNav tit="呵呵" />
+        <commonNav title="首页" />
         <footBar />
         <div class="" @click="handleClick" style="height: 30px">
           点击我
@@ -17,6 +17,8 @@
     import indexNav from '../components/indexNav.vue'
     import commonNav from '../components/commonNav.vue'
     import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
+    //import test from '../assets/lib/util.js'
+    // console.log(test);
     //console.log(Toast, Cell, Checklist);
 
     export default {
@@ -30,7 +32,7 @@
           handleClick: function() {
             //console.log(Toast)
             //Toast('提示信息');
-            Indicator.open();
+            //Indicator.open();
           }
         },
         mounted() {
@@ -41,25 +43,14 @@
 </script>
 
 <style>
- html, body, ul, li, h1, h2, h3{
-    margin: 0;
-    padding: 0;
- }
 
  html, body{
    height: 100%;
  }
 
- ul, li{
-   list-style-type: none;
+ body{
+   padding-bottom: 1.5rem;
  }
-
- a{
-   text-decoration: none;
- }
-
- /* out border */
- *:focus { outline: none; }
 
  .main{
    height: 100%;

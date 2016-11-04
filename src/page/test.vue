@@ -13,9 +13,7 @@
 <script>
 import { mapState } from 'vuex'
 import { Toast, Indicator } from 'mint-ui'
-import test from '../assets/lib/util.js'
 
-//console.log(mapState);
 
 $.ajax({
   url: 'https://sug.so.360.cn/suggest',

@@ -3,7 +3,7 @@
 <div class="commonNav">
   <i class="iconBack" @click="clickBack"></i>
   <h2 class="title">
-    首页
+    {{ title }}
   </h2>
   <i class="iconMenu" @click="clickMenu"></i>
 </div>
@@ -14,18 +14,19 @@
 .iconBack{
   position: absolute;
   display: block;
-  background: url(../assets/img/backbtn.png) no-repeat;
+  background-image: url(../assets/img/backbtn.png);
+  background-repeat: no-repeat;
   background-size: contain;
   height: 0.8rem;
   width: 0.8rem;
-  left: 0.6rem;
-  bottom: 0.3rem;
+  margin-left: .6rem;
+  margin-top: .5rem;
 }
 
 .iconMenu{
   position: absolute;
   display: block;
-  background: url(../assets/img/menubtn.png) no-repeat;
+  background-image: url(../assets/img/menubtn.png);
   background-size: contain;
   height: 0.8rem;
   width: 0.8rem;
@@ -54,6 +55,12 @@
 console.log();
 
 export default {
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   components: {
 
   },
@@ -62,7 +69,8 @@ export default {
   },
   methods: {
     clickBack(){
-      alert('back');
+      //alert('back');
+      history.back()
     },
     clickMenu(){
       alert('menu');

@@ -1,6 +1,6 @@
 <template>
 <div class="login">
-  <commonNav/>
+  <commonNav title="登录"/>
   <ul class="inputGroup">
     <li class="inputBox">
       <input type="text" name="user" value="" placeholder="手机号 / 邮箱" class="inputTxt">
@@ -37,7 +37,7 @@
 
   .inputTxt{
     width: 100%;
-    padding: .4rem 0 .4rem .4rem;
+    padding: .4rem 0 .4rem 0;
     font-size: .5rem;
   }
 
