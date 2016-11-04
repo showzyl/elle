@@ -1,14 +1,29 @@
 <template>
+<div class="">
 
-<div class="indexNav">
-  <div class="navTab">
-    <a href="#" class="on">女士</a>
-    <a href="#" class="">男士</a>
-    <a href="#" class="">生活</a>
+  <div class="indexNav">
+    <div class="navTab">
+      <!-- <a @click.prevent="active = 'tab-container1'" v-bind:class="[active == 'tab-container1' ? 'on' : '']">女士</a>
+      <a @click.prevent="active = 'tab-container2'" v-bind:class="[active == 'tab-container2' ? 'on' : '']">男士</a>
+      <a @click.prevent="active = 'tab-container3'" v-bind:class="[active == 'tab-container3' ? 'on' : '']">生活</a> -->
+      <i class="iconMenu" @click="menuToggle"></i>
+    </div>
   </div>
-  <i class="iconMenu"></i>
+  <div class="page-tab-container">
+    <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+      <mt-tab-container-item id="tab-container1">
+        content1
+      </mt-tab-container-item>
+      <mt-tab-container-item id="tab-container2">
+        content2
+      </mt-tab-container-item>
+      <mt-tab-container-item id="tab-container3">
+        content3
+      </mt-tab-container-item>
+    </mt-tab-container>
+  </div>
+  <sideBar/>
 </div>
-
 </template>
 
 <style media="screen" scoped>
@@ -16,12 +31,12 @@
 .iconMenu{
   position: absolute;
   display: block;
-  background: url(/static/img/menubtn.png) no-repeat;
-  background-size: contain;
-  height: 0.8rem;
-  width: 0.8rem;
+  background-image: url(../assets/img/menubtn.png);
+  background-size: cover;
+  height: 0.7rem;
+  width: 0.7rem;
   right: 0.6rem;
-  bottom: 0.3rem;
+  bottom: 0.4rem;
 }
 
 .indexNav{
@@ -49,18 +64,40 @@
   color: #fff;
 }
 
+
 </style>
 
 <script lang="babel">
-export default {
-  components: {
 
+import { TabContainer, TabContainerItem } from 'mint-ui';
+import sideBar from '../components/sideBar.vue';
+
+//console.log(location.href)
+
+export default {
+  data() {
+    return {
+      active: 'tab-container1',
+      bMenuToggle: false
+    }
+  },
+  components: {
+    TabContainer,
+    TabContainerItem,
+    sideBar
   },
   computed: {
 
   },
   methods: {
-
+    menuToggle(){
+      this.bMenuToggle = !this.bMenuToggle
+      if(this.bMenuToggle){
+        document.body.className += 'side'
+      }else{
+        document.body.className = ''
+      }
+    }
   },
   mounted() {
 

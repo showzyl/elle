@@ -28,7 +28,7 @@
 <style media="screen">
 
   .inputGroup{
-    padding: 4rem .5rem .5rem;
+    padding: 3rem .5rem .5rem;
   }
 
   .inputBox{
@@ -69,7 +69,6 @@
 <script lang="babel">
 import commonNav from '../components/commonNav.vue'
 // import lizi from '../api/t.js'
-
 
 export default {
   components: {

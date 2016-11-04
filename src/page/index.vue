@@ -1,13 +1,9 @@
 <template>
     <div id="">
-        <commonNav title="首页" />
-        <footBar />
-        <div class="" @click="handleClick" style="height: 30px">
-          点击我
-        </div>
-        <!-- <div class="menu">
-            我是menugit stash pop
-        </div> -->
+        <indexNav title="首页" />
+
+        <!-- <footBar /> -->
+
     </div>
 </template>
 <script lang="babel">
@@ -15,7 +11,7 @@
     //import 'normalize.css'
     import footBar from '../components/footBar.vue'
     import indexNav from '../components/indexNav.vue'
-    import commonNav from '../components/commonNav.vue'
+    //import commonNav from '../components/commonNav.vue'
     import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
     //import test from '../assets/lib/util.js'
     // console.log(test);
@@ -24,8 +20,7 @@
     export default {
         components: {
           footBar,
-          indexNav,
-          commonNav
+          indexNav
         },
         computed: {},
         methods: {
@@ -41,6 +36,10 @@
         watch: {}
     }
 </script>
+
+<style media="screen" scoped>
+
+</style>
 
 <style>
 

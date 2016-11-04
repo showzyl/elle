@@ -94,6 +94,10 @@ export default {
 
 <style media="screen" scoped>
 
+body{
+  padding-bottom: 0;
+}
+
 .regBtnGroup{
   position: fixed;
   bottom: 0;
