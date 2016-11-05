@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <div class="mask" @click='toggleMask'></div>
   </div>
 </template>
 
@@ -16,11 +17,40 @@ export default {
     }
   },
   methods: {
-    
+    toggleMask(e){
+      if(e.target.className === 'mask'){
+        alert(1);
+        
+      }else{
+
+      }
+    }
   }
 }
 </script>
 
 <style>
+html, body{
+  height: 100%;
+}
 
+#app{
+  height: inherit;
+}
+
+.mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0;
+  display: none;
+  z-index: 2147483646;
+}
+
+.mask_black{
+  background-color: black;
+}
 </style>

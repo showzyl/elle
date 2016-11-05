@@ -3,9 +3,9 @@
 
   <div class="indexNav">
     <div class="navTab">
-      <!-- <a @click.prevent="active = 'tab-container1'" v-bind:class="[active == 'tab-container1' ? 'on' : '']">女士</a>
+      <a @click.prevent="active = 'tab-container1'" v-bind:class="[active == 'tab-container1' ? 'on' : '']">女士</a>
       <a @click.prevent="active = 'tab-container2'" v-bind:class="[active == 'tab-container2' ? 'on' : '']">男士</a>
-      <a @click.prevent="active = 'tab-container3'" v-bind:class="[active == 'tab-container3' ? 'on' : '']">生活</a> -->
+      <a @click.prevent="active = 'tab-container3'" v-bind:class="[active == 'tab-container3' ? 'on' : '']">生活</a>
       <i class="iconMenu" @click="menuToggle"></i>
     </div>
   </div>
@@ -27,6 +27,7 @@
 </template>
 
 <style media="screen" scoped>
+
 
 .iconMenu{
   position: absolute;
@@ -94,8 +95,10 @@ export default {
       this.bMenuToggle = !this.bMenuToggle
       if(this.bMenuToggle){
         document.body.className += 'side'
+        document.querySelector('.mask').style.display = 'block'
       }else{
         document.body.className = ''
+        document.querySelector('.mask').style.display = 'none'
       }
     }
   },

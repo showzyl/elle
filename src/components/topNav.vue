@@ -1,33 +1,24 @@
 <template>
-    <div id="">
-        <!-- <topNav /> -->
-        <indexNav title="首页" />
-
-        <footBar />
-    </div>
+    <ul class="topnav">
+      <li>品类</li>
+      <li>品牌</li>
+    </ul>
 </template>
 <script lang="babel">
     import {mapGetters} from 'vuex'
     //import 'normalize.css'
     import footBar from '../components/footBar.vue'
     import indexNav from '../components/indexNav.vue'
-    import topNav from '../components/topNav.vue'
     //import commonNav from '../components/commonNav.vue'
     import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
     //import test from '../assets/lib/util.js'
     // console.log(test);
     //console.log(Toast, Cell, Checklist);
 
-    import core from '../assets/lib/q.core.js'
-    import store from '../assets/lib/q.store.js'
-    console.log(core)
-    console.log(store)
-
     export default {
         components: {
           footBar,
-          indexNav,
-          topNav
+          indexNav
         },
         computed: {},
         methods: {
@@ -45,28 +36,11 @@
 </script>
 
 <style media="screen" scoped>
+.topnav{
 
+}
 </style>
 
-<style scoped>
-
-
-
- .main{
-   height: 100%;
-   position: relative;
-   /*background: red;*/
- }
-
- .menu{
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: #000000;
-   opacity: 0.3;
- }
-
+<style>
 
 </style>

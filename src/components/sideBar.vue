@@ -1,5 +1,5 @@
 <template>
-<div class="sidebar">
+<div class="sidebar" @click='test'>
   sidebar
 </div>
 </template>
@@ -19,6 +19,7 @@
   -webkit-transition: -webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
   transition: transform .2s cubic-bezier(.4,.01,.165,.99),-webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
   background: red;
+  z-index: 2147483646;
 }
 
 </style>
@@ -42,7 +43,9 @@ export default {
 
   },
   methods: {
-
+    test(){
+      alert(123);
+    }
   },
   mounted() {
 
