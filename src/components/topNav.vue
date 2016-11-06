@@ -1,8 +1,8 @@
 <template>
-    <ul class="topnav">
-      <li>品类</li>
-      <li>品牌</li>
-    </ul>
+  <ul class="topnav">
+    <li>品类</li>
+    <li>品牌</li>
+  </ul>
 </template>
 <script lang="babel">
     import {mapGetters} from 'vuex'
@@ -36,9 +36,7 @@
 </script>
 
 <style media="screen" scoped>
-.topnav{
-
-}
+  .topnav {}
 </style>
 
 <style>

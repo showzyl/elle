@@ -6,11 +6,17 @@
     {{ title }}
   </h2>
   <i class="iconMenu" @click="clickMenu"></i>
+  <!--<i class="iconChoseAll">√</i>
+  <i class="iconClearAll"></i>-->
 </div>
 
 </template>
 
 <style media="screen" scoped>
+.iconChoseAll{
+  
+}
+
 .iconBack{
   position: absolute;
   display: block;
@@ -27,7 +33,7 @@
   position: absolute;
   display: block;
   background-image: url(../assets/img/menubtn.png);
-  background-size: contain;
+  background-size: cover;
   height: 0.8rem;
   width: 0.8rem;
   right: 0.6rem;
@@ -38,7 +44,6 @@
   position: relative;
   height: 1.5rem;
   line-height: 1.5rem;
-  /*float: left;*/
 }
 
 .title{
