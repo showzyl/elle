@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       active: 'tab-container1',
-      bMenuToggle: false
+      //bMenuToggle: false
     }
   },
   components: {
@@ -92,14 +92,19 @@ export default {
   },
   methods: {
     menuToggle(){
-      this.bMenuToggle = !this.bMenuToggle
-      if(this.bMenuToggle){
-        document.body.className += 'side'
-        document.querySelector('.mask').style.display = 'block'
-      }else{
-        document.body.className = ''
-        document.querySelector('.mask').style.display = 'none'
-      }
+      document.body.className += 'side'
+      document.querySelector('.mask').style.display = 'block'
+      // this.bMenuToggle = !this.bMenuToggle
+      // if(this.bMenuToggle){
+      //   console.log(1);
+      //   document.body.className += 'side'
+      //   document.querySelector('.mask').style.display = 'block'
+      // }
+      // else{
+      //   console.log(2)
+      //   document.body.className = ''
+      //   document.querySelector('.mask').style.display = 'none'
+      // }
     }
   },
   mounted() {

@@ -52,8 +52,6 @@
 
 <script lang="babel">
 
-console.log();
-
 export default {
   props: {
     title: {

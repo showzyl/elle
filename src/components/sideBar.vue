@@ -1,6 +1,9 @@
 <template>
 <div class="sidebar" @click='test'>
-  sidebar
+  <div class="logo">
+    <img src="" alt="" class="logoImg"/>
+  </div>
+
 </div>
 </template>
 
@@ -18,8 +21,9 @@
   transform: translate3D(-7rem,0,0);
   -webkit-transition: -webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
   transition: transform .2s cubic-bezier(.4,.01,.165,.99),-webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
+  z-index: 2147483647;
   background: red;
-  z-index: 2147483646;
+
 }
 
 </style>
