@@ -1,11 +1,13 @@
 <template>
   <div class="profile">
-    个人中心
+    <commonNav title="梨子" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import commonNav from '../components/commonNav.vue'
+
 import { Toast, Indicator } from 'mint-ui'
 
 export default {
@@ -13,7 +15,7 @@ export default {
 
   },
   components: {
-
+    commonNav
   },
   data () {
     return {

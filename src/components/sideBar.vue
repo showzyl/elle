@@ -6,23 +6,39 @@
 
     <ul class="tabUl">
       <li class="tab">
-        <span class="tabTxt">女士</span>
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
       </li>
       <li class="tab">
-        <span class="tabTxt">男士</span>
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
       </li>
       <li class="tab bbnone">
-        <span class="tabTxt">生活</span>
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
       </li>
     </ul>
 
+    <div style="background: #e5e5e5;height: .2rem;"></div>
+
     <ul class="tabUl">
       <li class="tab">
-        <span class="tabTxt">品牌</span>
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
       </li>
-
+      <li class="tab ">
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
+      </li>
       <li class="tab bbnone">
-        <span class="tabTxt">视频</span>
+        <span class="tabIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>        
       </li>
     </ul>
     
@@ -34,22 +50,21 @@
     transform: translate3D(0, 0, 0);
   }
   .sidebar {
-    width: 6.9rem;
+    width: 7rem;
     height: 100%;
     position: fixed;
     left: 0;
     top: 0;
-    transform: translate3D(-7rem, 0, 0);
+    transform: translate3D(-7.1rem, 0, 0);
     -webkit-transition: -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
     transition: transform .2s cubic-bezier(.4, .01, .165, .99), -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
     z-index: 2147483647;
-    background: #e5e5e5;
+    background-color: #fff;    
   }
   .logo{
     height: 2.5rem;
     /*line-height: 2.5rem;*/
     text-align: center;
-    background-color: #fff;
   }
   .logoImg{
     width: 5rem;
@@ -57,14 +72,32 @@
     margin-top: .8rem;
   }
   .tabUl{
-    background-color: #fff;
+    
     margin-bottom: .2rem;
-
+    font-size: .35rem;
+    font-weight: bold;
   }
+  .tabIcon{
+    display: inline-block;
+    width: .6rem;
+    height: .6rem;
+    background-image: url('../assets/img/sidebar/side_women@3x.png');
+    background-size: contain;
+    vertical-align: middle;
+    margin-left: .6rem;
+  }
+
+  .tabEng{
+    margin-left: .3rem;
+  }
+
+  .tabTxt{
+    margin-left: .2rem;
+  }
+
   .tab{
     padding: .5rem .2rem;
     border-bottom: 1px solid #666666;
-    text-align: center;
   }
 
   .bbnone{

@@ -1,56 +1,55 @@
 <template>
   <div id="">
     <!-- <topNav /> -->
-    <!--<indexNav title="首页" />-->
+    <indexNav title="首页" />
     <!--<catalogue />-->
-    <commonNav title="首页" />
+    <!--<commonNav title="首页" />-->
     <footBar />
   </div>
 </template>
 <script lang="babel">
-    import {mapGetters} from 'vuex'
-    import footBar from '../components/footBar.vue'
-    import indexNav from '../components/indexNav.vue'
-    import commonNav from '../components/commonNav.vue'
-    import topNav from '../components/topNav.vue'
-    import catalogue from '../components/catalogue.vue'
-    //import commonNav from '../components/commonNav.vue'
-    import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
-    //import test from '../assets/lib/util.js'
-    // console.log(test);
-    //console.log(Toast, Cell, Checklist);
+  import {mapGetters} from 'vuex'
+  import footBar from '../components/footBar.vue'
+  import indexNav from '../components/indexNav.vue'
+  import commonNav from '../components/commonNav.vue'
+  import topNav from '../components/topNav.vue'
+  import catalogue from '../components/catalogue.vue'
+  import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
+  //import test from '../assets/lib/util.js'
+  // console.log(test);
+  //console.log(Toast, Cell, Checklist);
 
-    import core from '../assets/lib/q.core.js'
-    import store from '../assets/lib/q.store.js'
-    // console.log(core)
-    // console.log(store)
+  import core from '../assets/lib/q.core.js'
+  import store from '../assets/lib/q.store.js'
+  // console.log(core)
+  // console.log(store)
 
-    export default {
-        components: {
-          footBar,
-          indexNav,
-          topNav,
-          commonNav,
-          catalogue
-        },
-        computed: {},
-        methods: {
-          handleClick: function() {
-            //console.log(Toast)
-            //Toast('提示信息');
-            //Indicator.open();
-          }
-        },
-        mounted() {
+  export default {
+    created(){
+      // 页面创建
+      console.log(123);
+    },
+    components: {
+      footBar,
+      indexNav,
+      topNav,
+      commonNav,
+      catalogue
+    },
+    computed: {},
+    methods: {
+      handleClick: function() {
+        //console.log(Toast)
+        //Toast('提示信息');
+        //Indicator.open();
+      }
+    },
+    mounted() {
 
-        },
-        watch: {}
-    }
+    },
+    watch: {}
+  }
 </script>
-
-<style media="screen" scoped>
-
-</style>
 
 <style scoped>
   .main {
