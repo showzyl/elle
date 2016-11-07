@@ -476,12 +476,14 @@
 		    reg,
 		    tmp;
 		url = (url || window.location.href).toLowerCase().split('#');
+		console.log(url)
 		if (name.indexOf('#') != -1) {
 			tmp = url.length < 2 ? '' : url[1];
 		} else {
 			tmp = url[0];
 		}
 		m = tmp.match(new RegExp('(|[?&#])' + name.replace('#', '') + '=([^#&?]*)(\\s||$)', 'gi'));
+		console.log(m)
 		if (m) {
 			return decodeURIComponent(m[0].split('=')[1]);
 		} else {

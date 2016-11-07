@@ -7,7 +7,6 @@
         </h3>
     </div>
 
-
   </div>
 </template>
 
@@ -45,12 +44,6 @@ export default {
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #dddddd;
-    /*display: flex;
-    display: -webkit-flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;*/
   }
   .shopcarImg{
     width: 4rem;
