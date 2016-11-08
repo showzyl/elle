@@ -11,10 +11,14 @@
     </li>
 
     <li class="footBarItem" v-bind:class="[pageName == 'classify' ? 'on' : '']">
-      <a href="/#/classify" class="footBarHref">
+      <!--<a href="/#/classify" class="footBarHref">
         <i class="iconCatalogue"/></i>
         <h3 class="footBarTxt">分类</h3>
-      </a>
+      </a>-->
+       <router-link to="/classify">
+        <i class="iconProfile"/></i>
+        <h3 class="footBarTxt">分类</h3>
+      </router-link>
     </li>
 
     <li class="footBarItem">
@@ -31,11 +35,11 @@
       </a>
     </li>
 
-    <li class="footBarItem">
-      <a href="#" class="footBarHref">
+    <li class="footBarItem" v-bind:class="[pageName == 'profile' ? 'on' : '']">
+      <router-link to="/profile">
         <i class="iconProfile"/></i>
-        <h3 class="footBarTxt">购物车</h3>
-      </a>
+        <h3 class="footBarTxt">我的</h3>
+      </router-link>
     </li>
 
   </ul>
@@ -57,22 +61,25 @@
 
   .footBarItems{
     display: -webkit-box;
-    padding: 0 .4rem;
+    padding: .2rem .4rem;
     text-align: center;
+  }
+
+  .footBarItem a{
+    display: block;
   }
 
   .footBarItems .on a{
     color: #000;
   }
 
-
   .footBarItem{
     -webkit-box-flex: 1;
   }
 
-  .footBarHref{
+  /*.footBarHref{
     display: block;
-  }
+  }*/
 
   .footBarIcon{
     width: 0.6rem;

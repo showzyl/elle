@@ -20,7 +20,7 @@ export default {
     toggleMask(e){
       if(e.target.className === 'mask'){
         document.body.className = ''
-        document.querySelector('.mask').className += ' none';
+        document.querySelector('.mask').className += ' none'
       }
     }
   }

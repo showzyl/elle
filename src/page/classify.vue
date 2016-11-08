@@ -1,6 +1,6 @@
 <template>
 <div class="login">
-  分类
+  
   <footBar pageName="classify" />
 </div>
 </template>

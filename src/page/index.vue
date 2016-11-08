@@ -5,9 +5,9 @@
     <!--<commonNav title="首页" />-->
      <div class="indexNav">
       <div class="navTab">
-        <a @click.prevent="active = 'tab-container1'" v-bind:class="[active == 'tab-container1' ? 'on' : '']">女士</a>
-        <a @click.prevent="active = 'tab-container2'" v-bind:class="[active == 'tab-container2' ? 'on' : '']">男士</a>
-        <a @click.prevent="active = 'tab-container3'" v-bind:class="[active == 'tab-container3' ? 'on' : '']">生活</a>
+        <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">女士</a>
+        <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">男士</a>
+        <a @click.prevent="active = 'tab-container3'" :class="[active == 'tab-container3' ? 'on' : '']">生活</a>
         <i class="iconMenu" @click="menuToggle"></i>
       </div>
     </div>
@@ -15,7 +15,11 @@
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
         <mt-tab-container-item id="tab-container1">
           <div v-for="item in renderData">
-            <div class="" style="padding: 10px;">{{ item.object_description }}</div>
+            <img :src="item.object_image" alt="">
+            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
+            <p>
+              {{ item.object_description }}
+            </p>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
@@ -47,9 +51,9 @@
 
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
- 
+
   console.log(123)
-  
+
   // console.log(core)
   // console.log(store)
 
@@ -127,16 +131,15 @@
 </script>
 
 <style scoped>
+  #index{
+    padding-bottom: 1.5rem;
+  }
   .main {
     height: 100%;
     position: relative;
     /*background: red;*/
   }
 
-  #index{
-    padding-bottom: 1.5rem;
-  }
-  
   .menu {
     position: fixed;
     top: 0;
@@ -156,20 +159,24 @@
     right: 0.6rem;
     bottom: 0.4rem;
   }
-  
+
   .indexNav {
-    position: relative;
+    position: fixed;
     height: 1.5rem;
     line-height: 1.5rem;
-    background: #000000;
-    opacity: .2;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    /*background: #000000;
+    opacity: .2;*/
   }
-  
+
   .navTab {
     width: 60%;
     display: -webkit-box;
   }
-  
+
   .navTab a {
     display: block;
     color: #000000;
@@ -177,7 +184,7 @@
     text-align: center;
     font-size: 0.5rem;
   }
-  
+
   .navTab a.on {
     color: #fff;
   }
