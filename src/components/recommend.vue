@@ -2,19 +2,19 @@
   <div class="recommend">
     <h3 class="title">{{ title }}</h3>
     <ul class="recommendList">
-      <li class="recommendItem">
+      <li class="recommendItem" v-for="product in products">
         <div class="imgBox">
-          <img src="https://img.alicdn.com/imgextra/i3/186560311066996759/TB2.kRJbbaI.eBjy1XdXXcoqXXa_!!0-saturn_solar.jpg_180x180.jpg_.webp" alt="">
+          <img :src="product.image" alt="">
         </div>
         <div class="priceBox">
           <div class="priceBoxLeft">
-            <p class="oldprice">$1234</p>
-            <p class="newprice">$2</p>            
+            <p class="oldprice"></p>
+            <p class="newprice">¥{{product.price}}</p>            
           </div>
           <span class="iconCarShop"></span>
         </div>
         <div class="recommendName">
-          商品名字
+          {{product.name}}
         </div>
       </li>
     </ul>
@@ -34,11 +34,12 @@
   .recommendItem{
     width: 50%;
     padding: 0 .3rem;
+    box-sizing: border-box;
+    float: left;
   }
 
   .priceBoxLeft{
     float: left;
-
   }
 
   .iconCarShop{
@@ -46,7 +47,8 @@
     display: inline-block;
     width: .5rem;
     height: .5rem;
-    margin-top: .5rem;
+    /*margin-top: .5rem;*/
+    margin: 0 .2rem 0 0;
     background-color: blue;
   }
 
@@ -61,11 +63,15 @@
     margin-bottom: .2rem;
   }
   .newprice{
-    color: red;
+    /*color: red;*/
   }
 
   .recommendName{
     margin-top: .5rem;
+  }
+
+  .iconCarShop{
+
   }
 </style>
 
@@ -81,12 +87,19 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    products: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      active: 'tab-container1'
+      //active: 'tab-container1'
     }
+  },
+  created(){
+    console.log(this.props)
   },
   components: {
     

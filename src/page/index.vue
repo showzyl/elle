@@ -3,7 +3,7 @@
     <!-- <topNav /> -->
     <!--<catalogue />-->
     <!--<commonNav title="首页" />-->
-     <div class="indexNav">
+    <div class="indexNav">
       <div class="navTab">
         <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">女士</a>
         <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">男士</a>
@@ -52,7 +52,7 @@
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
 
-  console.log(123)
+  //console.log(123)
 
   // console.log(core)
   // console.log(store)

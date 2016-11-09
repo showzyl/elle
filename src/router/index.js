@@ -7,8 +7,14 @@ import Login from '../page/Login.vue'
 import Reg from '../page/Reg.vue'
 import Shopcar from '../page/Shopcar.vue'
 import Profile from '../page/Profile.vue'
-import Classify from '../page/classify.vue'
+import Classify from '../page/Classify.vue'
+import Inspire from '../page/Inspire.vue'
+import InspireDetail from '../page/InspireDetail.vue'
 
+// 动态路由
+const User = {
+  template: '<div>User : {{ $route.params.id }}</div>'
+}
 
 // address add remove update
 
@@ -19,10 +25,11 @@ const routes = [
   { name: '个人中心', path: '/profile', component: Profile },
   { name: '购物车', path: '/shopcar', component: Shopcar },
   { name: '分类', path: '/classify', component: Classify },
-  { name: '灵感', path: '/inspire', component: Shopcar },
+  { name: '灵感', path: '/inspire', component: Inspire },
+  { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
   { name: '商品', path: '/product', component: Shopcar },
   { name: '详情', path: '/detail', component: Shopcar },
-  { name: '收藏', path: '/collect', component: Shopcar }
+  { name: '收藏', path: '/collect', component: Shopcar },
 ]
 
 export default routes
