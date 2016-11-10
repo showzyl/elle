@@ -79,6 +79,9 @@ export default {
         Indicator.close()
         if(res.code+'' === '0' && res.data.app.length){
           me.items = res.data.app
+          me.items.forEach(item => {
+            item.image = item.image + '?iopcmd=thumbnail&type=4&width=640|iopcmd=convert&dst=jpg&Q=60'
+          })
           if(res.data.products){
             me.products = res.data.products
           }

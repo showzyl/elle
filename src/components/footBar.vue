@@ -4,10 +4,10 @@
   <ul class="footBarItems">
 
     <li class="footBarItem" v-bind:class="[pageName == 'index' ? 'on' : '']">
-      <a href="/" class="footBarHref">
+      <router-link to="/">
         <i class="iconHome"/></i>
         <h3 class="footBarTxt">首页</h3>
-      </a>
+      </router-link>
     </li>
 
     <li class="footBarItem" v-bind:class="[pageName == 'classify' ? 'on' : '']">
@@ -22,17 +22,17 @@
     </li>
 
     <li class="footBarItem">
-      <a href="#" class="footBarHref">
+      <router-link to="/inspire">
         <i class="iconLook"/></i>
-        <h3 class="footBarTxt">Look</h3>
-      </a>
+        <h3 class="footBarTxt">灵感</h3>
+      </router-link>
     </li>
 
     <li class="footBarItem">
-      <a href="#" class="footBarHref">
+      <router-link to="/shopcar">
         <i class="iconShopinglist"/></i>
         <h3 class="footBarTxt">购物车</h3>
-      </a>
+      </router-link>
     </li>
 
     <li class="footBarItem" v-bind:class="[pageName == 'profile' ? 'on' : '']">
@@ -56,6 +56,7 @@
     height: 1.2rem;
     width: 100%;
     background: #fff;
+    border-top: 1px solid #d7d7d5;
     /*line-height: 1rem;*/
   }
 

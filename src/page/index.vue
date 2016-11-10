@@ -53,7 +53,6 @@
   import store from '../assets/lib/q.store.js'
 
   //console.log(123)
-
   // console.log(core)
   // console.log(store)
 
@@ -75,7 +74,7 @@
 
       // 下拉加载更多
       window.onscroll = function(){
-        console.log(1221212212)
+        //console.log(1221212212)
       }
     },
     components: {

@@ -1,7 +1,5 @@
 'use strict'
 
-const Bar = { template: '<div><router-link to="/foo">Go to Foo</router-link></div>' }
-
 import Index from '../page/index.vue'
 import Login from '../page/Login.vue'
 import Reg from '../page/Reg.vue'
@@ -12,9 +10,9 @@ import Inspire from '../page/Inspire.vue'
 import InspireDetail from '../page/InspireDetail.vue'
 
 // 动态路由
-const User = {
-  template: '<div>User : {{ $route.params.id }}</div>'
-}
+// const User = {
+//   template: '<div>User : {{ $route.params.id }}</div>'
+// }
 
 // address add remove update
 
