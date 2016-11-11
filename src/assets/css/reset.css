@@ -10,4 +10,4 @@ em,i{font-style:normal;}
 a{text-decoration:none; color: #333; }
 input{outline:none} /* out border */
 .opacity{opacity:0;}
-.none{ display: none }
+.none{ display: none!important; }

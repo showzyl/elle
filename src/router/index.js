@@ -28,6 +28,7 @@ const routes = [
   { name: '商品', path: '/product', component: Shopcar },
   { name: '详情', path: '/detail', component: Shopcar },
   { name: '收藏', path: '/collect', component: Shopcar },
+  { name: '订单', path: '/order', component: Shopcar }
 ]
 
 export default routes

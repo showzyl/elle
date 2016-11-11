@@ -4,13 +4,12 @@
       <!--<commonNav title="梨子" />-->
       <!--<recommend title="为您优选商品" />-->
       <div class="header">
-        
+
       </div>
       <!-- 背景图做高斯模糊 -->
-
       <!--<div class="profileTopBg" style="background-image: url('http://p5.qhimg.com/t01272aeeb0365c41dd.png')"></div>-->
 
-      <div class="profileTop">
+      <div class="profileTop none">
         <div class="headImg">
           <img alt="" src="../assets/img/profile/touxiang.png">
         </div>
@@ -26,8 +25,8 @@
         </div>
 
       </div>
-      
-      <div class="collectBox">
+
+      <div class="collectBox none">
         <a href="">
           <span class="loveIcon"></span><br>
           我的收藏
@@ -38,13 +37,46 @@
         </a>
       </div>
 
-      <div class="orderBox">
+      <div class="orderBox none">
         <h3 class="tit">我的订单</h3>
         <span class="orderCheck">
+          
           查看全部订单
-          <i></i>
+          <i class="iconRight"></i>
+
         </span>
       </div>
+
+      <ul class="hotBox none">
+        <li class="hotItem">
+          <i class="hotIcon obligationIcon"></i>
+          <h3 class="txt">待付款</h3>
+          <span class="num">12</span>
+        </li>
+        <li class="hotItem">
+          <i class="hotIcon orderIcon"></i>
+          <h3 class="txt">待发货</h3>
+        </li>
+        <li class="hotItem">
+          <i class="hotIcon receivedIcon"></i>
+          <h3 class="txt">待发货</h3>
+        </li>
+        <li class="hotItem">
+          <i class="hotIcon evaluationIcon"></i>
+          <h3 class="txt">待评价</h3>
+        </li>
+        <li class="hotItem">
+          <i class="hotIcon refundIcon"></i>
+          <h3 class="txt">退款</h3>
+        </li>
+      </ul>
+
+      <div class="bgGray"></div>
+
+      <div class="property">
+        
+      </div>
+
 
 
     </div>
@@ -53,7 +85,7 @@
 <style media="screen" scoped>
 
   .profile{
-    
+
   }
   .header{
 
@@ -73,7 +105,7 @@
     opacity: .2;*/
     -webkit-filter: blur(10px); /* Chrome, Opera */
        -moz-filter: blur(10px);
-        -ms-filter: blur(10px);    
+        -ms-filter: blur(10px);
             filter: blur(10px);
     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
   }
@@ -149,7 +181,6 @@
   .collectBox{
     display: -webkit-box;
     background-color: #000000;
-    
   }
 
   .collectBox a{
@@ -183,18 +214,90 @@
     overflow: hidden;
     height: 1rem;
     line-height: 1rem;
+    border-bottom: 1px solid #d7d7d5;
   }
 
   .orderBox .tit{
     float: left;
     font-size: .45rem;
-    margin-left: .2rem;
+    margin-left: .6rem;
   }
+
   .orderBox .orderCheck{
     float: right;
-    margin-right: .2rem;
-    
+    margin-right: .6rem;
+    color: #9c9c9b;
   }
+
+  .iconRight{
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    background-size: cover;
+    background-image: url('../assets/img/profile/mine_right@3x.png');
+  }
+
+  .hotBox{
+    display: -webkit-box;
+    margin: .3rem;
+  } 
+
+  .hotItem{
+    -webkit-box-flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .num{
+    line-height: .5rem;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 1%;
+    right: 50%;
+    margin-right: -.6rem;
+    background-color: red;
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .hotIcon{
+    display: block;
+    width: .58rem;
+    height: .5rem;
+    /*background-color: red;*/
+    margin: .26rem auto .2rem;
+    background-size: cover;
+  }
+
+  .obligationIcon{
+    background-image: url('../assets/img/profile/mine_wait1@3x.png');
+  }
+
+  .orderIcon{
+    background-image: url('../assets/img/profile/mine_wait2@3x.png');
+  }
+
+  .receivedIcon{
+    background-image: url('../assets/img/profile/mine_wait3@3x.png');
+  }
+  
+  .evaluationIcon{
+    background-image: url('../assets/img/profile/mine_wait4@3x.png');
+  }
+
+  .refundIcon{
+    background-image: url('../assets/img/profile/mine_wait4@3x.png');
+  }
+
+  .bgGray{
+    height: .2rem;
+    background-color: #d7d7d5;
+  }
+
+
 
 </style>
 
@@ -211,7 +314,7 @@
 
     },
     created(){
-      
+
     },
     components: {
       commonNav,
@@ -233,5 +336,3 @@
     }
   }
 </script>
-
-
