@@ -1,9 +1,43 @@
 <template>
   <div class="invoice">
-   
+    <commonNav title="发票" iconRight="" />
+
     <div class="btn btnAddInvoice" @click="addAds">
       + 新建发票
     </div>
+
+    <ul class="addressItems">
+      <li class="addressItem">
+        <h3>
+          个人
+        </h3>
+        <div class="addMid">
+          北京市西城区前门西大街
+        </div>
+        
+        <div class="addBottom">
+          <label class="mint-checklist-label">
+            <span class="mint-checkbox">
+              <input type="checkbox" class="mint-checkbox-input" value=""> 
+              <span class="mint-checkbox-core"></span>
+            </span> 
+            <span class="mint-checkbox-label">设为默认</span>
+          </label>
+
+          <div class="iconList">
+            <router-link to="/">
+              <i class="iconPen"></i>
+            </router-link>
+            <router-link to="/">
+              <i class="iconGarbage"></i>
+            </router-link>
+          </div>
+        </div>
+
+        
+      </li>
+    </ul>
+
     <!--<footBar pageName="classify" />-->
   </div>
 </template>
@@ -11,6 +45,12 @@
 <style media="screen" scoped>
   .invoice{
 
+  }
+
+  .btnAddInvoice{
+    position: fixed;
+    bottom: 0;
+    left: 0;
   }
 
 </style>

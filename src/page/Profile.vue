@@ -86,12 +86,16 @@
           <div class="accountRight">
             <ul class="cheapList">
               <li class="cheapItem">
-                <i class="cheapicon couponsIcon"></i>
-                <span class="txt">优惠券</span>
+                <router-link to="/">
+                  <i class="cheapicon couponsIcon"></i>
+                  <span class="txt">优惠券</span>
+                </router-link>
               </li>
               <li class="cheapItem">
-                <i class="cheapicon giftCardIcon"></i>
-                <span class="txt">礼品卡</span>
+                <router-link to="/">
+                  <i class="cheapicon giftCardIcon"></i>
+                  <span class="txt">礼品卡</span>
+                </router-link>
               </li>
             </ul>
           </div>
@@ -103,9 +107,26 @@
 
       <ul class="manageList">
         <li class="manageItem">
-          <h3 class="tit">MY Q&A</h3>
-          <i class="iconRight"></i>
+          <router-link to="/qa">
+            <h3 class="tit">MY Q&A</h3>
+            <i class="iconRight"></i>
+          </router-link>
         </li>
+
+        <li class="manageItem">
+          <router-link to="/address">
+            <h3 class="tit">地址</h3>
+            <i class="iconRight"></i>
+          </router-link>
+        </li>
+
+        <li class="manageItem">
+          <router-link to="/invoice">
+            <h3 class="tit">MY Q&A</h3>
+            <i class="iconRight"></i>
+          </router-link>
+        </li>
+
       </ul>
 
 
@@ -360,7 +381,7 @@
 
   .accountLeft .tit{
     text-align: center;
-    margin: .2rem 0 .1rem 0;
+    margin: .2rem 0 .2rem 0;
   }
 
   .accountLeft{
@@ -370,6 +391,9 @@
 
   .accountRight{
     float: right;
+    /*position: absolute;
+    right: 0;
+    top: 50%;*/
   }
 
   .cheapList{
@@ -400,21 +424,35 @@
   }
 
   .manageList{
-    border-bottom: 1px solid #d7d7d5;  
+    /*border-bottom: 1px solid #d7d7d5;  */
     
   }
 
   .manageItem{
-    margin: .4rem .6rem;
+    /*padding: .4rem .6rem;*/
     overflow: hidden;
+    border-bottom: 1px solid #d7d7d5;
+    position: relative;
+  }
+
+  .manageItem a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: .4rem .6rem;
   }
 
   .manageList .tit{
     float: left;
   }
 
-  .manageList .iconRight{
+  .account .iconRight{
     float: right;
+  }
+
+  .manageList .iconRight{
+    right: .5rem;
+    position: absolute;
   }
 
 

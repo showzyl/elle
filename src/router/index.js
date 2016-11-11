@@ -10,6 +10,8 @@ import Inspire from '../page/Inspire.vue'
 import InspireDetail from '../page/InspireDetail.vue'
 import Address from '../page/Address.vue'
 import AddressDetail from '../page/AddressDetail.vue'
+import Invoice from '../page/Invoice.vue'
+import InvoiceDetail from '../page/InvoiceDetail.vue'
 
 
 const routes = [
@@ -27,8 +29,8 @@ const routes = [
   { name: '订单', path: '/order', component: Shopcar },
   { name: '地址', path: '/address', component: Address },
   { name: '地址新增和修改', path: '/adddetail', component: AddressDetail },
-  { name: '发票新增', path: '/invoice', component: AddressDetail },
-  { name: '发票详情', path: '/invdetail', component: AddressDetail },
+  { name: '发票新增', path: '/invoice', component: Invoice },
+  { name: '发票详情', path: '/invdetail', component: InvoiceDetail },
 ]
 
 

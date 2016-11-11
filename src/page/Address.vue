@@ -22,8 +22,12 @@
         </label>
 
         <div class="iconList">
-          <i class="iconPen"></i>
-          <i class="iconGarbage"></i>
+          <router-link to="/">
+            <i class="iconPen"></i>
+          </router-link>
+          <router-link to="/">
+            <i class="iconGarbage"></i>
+          </router-link>
         </div>
       </div>
 
@@ -36,19 +40,23 @@
   <!--<footBar pageName="classify" />-->
 </div>
 </template>
-<style media="screen" scoped>
+<style media="screen">
   .address{
     
   }
 
   .addressItems{
     margin: .8rem .4rem;
-    
   }
 
   .addressItem{
     padding-bottom: .4rem;
     border-bottom: 1px solid;
+  }
+
+  .addressItem h3{
+    font-size: .45rem;
+    padding-bottom: .2rem;
   }
 
   .btnAddAds{
@@ -59,7 +67,7 @@
 
   .addMid{
     /*padding: .2rem 0;*/
-    padding: .2rem 0;
+    padding: 0 0 .2rem 0;
   }
 
   .addBottom{
@@ -68,7 +76,7 @@
 
   .iconList{
     float: right;
-    padding: .4rem .2rem 0 0;
+    padding: 0 .2rem 0 0;
   }
 
   .iconAdd{
