@@ -2,14 +2,13 @@
 
     <div class="profile">
       <!--<commonNav title="梨子" />-->
-      <!--<recommend title="为您优选商品" />-->
       <div class="header">
 
       </div>
       <!-- 背景图做高斯模糊 -->
       <!--<div class="profileTopBg" style="background-image: url('http://p5.qhimg.com/t01272aeeb0365c41dd.png')"></div>-->
 
-      <div class="profileTop none">
+      <div class="profileTop ">
         <div class="headImg">
           <img alt="" src="../assets/img/profile/touxiang.png">
         </div>
@@ -26,7 +25,7 @@
 
       </div>
 
-      <div class="collectBox none">
+      <div class="collectBox ">
         <a href="">
           <span class="loveIcon"></span><br>
           我的收藏
@@ -37,7 +36,7 @@
         </a>
       </div>
 
-      <div class="orderBox none">
+      <div class="orderBox ">
         <h3 class="tit">我的订单</h3>
         <span class="orderCheck">
           
@@ -74,8 +73,40 @@
       <div class="bgGray"></div>
 
       <div class="property">
+        <h3 class="title">
+          我的资产
+        </h3>
+
+        <div class="account">
+          <div class="accountLeft">
+            <p class="tit">账户余额</p>
+            <span class="num">￥1000</span>
+          </div>
+          
+          <div class="accountRight">
+            <ul class="cheapList">
+              <li class="cheapItem">
+                <i class="cheapicon couponsIcon"></i>
+                <span class="txt">优惠券</span>
+              </li>
+              <li class="cheapItem">
+                <i class="cheapicon giftCardIcon"></i>
+                <span class="txt">礼品卡</span>
+              </li>
+            </ul>
+          </div>
+        </div>
         
       </div>
+
+      <div class="bgGray"></div>
+
+      <ul class="manageList">
+        <li class="manageItem">
+          <h3 class="tit">MY Q&A</h3>
+          <i class="iconRight"></i>
+        </li>
+      </ul>
 
 
 
@@ -87,8 +118,16 @@
   .profile{
 
   }
+
   .header{
 
+  }
+
+  .fl{
+    float: left;
+  }
+  .fr{
+    float: right;
   }
 
   .blueMember{
@@ -248,7 +287,7 @@
     position: relative;
   }
 
-  .num{
+  .hotItem .num{
     line-height: .5rem;
     width: .5rem;
     height: .5rem;
@@ -296,6 +335,89 @@
     height: .2rem;
     background-color: #d7d7d5;
   }
+
+  .property{
+    overflow: auto;
+    margin-bottom: .2rem;
+  }
+
+  .property .title{
+    font-size: .4rem;
+    font-weight: 400;
+    height: 1rem;
+    line-height: 1rem;
+    padding-left: .6rem;
+    border-bottom: 1px solid #d7d7d5;
+  }
+
+  .account .tie{
+    font-size: .1rem;
+  }
+
+  .accountLeft .num{
+    font-size: .45rem;
+  }
+
+  .accountLeft .tit{
+    text-align: center;
+    margin: .2rem 0 .1rem 0;
+  }
+
+  .accountLeft{
+    float: left;
+    margin: .2rem 0 0 .6rem;
+  }
+
+  .accountRight{
+    float: right;
+  }
+
+  .cheapList{
+    display: -webkit-box;
+  }
+
+  .cheapItem{
+    -webkit-box-flex: 1;
+    text-align: center;
+    margin: 0 .5rem 0 0;
+  }
+
+  .cheapicon{
+    display: block;
+    width: .8rem;
+    height: .56rem;
+    /*background-color: red;*/
+    margin: .26rem auto .2rem;
+    background-size: cover;
+  }
+
+  .couponsIcon{
+    background-image: url('../assets/img/profile/mine_couponsN@3x.png');
+  }
+
+  .giftCardIcon{
+    background-image: url('../assets/img/profile/mine_giftcard@3x.png');
+  }
+
+  .manageList{
+    border-bottom: 1px solid #d7d7d5;  
+    
+  }
+
+  .manageItem{
+    margin: .4rem .6rem;
+    overflow: hidden;
+  }
+
+  .manageList .tit{
+    float: left;
+  }
+
+  .manageList .iconRight{
+    float: right;
+  }
+
+
 
 
 

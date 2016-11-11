@@ -3,7 +3,7 @@
   <p v-for="item in items">
     <img :src="item.image" alt="">
   </p>
-  <!--<recommend :products="products" />-->
+  <recommend :products="products" />
 </div>
 </template>
 <style media="screen" scoped>
@@ -83,6 +83,9 @@ export default {
             item.image = item.image + '?iopcmd=thumbnail&type=4&width=640|iopcmd=convert&dst=jpg&Q=60'
           })
           if(res.data.products){
+            res.data.products.forEach(item => {
+              item.isRed = false
+            })
             me.products = res.data.products
           }
         }else{

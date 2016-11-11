@@ -5,7 +5,7 @@
   <h2 class="title">
     {{ title }}
   </h2>
-  <i class="iconMenu" @click="clickMenu"></i>
+  <i class="iconMenu" @click="clickMenu" v-if="iconRight"></i>
   <!--<i class="iconChoseAll">√</i>
   <i class="iconClearAll"></i>-->
 </div>
@@ -62,6 +62,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    iconRight: {
+      type: String,
+      default: 'has'
     }
   },
   components: {

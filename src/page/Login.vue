@@ -45,16 +45,11 @@
     margin: .2rem .4rem;
   }
 
-  .btn{
-    text-align: center;
-    padding: .5rem;
-    font-size: .5rem;
-  }
 
-  .btn-black{
+  /*.btn-black{
     background: black;
     color: white;
-  }
+  }*/
 
   .regGroup{
     text-align: center;
