@@ -41,6 +41,7 @@
     </ul>
 
     <!--<footBar pageName="classify" />-->
+
   </div>
 </template>
 
@@ -63,6 +64,7 @@
   // //import commonNav from '../components/commonNav.vue'
   // import core from '../assets/lib/q.core.js'
   import commonNav from '../components/commonNav.vue'
+  import priceRange from '../components/priceRange.vue'
 
   export default {
     data(){
@@ -76,7 +78,8 @@
     },
     components: {
       commonNav,
-      Checklist
+      Checklist,
+      priceRange
     },
     computed: {
       // 有缓存

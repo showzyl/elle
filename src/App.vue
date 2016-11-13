@@ -51,4 +51,51 @@ export default {
   .mask_black {
     background-color: black;
   }
+
+  .btn{
+    width: 100%;
+    padding: .5rem 0;
+    text-align: center;
+    background-color: #000000;
+    color: #fff;
+    font-size: .45rem;
+  }
+
+  .btn a{
+    color: #fff;
+  }
+
+  /* black checkbox */
+  .addBottom .mint-checklist-title{
+    color: #888;
+    display: block; 
+    font-size: 0; 
+    margin: 0; 
+  }
+
+  .addBottom .mint-cell::before, .addBottom .mint-cell::after{
+    border: 0 none;
+  }
+
+  .addBottom .mint-checkbox-input:checked + .mint-checkbox-core{
+    background-color: #000000;
+    border-color: #000000;
+  }
+
+  .addBottom .mint-checkbox-core{
+    width: 15px;
+    height: 15px;
+  }
+
+  .addBottom .mint-checkbox-core::after{
+    top: 1px;
+    left: 4px;
+  }
+
+  .addBottom .mint-checklist-label{
+    /*padding: .2rem 0;*/
+    margin: .2rem 0 0 0;
+    float: left;
+  }
+
 </style>
