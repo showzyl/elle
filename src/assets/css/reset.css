@@ -21,6 +21,10 @@ input{outline:none} /* out border */
   font-size: .45rem;
 }
 
+.btn a{
+  color: #fff;
+}
+
 /* black checkbox */
 .addBottom .mint-checklist-title{
   color: #888;

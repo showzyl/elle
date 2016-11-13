@@ -12,6 +12,7 @@ import Address from '../page/Address.vue'
 import AddressDetail from '../page/AddressDetail.vue'
 import Invoice from '../page/Invoice.vue'
 import InvoiceDetail from '../page/InvoiceDetail.vue'
+import Collect from '../page/Collect.vue'
 
 
 const routes = [
@@ -25,7 +26,7 @@ const routes = [
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
   { name: '商品', path: '/product', component: Shopcar },
   { name: '详情', path: '/detail', component: Shopcar },
-  { name: '收藏', path: '/collect', component: Shopcar },
+  { name: '收藏', path: '/collect', component: Collect },
   { name: '订单', path: '/order', component: Shopcar },
   { name: '地址', path: '/address', component: Address },
   { name: '地址新增和修改', path: '/adddetail', component: AddressDetail },

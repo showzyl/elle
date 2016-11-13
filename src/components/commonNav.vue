@@ -35,7 +35,7 @@
   background-image: url(../assets/img/menubtn.png);
   background-size: cover;
   height: 0.8rem;
-  width: 0.8rem;
+  width: 0.7rem;
   right: 0.6rem;
   bottom: 0.3rem;
 }
@@ -50,7 +50,7 @@
   width: 70%;
   margin: 0 auto;
   text-align: center;
-  font-size: .6rem;
+  font-size: .5rem;
 }
 
 </style>

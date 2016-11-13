@@ -3,7 +3,9 @@
     <commonNav title="发票" iconRight="" />
 
     <div class="btn btnAddInvoice" @click="addAds">
+      <router-link to="/invdetail">
       + 新建发票
+      </router-link>
     </div>
 
     <ul class="addressItems">

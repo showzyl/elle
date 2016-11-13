@@ -26,10 +26,11 @@
       </div>
 
       <div class="collectBox ">
-        <a href="">
+        <router-link to="/collect">
           <span class="loveIcon"></span><br>
           我的收藏
-        </a>
+        </router-link>
+
         <a href="">
           <span class="txt">1212121</span><br>
           浏览记录
@@ -122,7 +123,7 @@
 
         <li class="manageItem">
           <router-link to="/invoice">
-            <h3 class="tit">MY Q&A</h3>
+            <h3 class="tit">发票</h3>
             <i class="iconRight"></i>
           </router-link>
         </li>
@@ -266,7 +267,7 @@
     background-image: url(../assets/img/profile/icon_fucus@3x.png);
     background-size: cover;
     width: .5rem;
-    height: .46rem;
+    height: .42rem;
     display: inline-block;
   }
 

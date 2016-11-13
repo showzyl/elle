@@ -15,7 +15,7 @@
       <div class="addBottom">
         <label class="mint-checklist-label">
           <span class="mint-checkbox">
-            <input type="checkbox" class="mint-checkbox-input" value=""> 
+            <input type="radio" class="mint-checkbox-input" value="" name="addname"> 
             <span class="mint-checkbox-core"></span>
           </span> 
           <span class="mint-checkbox-label">设为默认</span>
@@ -33,9 +33,43 @@
 
       
     </li>
+
+    <li class="addressItem">
+      <h3>
+        梨子&nbsp&nbsp
+        18511368463
+      </h3>
+      <div class="addMid">
+        <i class="iconAdd"></i>&nbsp
+        北京市西城区前门西大街
+      </div>
+      
+      <div class="addBottom">
+        <label class="mint-checklist-label">
+          <span class="mint-checkbox">
+            <input type="radio" class="mint-checkbox-input" value="" name="addname"> 
+            <span class="mint-checkbox-core"></span>
+          </span> 
+          <span class="mint-checkbox-label">设为默认</span>
+        </label>
+
+        <div class="iconList">
+          <router-link to="/">
+            <i class="iconPen"></i>
+          </router-link>
+          <router-link to="/">
+            <i class="iconGarbage"></i>
+          </router-link>
+        </div>
+      </div>
+    </li>
+    
+   
   </ul>
   <div class="btn btnAddAds" @click="addAds">
-    + 新建地址
+    <router-link to="/adddetail">
+      + 新建地址
+    </router-link>
   </div>
   <!--<footBar pageName="classify" />-->
 </div>
@@ -50,7 +84,7 @@
   }
 
   .addressItem{
-    padding-bottom: .4rem;
+    padding: .4rem 0;
     border-bottom: 1px solid;
   }
 
