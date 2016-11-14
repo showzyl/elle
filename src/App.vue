@@ -65,7 +65,7 @@ export default {
     color: #fff;
   }
 
-  /* black checkbox */
+  /* black checkbox start */
   .addBottom .mint-checklist-title{
     color: #888;
     display: block; 
@@ -97,5 +97,90 @@ export default {
     margin: .2rem 0 0 0;
     float: left;
   }
+  /* black checkbox end */
+
+  /* border start */
+  .bbgray{
+    border-bottom: 1px solid #d7d7d5;
+  }
+
+  .bbblack{
+    border-bottom: 1px solid;
+  }
+  /* border end */
+
+  /* icon start */
+  .iconAdd{
+    display: inline-block;
+    width: .28rem;
+    height: .4rem;
+    margin: .2rem 0 0;
+    background-size: cover;
+    background-image: url('./assets/img/address/address@3x.png');
+  }
+  /* icon end*/
+
+  /* order start */
+
+  .titleBox{
+    overflow: hidden;
+    height: .6rem;
+    line-height: .6rem;
+    padding: 0 0 .2rem 0;
+  }
+
+  .titleBox .orderNum{
+    float: left;
+    font-size: .3rem;
+    color: #9c9c9c;
+  }
+
+  .titleBox .orderStatus{
+    float: right;
+    font-size: .45rem;
+  }
+
+  .orderMain{
+    overflow: hidden;
+    padding: .3rem 0;
+    border: 1px solid;
+    border-left: 0 none;
+    border-right: 0 none;
+  }
+
+  .orderMain .imgBox{
+    width: 25%;
+    float: left;
+  }
+
+  .orderMain .contentBox{
+    float: left;
+    margin: 0 0 0 .3rem;
+  }
+
+  .contentBox p{
+    font-size: .35rem;
+    padding: .2rem 0;
+    color: #9c9c9c;
+  }
+
+  .contentBox p.price{
+    font-size: .5rem;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .contentBox .spec{
+    padding: .3rem 0;
+  }
+  /* order end */
+
+  /*.mint-swipe-item:nth-child(1){
+    background-color: red
+  }*/
+
+  /*.mint-swipe-item:first-of-type{
+    background-color: red
+  }*/
 
 </style>

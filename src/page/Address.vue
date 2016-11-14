@@ -118,10 +118,8 @@
     width: .28rem;
     height: .4rem;
     margin: .2rem 0 0;
-    /*background-color: red;*/
     background-size: cover;
     background-image: url('../assets/img/address/address@3x.png');
-
   }
 
   .iconList i{

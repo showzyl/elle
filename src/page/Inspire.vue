@@ -46,7 +46,7 @@
       </mt-tab-container-item>
     </mt-tab-container>
   </div>
-  <!--<footBar pageName="classify" />-->
+  <footBar pageName="inspire" />
 </div>
 </template>
 <style media="screen" scoped>

@@ -23,10 +23,10 @@
   background-image: url(../assets/img/backbtn.png);
   background-repeat: no-repeat;
   background-size: contain;
-  height: 0.8rem;
+  height: 0.6rem;
   width: 0.8rem;
-  margin-left: .6rem;
-  margin-top: .5rem;
+  top: 33%;
+  left: 3%;
 }
 
 .iconMenu{
@@ -44,6 +44,7 @@
   position: relative;
   height: 1.5rem;
   line-height: 1.5rem;
+  background: #fff;
 }
 
 .title{

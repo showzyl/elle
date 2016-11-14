@@ -1,12 +1,13 @@
 'use strict'
 
-import Index from '../page/index.vue'
+import Index from '../page/Index.vue'
 import Login from '../page/Login.vue'
 import Reg from '../page/Reg.vue'
 import Findpwd from '../page/Findpwd.vue'
 import Changepwd from '../page/Changepwd.vue'
 import Shopcar from '../page/Shopcar.vue'
 import Profile from '../page/Profile.vue'
+import Personal from '../page/Personal.vue'
 import Classify from '../page/Classify.vue'
 import Inspire from '../page/Inspire.vue'
 import InspireDetail from '../page/InspireDetail.vue'
@@ -17,6 +18,7 @@ import InvoiceDetail from '../page/InvoiceDetail.vue'
 import Collect from '../page/Collect.vue'
 import Order from '../page/Order.vue'
 import OrderDetail from '../page/OrderDetail.vue'
+import Product from '../page/Product.vue'
 
 
 
@@ -27,11 +29,12 @@ const routes = [
   { name: '找回密码', path: '/findpwd', component: Findpwd },
   { name: '修改密码', path: '/changepwd', component: Changepwd },
   { name: '个人中心', path: '/profile', component: Profile },
+  { name: '个人资料', path: '/personal', component: Personal },
   { name: '购物车', path: '/shopcar', component: Shopcar },
   { name: '分类', path: '/classify', component: Classify },
   { name: '灵感', path: '/inspire', component: Inspire },
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
-  { name: '商品', path: '/product', component: Shopcar },
+  { name: '商品', path: '/product/:id', component: Product },
   { name: '详情', path: '/detail', component: Shopcar },
   { name: '收藏', path: '/collect', component: Collect },
   { name: '订单', path: '/order', component: Order },

@@ -3,39 +3,35 @@
 <div class="footBar">
   <ul class="footBarItems">
 
-    <li class="footBarItem" v-bind:class="[pageName == 'index' ? 'on' : '']">
+    <li class="footBarItem" :class="[pageName == 'index' ? 'on' : '']">
       <router-link to="/">
         <i class="iconHome"/></i>
         <h3 class="footBarTxt">首页</h3>
       </router-link>
     </li>
 
-    <li class="footBarItem" v-bind:class="[pageName == 'classify' ? 'on' : '']">
-      <!--<a href="/#/classify" class="footBarHref">
-        <i class="iconCatalogue"/></i>
-        <h3 class="footBarTxt">分类</h3>
-      </a>-->
+    <li class="footBarItem" :class="[pageName == 'classify' ? 'on' : '']">
        <router-link to="/classify">
-        <i class="iconProfile"/></i>
+        <i class="iconCatalogue"/></i>
         <h3 class="footBarTxt">分类</h3>
       </router-link>
     </li>
 
-    <li class="footBarItem">
+    <li class="footBarItem" :class="[pageName == 'inspire' ? 'on' : '']">
       <router-link to="/inspire">
         <i class="iconLook"/></i>
         <h3 class="footBarTxt">灵感</h3>
       </router-link>
     </li>
 
-    <li class="footBarItem">
+    <li class="footBarItem" :class="[pageName == 'shopcar' ? 'on' : '']">
       <router-link to="/shopcar">
         <i class="iconShopinglist"/></i>
         <h3 class="footBarTxt">购物车</h3>
       </router-link>
     </li>
 
-    <li class="footBarItem" v-bind:class="[pageName == 'profile' ? 'on' : '']">
+    <li class="footBarItem" :class="[pageName == 'profile' ? 'on' : '']">
       <router-link to="/profile">
         <i class="iconProfile"/></i>
         <h3 class="footBarTxt">我的</h3>
@@ -68,6 +64,7 @@
 
   .footBarItem a{
     display: block;
+    color: #9c9c9b;
   }
 
   .footBarItems .on a{
@@ -93,34 +90,52 @@
   }
 
   .iconHome, .iconCatalogue, .iconLook, .iconShopinglist, .iconProfile{
-    background: url(../assets/img/foot_bar_icons.png) no-repeat;
     display: inline-block;
     width: 0.5rem;
     height: 0.5rem;
+    background-size: cover;
   }
 
   .iconHome{
-    background-size: .7rem;
+    background-image: url(../assets/img/footer/tabbar_home@3x.png);
   }
 
   .iconCatalogue{
-    background-size: .7rem;
-    background-position: 0 -.7rem;
+    background-image: url(../assets/img/footer/tabbar_category@3x.png);
   }
 
   .iconLook{
-    background-size: .7rem;
-    background-position: 0 -1.3rem;
+    width: 0.7rem;
+    background-image: url(../assets/img/footer/tabbar_look@3x.png);
   }
 
   .iconShopinglist{
-    background-size: .5rem;
-    background-position: 0 -1.4rem;
+    width: .7rem;
+    background-image: url(../assets/img/footer/tabbar_shop@3x.png);
   }
 
   .iconProfile{
-    background-size: .6rem;
-    background-position: 0 -2.5rem;
+    background-image: url(../assets/img/footer/tabbar_mine@3x.png);
+  }
+
+  .footBarItems .on .iconHome{
+     background-image: url(../assets/img/footer/tabbar_home_selected@3x.png);
+  }
+
+  .footBarItems .on .iconCatalogue{
+     background-image: url(../assets/img/footer/tabbar_category_selected@3x.png);
+  }
+
+  .footBarItems .on .iconLook{
+     background-image: url(../assets/img/footer/tabbar_look_selected@3x.png);
+  }
+
+  .footBarItems .on .iconShopinglist{
+     background-image: url(../assets/img/footer/tabbar_shop_selected@3x.png);
+  }
+
+  .footBarItems .on .iconProfile{
+     background-image: url(../assets/img/footer/tabbar_mine_selected@3x.png);
   }
 
 </style>

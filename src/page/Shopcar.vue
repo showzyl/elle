@@ -9,51 +9,57 @@
 
     <ul class="shopcarList">
       <li class="shopcarItem">
-        <h3 class="tit">
-          我是标题
-        </h3>
-        <div class="shopcarItemMain">
-          <div class="shopcarItemT">
-            <div class="imgBox">
-              <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+        <a href="/#">
+          <h3 class="tit">
+            我是标题
+          </h3>
+          <div class="shopcarItemMain">
+            <div class="shopcarItemT">
+              <div class="imgBox">
+                <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+              </div>
+              <div class="moneyBox">
+                <p class="money">$789</p>
+                <p class="des">wdqqqqqqqq</p>
+              </div>
+              <div class="addBottom">
+                <label class="mint-checklist-label">
+                  <span class="mint-checkbox">
+                    <input type="checkbox" class="mint-checkbox-input" value=""> 
+                    <span class="mint-checkbox-core"></span>
+                  </span> 
+                </label>
+              </div>
             </div>
-            <div class="moneyBox">
-              <p class="money">$789</p>
-              <p class="des">wdqqqqqqqq</p>
+            <div class="shopcarItemM">
+              <div class="numBox">
+                <p>
+                  颜色[黑色]/尺码[均码]
+                </p>
+                <p>
+                  数量 1
+                </p>
+              </div>
+              <a href="" class="change">修改</a>
             </div>
-            <div class="addBottom">
-              <label class="mint-checklist-label">
-                <span class="mint-checkbox">
-                  <input type="checkbox" class="mint-checkbox-input" value=""> 
-                  <span class="mint-checkbox-core"></span>
-                </span> 
-              </label>
+            <div class="shopcarItemB">
+              <h3 class="price">$323213</h3>
+              <div class="iconList">
+                <i class="iconLove"></i>
+                <i class="iconGarbage"></i>
+              </div>
             </div>
           </div>
-          <div class="shopcarItemM">
-            <div class="numBox">
-              <p>
-                颜色[黑色]/尺码[均码]
-              </p>
-              <p>
-                数量 1
-              </p>
-            </div>
-            <a href="" class="change">修改</a>
-          </div>
-          <div class="shopcarItemB">
-            <h3 class="price">$323213</h3>
-            <div class="iconList">
-              <i class="iconLove"></i>
-              <i class="iconGarbage"></i>
-            </div>
-          </div>
-        </div>
+        </a>
       </li>
     </ul>
 
-    
+    <div class="settlement">
+      总计: ￥23321（4 件）
+      <div class="settlementBtn">结算</div>
+    </div>
 
+    <footBar pageName="shopcar"/>
   </div>
 </template>
 
@@ -171,10 +177,40 @@
     height: 23px;
   }
 
+  .shopcar .settlement{
+    text-align: center;
+    position: fixed;
+    bottom: 1.2rem;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    color: red;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .4rem;
+  }
+
+  .settlement .settlementBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1.8rem;
+    height: .6rem;
+    line-height: .6rem;
+    background: red;
+    color: #fff;
+    top: 50%;
+    margin-top: -.3rem;
+    margin-right: .3rem;
+    border-radius: 5px;
+  }
+
+
 </style>
 
 <script>
   import { mapState } from 'vuex'
+  import footBar from '../components/footBar.vue'
   import { Toast, Indicator } from 'mint-ui'
 
   export default {
@@ -182,7 +218,7 @@
 
     },
     components: {
-
+      footBar
     },
     data () {
       return {

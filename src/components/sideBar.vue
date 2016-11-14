@@ -1,24 +1,30 @@
 <template>
-  <div class="sidebar" @click='test'>
+  <div class="sidebar" >
     <div class="logo">
       <img src="" alt="" class="logoImg" />
     </div>
 
     <ul class="tabUl">
       <li class="tab">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
+        <a href="/">
+          <span class="ladyIcon"></span>
+          <span class="tabEng">LADY</span>
+          <span class="tabTxt">女士</span>
+        </a>
       </li>
       <li class="tab">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
+        <a href="/?tab=1">
+          <span class="manIcon"></span>
+          <span class="tabEng">MAN</span>
+          <span class="tabTxt">男士</span> 
+        </a> 
       </li>
       <li class="tab bbnone">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
+        <a href="/?tab=2">
+          <span class="lifeIcon"></span>
+          <span class="tabEng">LIFE STYLE</span>
+          <span class="tabTxt">生活</span> 
+        </a>     
       </li>
     </ul>
 
@@ -26,19 +32,14 @@
 
     <ul class="tabUl">
       <li class="tab">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
+        <span class="brandIcon"></span>
+        <span class="tabEng">BRAND</span>
+        <span class="tabTxt">品牌</span>        
       </li>
-      <li class="tab ">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
-      </li>
-      <li class="tab bbnone">
-        <span class="tabIcon"></span>
-        <span class="tabEng">LADY</span>
-        <span class="tabTxt">女士</span>        
+      <li class="tab">
+        <span class="eventIcon"></span>
+        <span class="tabEng">EVENT</span>
+        <span class="tabTxt">活动</span>        
       </li>
     </ul>
     
@@ -72,19 +73,38 @@
     margin-top: .8rem;
   }
   .tabUl{
-    
     margin-bottom: .2rem;
-    font-size: .35rem;
+    font-size: .4rem;
     font-weight: bold;
   }
-  .tabIcon{
+
+  .ladyIcon, .manIcon, .lifeIcon, .brandIcon, .eventIcon{
     display: inline-block;
-    width: .6rem;
-    height: .6rem;
-    background-image: url('../assets/img/sidebar/side_women@3x.png');
-    background-size: contain;
+    width: .8rem;
+    height: .7rem;
+    background-size: cover;
     vertical-align: middle;
     margin-left: .6rem;
+  }
+
+  .ladyIcon{
+    background-image: url('../assets/img/sidebar/side_women@3x.png');
+  }
+
+  .manIcon{
+    background-image: url('../assets/img/sidebar/side_man@3x.png');
+  }
+
+  .lifeIcon{
+    background-image: url('../assets/img/sidebar/side_liftstyle@3x.png');
+  }
+
+  .brandIcon{
+    background-image: url('../assets/img/sidebar/side_brand@3x.png');
+  }
+
+  .eventIcon{
+    background-image: url('../assets/img/sidebar/side_event@3x.png');
   }
 
   .tabEng{
@@ -97,7 +117,7 @@
 
   .tab{
     padding: .5rem .2rem;
-    border-bottom: 1px solid #666666;
+    border-bottom: 1px solid #d7d7d5;
   }
 
   .bbnone{
@@ -120,12 +140,16 @@ export default {
   components: {
 
   },
+  created(){
+    console.log(this.$route)
+  },
   computed: {
 
   },
   methods: {
-    test(){
-      alert(123);
+    clickMask(){
+      //alert(123);
+      document.querySelector('.mask').click();
     }
   },
   mounted() {

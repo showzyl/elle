@@ -10,7 +10,9 @@
 
       <div class="profileTop ">
         <div class="headImg">
-          <img alt="" src="../assets/img/profile/touxiang.png">
+          <router-link to="/personal">
+            <img alt="headImg" src="../assets/img/profile/touxiang.png">
+          </router-link>
         </div>
 
         <h3 class="userName">梨子o</h3>
@@ -40,10 +42,10 @@
       <div class="orderBox ">
         <h3 class="tit">我的订单</h3>
         <span class="orderCheck">
-          
-          查看全部订单
-          <i class="iconRight"></i>
-
+          <router-link to="/order">
+            查看全部订单
+            <i class="iconRight"></i>
+          </router-link>
         </span>
       </div>
 
@@ -129,6 +131,8 @@
         </li>
 
       </ul>
+
+      <footBar pageName="profile" />
 
 
 
@@ -466,6 +470,8 @@
   import { mapState } from 'vuex'
   import commonNav from '../components/commonNav.vue'
   import recommend from '../components/recommend.vue'
+  import footBar from '../components/footBar.vue'
+  
 
 
   import { Toast, Indicator } from 'mint-ui'
@@ -479,7 +485,8 @@
     },
     components: {
       commonNav,
-      recommend
+      recommend,
+      footBar
     },
     data () {
       return {
