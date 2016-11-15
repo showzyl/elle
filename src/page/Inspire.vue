@@ -96,17 +96,17 @@ export default {
   created(){ 
     var me = this
 
-    Indicator.open({
-      text: '加载中...',
-      spinnerType: 'fading-circle'
-    });
+    // Indicator.open({
+    //   text: '加载中...',
+    //   spinnerType: 'fading-circle'
+    // });
 
-    ;[109,110,130].map(function(item,i){
-      me.asyncData(item, function(res){
-        let param = 'items'+ (i+1)
-        me[param] = res
-      })
-    })
+    // ;[109,110,130].map(function(item,i){
+    //   me.asyncData(item, function(res){
+    //     let param = 'items'+ (i+1)
+    //     me[param] = res
+    //   })
+    // })
 
     //console.log(me.items3.length)
     
@@ -124,26 +124,26 @@ export default {
     // 没有缓存
     asyncData(id, cb){
       var me = this
-      $.ajax({
-        url: 'http://106.75.17.211:6603/index.php?route=mapi/event&format=jsonp',
-        data: {
-          event_id: id
-        },
-        dataType: 'jsonp',
-        jsonp: 'callback',
-        crossDomain: true
-      }).done(function(res){
-        //console.log(res)
-        Indicator.close()
-        if(res.code+'' === '0' && res.data.app.length){
-          cb && cb(res.data.app)
-        }else{
-          // 无数据
-          cb && cb([])
-        }
-      }).fail(function(err){
-        console.log(err)
-      })
+      // $.ajax({
+      //   url: 'http://106.75.17.211:6603/index.php?route=mapi/event&format=jsonp',
+      //   data: {
+      //     event_id: id
+      //   },
+      //   dataType: 'jsonp',
+      //   jsonp: 'callback',
+      //   crossDomain: true
+      // }).done(function(res){
+      //   //console.log(res)
+      //   Indicator.close()
+      //   if(res.code+'' === '0' && res.data.app.length){
+      //     cb && cb(res.data.app)
+      //   }else{
+      //     // 无数据
+      //     cb && cb([])
+      //   }
+      // }).fail(function(err){
+      //   console.log(err)
+      // })
     }
   },
   mounted() {

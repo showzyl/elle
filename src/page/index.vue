@@ -14,6 +14,7 @@
     <div class="page-tab-container">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
         <mt-tab-container-item id="tab-container1">
+          111
           <div v-for="item in renderData">
             <img :src="item.object_image" alt="">
             <h3 style="padding: 10px;">{{ item.object_title }}</h3>
@@ -37,9 +38,7 @@
   </div>
 </template>
 <script lang="babel">
-  import {mapGetters} from 'vuex'
   import footBar from '../components/footBar.vue'
-  import indexNav from '../components/indexNav.vue'
   import commonNav from '../components/commonNav.vue'
   import topNav from '../components/topNav.vue'
   import catalogue from '../components/catalogue.vue'
@@ -48,6 +47,7 @@
   //import test from '../assets/lib/util.js'
   // console.log(test);
   //console.log(Toast, Cell, Checklist);
+  //Vue.use(TabContainer)
 
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
@@ -66,6 +66,7 @@
     },
     created(){
       var me = this;
+      //Toast('123')
       // 页面创建
       this.asyncData({
         category_id: 1,
@@ -79,7 +80,6 @@
     },
     components: {
       footBar,
-      indexNav,
       topNav,
       commonNav,
       catalogue,
@@ -95,31 +95,29 @@
       },
       asyncData(data){
         var me = this;
-        $.ajax({
-          url: 'http://106.75.17.211:6603/index.php?route=mapi/home_waterfall&format=jsonp',
-          data: data,
-          dataType: 'jsonp',
-          jsonp: 'callback',
-          crossDomain: true
-        }).done(function(res){
-          //console.log(res);
-          if(res.code === 0){
-            console.log(res.data)
-            // renderPage
-            me.renderData = res.data
-          }else{
-            Toast('暂无数据, 请稍后刷新页面...')
-          }
-        }).fail(function(err){
-          console.log(err)
-        })
+        
+        // $.ajax({
+        //   url: 'http://106.75.17.211:6603/index.php?route=mapi/home_waterfall&format=jsonp',
+        //   data: data,
+        //   dataType: 'jsonp',
+        //   jsonp: 'callback',
+        //   crossDomain: true
+        // }).done(function(res){
+        //   //console.log(res);
+        //   if(res.code === 0){
+        //     console.log(res.data)
+        //     // renderPage
+        //     me.renderData = res.data
+        //   }else{
+        //     Toast('暂无数据, 请稍后刷新页面...')
+        //   }
+        // }).fail(function(err){
+        //   console.log(err)
+        // })
       },
       render(res){
         console.log(res);
 
-      },
-      handleScroll () {
-        this.scrolled = window.scrollY > 0;
       }
     },
     mounted() {

@@ -8,7 +8,7 @@
     import {mapGetters} from 'vuex'
     //import 'normalize.css'
     import footBar from '../components/footBar.vue'
-    import indexNav from '../components/indexNav.vue'
+    //import indexNav from '../components/indexNav.vue'
     //import commonNav from '../components/commonNav.vue'
     import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
     //import test from '../assets/lib/util.js'
@@ -17,8 +17,7 @@
 
     export default {
         components: {
-          footBar,
-          indexNav
+          footBar
         },
         computed: {},
         methods: {

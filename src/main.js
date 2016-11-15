@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import MintUI from 'mint-ui'
+//import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -11,8 +11,11 @@ import store from './store/'
 import routes from './router/index.js'
 
 Vue.use(VueRouter)
-Vue.use(MintUI)
+//Vue.use(MintUI)
 Vue.use(Vuex)
+
+
+// console.log(__dirname)
 
 
 const router = new VueRouter({
