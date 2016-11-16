@@ -2,24 +2,45 @@
 
 import Index from '../page/Index.vue'
 
-const Shopcar = resolve => require(['../page/Shopcar.vue'], resolve);
-const Profile = resolve => require(['../page/Profile.vue'], resolve);
-const Classify = resolve => require(['../page/Classify.vue'], resolve);
-const Inspire = resolve => require(['../page/Inspire.vue'], resolve);
-const InspireDetail = resolve => require(['../page/InspireDetail.vue'], resolve);
-const Address = resolve => require(['../page/Address.vue'], resolve);
-const AddressDetail = resolve => require(['../page/AddressDetail.vue'], resolve);
-const Invoice = resolve => require(['../page/Invoice.vue'], resolve);
-const InvoiceDetail = resolve => require(['../page/InvoiceDetail.vue'], resolve);
-const Personal = resolve => require(['../page/Personal.vue'], resolve);
-const Collect = resolve => require(['../page/Collect.vue'], resolve);
-const Order = resolve => require(['../page/Order.vue'], resolve);
-const OrderDetail = resolve => require(['../page/OrderDetail.vue'], resolve);
-const Product = resolve => require(['../page/Product.vue'], resolve);
-const Login = resolve => require(['../page/Login.vue'], resolve);
-const Reg = resolve => require(['../page/Reg.vue'], resolve);
-const Findpwd = resolve => require(['../page/Findpwd.vue'], resolve);
-const Changepwd = resolve => require(['../page/Changepwd.vue'], resolve);
+import Shopcar from '../page/Shopcar.vue'
+import Profile from '../page/Profile.vue'
+import Personal from '../page/Personal.vue'
+import Classify from '../page/Classify.vue'
+import Inspire from '../page/Inspire.vue'
+import InspireDetail from '../page/InspireDetail.vue'
+import Address from '../page/Address.vue'
+import AddressDetail from '../page/AddressDetail.vue'
+import Invoice from '../page/Invoice.vue'
+import InvoiceDetail from '../page/InvoiceDetail.vue'
+import Collect from '../page/Collect.vue'
+import Order from '../page/Order.vue'
+import OrderDetail from '../page/OrderDetail.vue'
+import Product from '../page/Product.vue'
+import Login from '../page/Login.vue'
+import Reg from '../page/Reg.vue'
+import Findpwd from '../page/Findpwd.vue'
+import Changepwd from '../page/Changepwd.vue'
+
+
+// const Shopcar = () => System.import('../page/Shopcar.vue')
+// const Profile = () => System.import('../page/Profile.vue')
+// const Personal = () => System.import('../page/Personal.vue')
+// const Classify = () => System.import('../page/Classify.vue')
+// const Inspire = () => System.import('../page/Inspire.vue')
+// const InspireDetail = () => System.import('../page/InspireDetail.vue')
+// const Address = () => System.import('../page/Address.vue')
+// const AddressDetail = () => System.import('../page/AddressDetail.vue')
+// const Invoice = () => System.import('../page/Invoice.vue')
+// const InvoiceDetail = () => System.import('../page/InvoiceDetail.vue')
+// const Collect = () => System.import('../page/Collect.vue')
+// const Order = () => System.import('../page/Order.vue')
+// const OrderDetail = () => System.import('../page/OrderDetail.vue')
+// const Product = () => System.import('../page/Product.vue')
+// const Login = () => System.import('../page/Login.vue')
+// const Reg = () => System.import('../page/Reg.vue')
+// const Findpwd = () => System.import('../page/Findpwd.vue')
+// const Changepwd = () => System.import('../page/Changepwd.vue')
+
 
 const routes = [
   { name: '首页', path: '/', component: Index },

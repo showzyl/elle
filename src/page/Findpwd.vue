@@ -15,26 +15,29 @@
 
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
-let a =  mapActions([
-  'increment',
-  'decrement',
-  'incrementIfOdd',
-  'incrementAsync'
-])
+// let methods =  mapActions([
+//   'increment',
+//   'decrement',
+//   'incrementIfOdd',
+//   'incrementAsync'
+// ])
 
-console.log(a);
+// console.log(methods);
 
-a['test'] = function(){
-  alert(13)
-}
+// methods['test'] = function(){
+//   alert(13)
+// }
 
 export default {
   name: 'findpwd',
   computed: mapGetters([
     'evenOrOdd'
   ]),
-  methods: a
-  
+  methods: (function(){
+    return {
+      a: 1
+    }
+  })()
 }
 </script>
 

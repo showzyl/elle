@@ -1,21 +1,23 @@
 import Vue from 'vue'
-//import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import Vuex from 'vuex'
+// import vueResource from 'vue-resource'
 
+import Vuex from 'vuex'
 import store from './store/'
 
 // 路由
 import routes from './router/index.js'
 
 Vue.use(VueRouter)
-//Vue.use(MintUI)
 Vue.use(Vuex)
-
-
+//Vue.use(vueResource)
 // console.log(__dirname)
+
+
+window.q = {
+  interfaceHost: 'http://106.75.17.211:6603/'
+}
 
 
 const router = new VueRouter({

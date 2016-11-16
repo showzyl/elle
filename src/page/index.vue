@@ -1,36 +1,47 @@
 <template>
   <div id="index">
-    <!-- <topNav /> -->
-    <!--<catalogue />-->
-    <!--<commonNav title="首页" />-->
     <div class="indexNav">
       <div class="navTab">
-        <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">女士</a>
-        <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">男士</a>
-        <a @click.prevent="active = 'tab-container3'" :class="[active == 'tab-container3' ? 'on' : '']">生活</a>
+        <a @click.prevent="active = 'tab-container0'" :class="[active == 'tab-container0' ? 'on' : '']">女士</a>
+        <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">男士</a>
+        <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">生活</a>
         <i class="iconMenu" @click="menuToggle"></i>
       </div>
     </div>
-    <div class="page-tab-container">
+    <div class="page-tab-container none">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
-        <mt-tab-container-item id="tab-container1">
-          111
-          <div v-for="item in renderData">
-            <img :src="item.object_image" alt="">
+        <mt-tab-container-item id="tab-container0">
+          <div class="tab-bg0"></div>
+          <div class="item-mask0"></div>
+          <div v-for="(item, index) in renderData0" class="tab-container-one" v-if="index === 0">
+            
+            <img :src="item.object_image" alt="object_image">
+            
+            <!--<h3 style="padding: 10px;">{{ item.object_title }}</h3>
+            <p>
+              {{ item.object_description }}
+            </p>-->
+          </div>
+
+          <div class="tab-container" v-else>
+            <img :src="item.object_image" alt="object_image">
             <h3 style="padding: 10px;">{{ item.object_title }}</h3>
             <p>
               {{ item.object_description }}
             </p>
           </div>
+
+        </mt-tab-container-item>
+        <mt-tab-container-item id="tab-container1">
+          {{renderData1}}
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
-          content2
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container3">
-          content3
+          {{renderData2}}
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
+
+    <div class="loadmore" style="border-top-color: rgb(204, 204, 204);border-left-color: rgb(204, 204, 204);border-bottom-color: rgb(204, 204, 204);height: 28px;width: 28px;" v-show="loadmore"></div>
 
     <sideBar/>
     <footBar />
@@ -38,53 +49,64 @@
   </div>
 </template>
 <script lang="babel">
+  import Vue from 'vue'
   import footBar from '../components/footBar.vue'
-  import commonNav from '../components/commonNav.vue'
-  import topNav from '../components/topNav.vue'
-  import catalogue from '../components/catalogue.vue'
-  import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-  import sideBar from '../components/sideBar.vue';
-  //import test from '../assets/lib/util.js'
-  // console.log(test);
-  //console.log(Toast, Cell, Checklist);
-  //Vue.use(TabContainer)
+  import { Toast, TabContainer, TabContainerItem } from 'mint-ui'
+  import sideBar from '../components/sideBar.vue'
+  import util from '../assets/lib/q.util.js'
 
-  import core from '../assets/lib/q.core.js'
-  import store from '../assets/lib/q.store.js'
+  console.log(util)
 
-  //console.log(123)
-  // console.log(core)
-  // console.log(store)
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
 
   export default {
     data() {
       return {
-        active: 'tab-container1',
+        loadmore: false,
+        active: 'tab-container0',
         scrolled: false,
-        renderData: []
+        renderData0: [],
+        renderData1: [],
+        renderData2: [],
+        pageNo0: 1,
+        pageNo1: 1,
+        pageNo2: 1
       }
     },
     created(){
       var me = this;
       //Toast('123')
-      // 页面创建
-      this.asyncData({
-        category_id: 1,
-        page_id: 1
+      me.loadmore = true
+
+      ;[1,2,3].forEach((item, i)=> {
+        this.fetchData({
+          category_id: item,
+          page_id: 1
+        }, function(data){
+          me['renderData' + i] = data;
+        })
       })
 
       // 下拉加载更多
-      window.onscroll = function(){
+      window.onscroll = function(e){
         //console.log(1221212212)
+        //console.log(e)
+        console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
+
+        if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
+          
+          // if (util.scrollFunc() == 'down' && bLoadData) {
+          //   bLoadData = false;
+          //   loaderShow();
+          //   asyncData();
+          // }
+        }
+
       }
     },
     components: {
       footBar,
-      topNav,
-      commonNav,
-      catalogue,
-      TabContainer,
-      TabContainerItem,
       sideBar
     },
     computed: {},
@@ -93,27 +115,46 @@
         document.body.className += 'side'
         document.querySelector('.mask').className = 'mask'
       },
-      asyncData(data){
+      fetchData(data, cb){
         var me = this;
-        
-        // $.ajax({
-        //   url: 'http://106.75.17.211:6603/index.php?route=mapi/home_waterfall&format=jsonp',
-        //   data: data,
-        //   dataType: 'jsonp',
-        //   jsonp: 'callback',
-        //   crossDomain: true
-        // }).done(function(res){
-        //   //console.log(res);
-        //   if(res.code === 0){
-        //     console.log(res.data)
+
+        data.route = 'mapi/home_waterfall';
+        data.format = 'jsonp';
+
+        util.jsonp({
+          url : window.q.interfaceHost +'index.php',
+          data: data,
+          callback : function(res) {
+            console.log(res);
+            if(res.code === 0){
+              let data = res.data;
+              cb && cb(data);
+              //me.renderData = data
+            }else{
+              Toast('暂无数据, 请稍后刷新页面...')
+            }
+          }
+        }, 'callback')
+
+        // this.$http.jsonp(
+        //   window.q.interfaceHost +'index.php',
+        //   {
+        //     params: data
+        //   }
+        // ).then( res => {
+        //   let data = res.body;
+        //   if(data.code === 0){
+        //     //console.log(data.data)
         //     // renderPage
-        //     me.renderData = res.data
+        //     me.renderData = data.data
         //   }else{
         //     Toast('暂无数据, 请稍后刷新页面...')
         //   }
-        // }).fail(function(err){
-        //   console.log(err)
+        // }, err => {
+        //   console.log(res)
+        //   Toast('暂无数据, 请稍后刷新页面...')
         // })
+
       },
       render(res){
         console.log(res);
@@ -146,6 +187,7 @@
     background: #000000;
     opacity: 0.3;
   }
+
   .iconMenu {
     position: absolute;
     display: block;
@@ -185,4 +227,72 @@
   .navTab a.on {
     color: #fff;
   }
+
+  .item-mask0, .tab-bg0{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #000000;
+    opacity: .2;
+  }
+
+  .item-mask0{
+    height: 12rem;;
+  }
+
+  .tab-bg0{
+    height: 1.5rem;
+    top: 12rem;
+  }
+
+  #tab-container0{
+    position: relative;
+  }
+
+  .loadmore{
+    position: fixed;
+    bottom: 100px;
+    left: 0;
+    left: 50%;
+    margin-left: -14px;
+    
+    -webkit-animation: mint-spinner-rotate .8s infinite linear;
+    animation: mint-spinner-rotate .8s infinite linear;
+    border: 4px solid transparent;
+    border-radius: 50%;
+  }
+
+
+.mint-spinner-snake {
+  -webkit-animation: mint-spinner-rotate 0.8s infinite linear;
+          animation: mint-spinner-rotate 0.8s infinite linear;
+  border: 4px solid transparent;
+  border-radius: 50%;
+}
+
+@-webkit-keyframes mint-spinner-rotate {
+  0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+  }
+  }
+  @keyframes mint-spinner-rotate {
+  0% {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+  }
+}
+
+
+
+
 </style>
