@@ -2,25 +2,23 @@
   <div id="index">
     <div class="indexNav">
       <div class="navTab">
-        <a @click.prevent="active = 'tab-container0'" :class="[active == 'tab-container0' ? 'on' : '']">女士</a>
-        <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">男士</a>
-        <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">生活</a>
+        <a @click.prevent="clickTab(0)" :class="[active == 'tab-container0' ? 'on' : '']">女士</a>
+        <a @click.prevent="clickTab(1)" :class="[active == 'tab-container1' ? 'on' : '']">男士</a>
+        <a @click.prevent="clickTab(2)" :class="[active == 'tab-container2' ? 'on' : '']">生活</a>
         <i class="iconMenu" @click="menuToggle"></i>
       </div>
     </div>
-    <div class="page-tab-container none">
+    <div class="page-tab-container ">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
         <mt-tab-container-item id="tab-container0">
-          <div class="tab-bg0"></div>
+          <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
           <div class="item-mask0"></div>
-          <div v-for="(item, index) in renderData0" class="tab-container-one" v-if="index === 0">
-            
+          <div v-for="(item, index) in renderData0" v-if="index === 0">
+            <div class="content1">
+              <p>{{ item.object_title }}</p>
+              <p>{{ item.object_description }}</p>
+            </div>
             <img :src="item.object_image" alt="object_image">
-            
-            <!--<h3 style="padding: 10px;">{{ item.object_title }}</h3>
-            <p>
-              {{ item.object_description }}
-            </p>-->
           </div>
 
           <div class="tab-container" v-else>
@@ -33,15 +31,47 @@
 
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
-          {{renderData1}}
+          <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
+          <div class="item-mask1"></div>
+          <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
+            <div class="content1">
+              <p>{{ item.object_title }}</p>
+              <p>{{ item.object_description }}</p>
+            </div>
+            <img :src="item.object_image" alt="object_image">
+          </div>
+
+          <div class="tab-container" v-else>
+            <img :src="item.object_image" alt="object_image">
+            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
+            <p>
+              {{ item.object_description }}
+            </p>
+          </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
-          {{renderData2}}
+          <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
+          <div class="item-mask2"></div>
+          <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
+            <div class="content1">
+              <p>{{ item.object_title }}</p>
+              <p>{{ item.object_description }}</p>
+            </div>
+            <img :src="item.object_image" alt="object_image">            
+          </div>
+
+          <div class="tab-container" v-else>
+            <img :src="item.object_image" alt="object_image">
+            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
+            <p>
+              {{ item.object_description }}
+            </p>
+          </div>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
 
-    <div class="loadmore" style="border-top-color: rgb(204, 204, 204);border-left-color: rgb(204, 204, 204);border-bottom-color: rgb(204, 204, 204);height: 28px;width: 28px;" v-show="loadmore"></div>
+    <div class="loadmore" style="border-top-color: rgb(204, 204, 204);border-left-color: rgb(204, 204, 204);border-bottom-color: rgb(204, 204, 204);height: 28px;width: 28px;" v-show="loading"></div>
 
     <sideBar/>
     <footBar />
@@ -55,7 +85,7 @@
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
 
-  console.log(util)
+  //console.log(util)
 
   Vue.component(TabContainer.name, TabContainer);
   Vue.component(TabContainerItem.name, TabContainerItem);
@@ -63,9 +93,14 @@
   export default {
     data() {
       return {
-        loadmore: false,
+        loading: false,
+        bLoadData0: true,
+        bLoadData1: true,
+        bLoadData2: true,
         active: 'tab-container0',
-        scrolled: false,
+        scrollTop0: 0,
+        scrollTop1: 0,
+        scrollTop2: 0,
         renderData0: [],
         renderData1: [],
         renderData2: [],
@@ -76,15 +111,16 @@
     },
     created(){
       var me = this;
+
       //Toast('123')
-      me.loadmore = true
+      me.loading = true;
 
       ;[1,2,3].forEach((item, i)=> {
-        this.fetchData({
+        me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
-          me['renderData' + i] = data;
+          me['renderData' + i] = me['renderData' + i].concat(data);
         })
       })
 
@@ -92,15 +128,20 @@
       window.onscroll = function(e){
         //console.log(1221212212)
         //console.log(e)
-        console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
-
-        if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
-          
-          // if (util.scrollFunc() == 'down' && bLoadData) {
-          //   bLoadData = false;
-          //   loaderShow();
-          //   asyncData();
-          // }
+        //console.log(util.getEl('.tab-bg0').style)
+        //console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
+        if(me.active === 'tab-container0'){
+          me.scrollTop0 = document.body.scrollTop;
+          me.tabBgTaggle(0);
+          me.loadmoreData(0);
+        }else if(me.active === 'tab-container1'){
+          me.scrollTop1 = document.body.scrollTop;
+          me.tabBgTaggle(1);
+          me.loadmoreData(1);
+        }else if(me.active === 'tab-container2'){
+          me.scrollTop2 = document.body.scrollTop;
+          me.tabBgTaggle(2);
+          me.loadmoreData(2);
         }
 
       }
@@ -126,6 +167,7 @@
           data: data,
           callback : function(res) {
             console.log(res);
+            me.loading = false;
             if(res.code === 0){
               let data = res.data;
               cb && cb(data);
@@ -156,9 +198,51 @@
         // })
 
       },
-      render(res){
-        console.log(res);
+      clickTab(tabNum){
+        //console.log(tabNum)
+        const me = this;
+        me.active = 'tab-container' + tabNum;
 
+        setTimeout(function(){
+           window.scrollTo(0, me['scrollTop' + tabNum]);
+        }, 200)
+       
+      },
+      tabBgTaggle(n){
+        if(document.body.scrollTop >= 400){
+          util.getEl('.tab-bg'+n).style.position = 'fixed';
+          util.getEl('.tab-bg'+n).style.display = 'block';
+        }else{
+          util.getEl('.tab-bg'+n).style.display = 'none';
+        }
+      },
+      loadmoreData(n){
+        const me = this;
+        //console.log(n)
+        setTimeout(function(){
+          // console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
+          // console.log(util.scrollFunc())
+          // console.log(me['bLoadData'+n])
+          if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
+            if (util.scrollFunc() == 'down' && me['bLoadData'+n]) {
+              console.log(13)
+              me['bLoadData'+n] = false;
+              me.loading = true;
+              me['pageNo'+n]++;
+              me.fetchData({
+                category_id: (n+1),
+                page_id: me['pageNo'+n]
+              }, function(res){
+                //console.log(res);
+                const tab = 'renderData' + n;
+                //console.log(tab)
+                me[tab] = me[tab].concat(res);
+                me['bLoadData'+n] = true;
+              });
+            }
+          }
+        }, 210)
+        
       }
     },
     mounted() {
@@ -228,7 +312,7 @@
     color: #fff;
   }
 
-  .item-mask0, .tab-bg0{
+  .item-mask0, .tab-bg0, .item-mask1, .tab-bg1, .item-mask2, .tab-bg2{
     position: absolute;
     left: 0;
     top: 0;
@@ -237,26 +321,36 @@
     opacity: .2;
   }
 
-  .item-mask0{
+  .item-mask0, .item-mask1, .item-mask2{
     height: 12rem;;
   }
 
-  .tab-bg0{
+  .tab-bg0, .tab-bg1, .tab-bg2{
     height: 1.5rem;
-    top: 12rem;
+    /*top: 100px;*/
   }
 
-  #tab-container0{
+  /*#tab-container0{
     position: relative;
+  }*/
+
+  .content1{
+    position: absolute;
+    color: #fff;
+    top: 160px;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+    font-size: .45rem;
+    line-height: .7rem;
   }
 
   .loadmore{
     position: fixed;
-    bottom: 100px;
+    bottom: 60px;
     left: 0;
     left: 50%;
     margin-left: -14px;
-    
     -webkit-animation: mint-spinner-rotate .8s infinite linear;
     animation: mint-spinner-rotate .8s infinite linear;
     border: 4px solid transparent;
@@ -292,6 +386,9 @@
   }
 }
 
+.mint-tab-container-item{
+  margin-bottom: 60px;
+}
 
 
 
