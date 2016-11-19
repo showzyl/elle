@@ -12,11 +12,13 @@ import routes from './router/index.js'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 //Vue.use(vueResource)
-// console.log(__dirname)
+
+
+var interfaceHost = location.hostname === 'www.elleshop.com.cn' ? '' : 'http://106.75.17.211:6603/' 
 
 
 window.q = {
-  interfaceHost: 'http://106.75.17.211:6603/'
+  interfaceHost: interfaceHost
 }
 
 

@@ -3,7 +3,7 @@
   <commonNav title="登录"/>
   <ul class="inputGroup">
     <li class="inputBox">
-      <input type="text" name="user" value="" placeholder="手机号 / 邮箱" class="inputTxt">
+      <input v-model.number="phone" name="phone" class="inputTxt" type="number" placeholder="手机号 / 邮箱" v-model.trim="phone">
     </li>
     <li class="inputBox">
       <input type="password" name="pass" value="" placeholder="密码" class="inputTxt">
@@ -66,6 +66,12 @@ import commonNav from '../components/commonNav.vue'
 // import lizi from '../api/t.js'
 
 export default {
+  data(){
+    return {
+      phone: null,
+      pass: ''
+    }
+  },
   components: {
     commonNav
   },
@@ -79,6 +85,16 @@ export default {
 
   },
   watch: {
+    phone(val, old){
+      var me = this;
+      console.log(val, old);
+      if((val+'').length >= 11){
+        me.phone = (val+'').substr(0, 11);
+      }
+    },
+    pass(val, old){
+
+    }
 
   }
 }

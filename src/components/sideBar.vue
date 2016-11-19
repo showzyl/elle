@@ -5,26 +5,20 @@
     </div>
 
     <ul class="tabUl">
-      <li class="tab">
-        <a href="/">
-          <span class="ladyIcon"></span>
-          <span class="tabEng">LADY</span>
-          <span class="tabTxt">女士</span>
-        </a>
+      <li class="tab" @click.prevent="clickTab(0)" @click="clickMask">
+        <span class="ladyIcon"></span>
+        <span class="tabEng">LADY</span>
+        <span class="tabTxt">女士</span>
       </li>
-      <li class="tab">
-        <a href="/?tab=1">
-          <span class="manIcon"></span>
-          <span class="tabEng">MAN</span>
-          <span class="tabTxt">男士</span> 
-        </a> 
+      <li class="tab" @click.prevent="clickTab(1)" @click="clickMask">
+        <span class="manIcon"></span>
+        <span class="tabEng">MAN</span>
+        <span class="tabTxt">男士</span> 
       </li>
-      <li class="tab bbnone">
-        <a href="/?tab=2">
-          <span class="lifeIcon"></span>
-          <span class="tabEng">LIFE STYLE</span>
-          <span class="tabTxt">生活</span> 
-        </a>     
+      <li class="tab bbnone" @click.prevent="clickTab(2)" @click="clickMask">
+        <span class="lifeIcon"></span>
+        <span class="tabEng">LIFE STYLE</span>
+        <span class="tabTxt">生活</span> 
       </li>
     </ul>
 
@@ -32,14 +26,18 @@
 
     <ul class="tabUl">
       <li class="tab">
-        <span class="brandIcon"></span>
-        <span class="tabEng">BRAND</span>
-        <span class="tabTxt">品牌</span>        
+        <router-link to="/classify?tab=1">
+          <span class="brandIcon"></span>
+          <span class="tabEng">BRAND</span>
+          <span class="tabTxt">品牌</span>   
+        </router-link>     
       </li>
       <li class="tab">
-        <span class="eventIcon"></span>
-        <span class="tabEng">EVENT</span>
-        <span class="tabTxt">活动</span>        
+        <router-link to="/inspire">
+          <span class="eventIcon"></span>
+          <span class="tabEng">EVENT</span>
+          <span class="tabTxt">活动</span>  
+        </router-link>      
       </li>
     </ul>
     
@@ -128,35 +126,18 @@
 </style>
 
 <script lang="babel">
-
-import { TabContainer, TabContainerItem } from 'mint-ui';
-
-export default {
-  data() {
-    return {
-
-    }
-  },
-  components: {
-
-  },
-  created(){
-    //console.log(this.$route)
-  },
-  computed: {
-
-  },
-  methods: {
-    clickMask(){
-      //alert(123);
-      document.querySelector('.mask').click();
-    }
-  },
-  mounted() {
-
-  },
-  watch: {
-
+  import { TabContainer, TabContainerItem } from 'mint-ui'
+  
+  export default {
+    props: {
+      clickTab: {
+        type: Function
+      }
+    },
+    methods: {
+      clickMask(){
+        document.querySelector('.mask').click();
+      }
+    },
   }
-}
 </script>

@@ -17,7 +17,7 @@ import Order from '../page/Order.vue'
 import OrderDetail from '../page/OrderDetail.vue'
 import Product from '../page/Product.vue'
 import Login from '../page/Login.vue'
-import Reg from '../page/Reg.vue'
+import TelReg from '../page/TelReg.vue'
 import Findpwd from '../page/Findpwd.vue'
 import Changepwd from '../page/Changepwd.vue'
 
@@ -37,7 +37,7 @@ import Changepwd from '../page/Changepwd.vue'
 // const OrderDetail = () => System.import('../page/OrderDetail.vue')
 // const Product = () => System.import('../page/Product.vue')
 // const Login = () => System.import('../page/Login.vue')
-// const Reg = () => System.import('../page/Reg.vue')
+// const TelReg = () => System.import('../page/TelReg.vue')
 // const Findpwd = () => System.import('../page/Findpwd.vue')
 // const Changepwd = () => System.import('../page/Changepwd.vue')
 
@@ -45,7 +45,7 @@ import Changepwd from '../page/Changepwd.vue'
 const routes = [
   { name: '首页', path: '/', component: Index },
   { name: '登录', path: '/login', component: Login },
-  { name: '注册', path: '/reg', component: Reg },
+  { name: '注册', path: '/reg', component: TelReg },
   { name: '找回密码', path: '/findpwd', component: Findpwd },
   { name: '修改密码', path: '/changepwd', component: Changepwd },
   { name: '个人中心', path: '/profile', component: Profile },

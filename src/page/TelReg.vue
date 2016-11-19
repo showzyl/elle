@@ -3,7 +3,7 @@
   <commonNav title="注册"/>
   <ul class="inputGroup">
     <li class="inputBox">
-      <input type="tel" name="user" value="" placeholder="手机号" class="inputTxt">
+      <input v-model.number="phone" name="phone" type="number" placeholder="手机号" v-model.trim="phone" class="inputTxt">
     </li>
     <li class="inputBox">
       <input type="password" name="pass" value="" placeholder="请输入6-16位字符密码" class="inputTxt">
@@ -13,7 +13,7 @@
     </li>
     <li class="inputBox verifycode">
       <input type="password" name="pass" value="" placeholder="验证码" class="inputTxt">
-      <span class="getCode" @click='getCode'>www</span>
+      <span class="getCode" @click='getCode' >{{btnTxt}}</span>
     </li>
     <li class="mailReg">
       <span>您还可以使用 <a href="#"> 邮箱注册</a></span>
@@ -59,7 +59,12 @@ export default {
   data () {
     return {
       nCount: 123,
-      value: ['梨子', '香蕉']
+      value: ['梨子', '香蕉'],
+      phone: null,
+      pass: '',
+      btnTxt: '获取验证码',
+      bLockVerifi: false,
+      count: 5
     }
   },
   components: {
@@ -71,13 +76,28 @@ export default {
   },
   methods: {
     getCode(){
-      // let timmer = setInterval(function(){
-      //   if(nCount <= 1){
-      //     clearInterval(timmer)
-      //   }
-      //   nCount--
-      //   console.log(nCount)
-      // }, 1000)
+      var me = this;
+      if(me.bLockVerifi) return;
+      me.bLockVerifi = true;
+      // console.log(11111111)
+      var timer = null;
+      if(me.count === 5){
+        timer = setInterval(function(){
+          me.count--;
+          console.log(me.count)
+          if(me.count === 0){
+            me.btnTxt = '获取验证码';
+            clearInterval(timer);
+            me.count = 5;
+            me.bLockVerifi = false;
+            return;
+          }
+          me.btnTxt = me.count + '秒后重新获取';
+        }, 1000)
+      }else{
+
+      }
+
     },
     fnReg(){
       //alert('dianjizhuce')

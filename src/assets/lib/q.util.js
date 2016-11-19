@@ -22,11 +22,13 @@ util.jsonp = function(option, callbackName){
   //获得script
   getScript(url,function(){
     //执行后删除
-    try{
-      delete window[data[callbackName]];
-    }catch(e){
-      window[data[callbackName]]=undefined;
-    }
+    setTimeout(function(){
+      try{
+        delete window[data[callbackName]];
+      }catch(e){
+        window[data[callbackName]]=undefined;
+      }
+    }, 50)
   })
   //内部函数
   //格式化参数
@@ -55,12 +57,6 @@ util.jsonp = function(option, callbackName){
   }
 
 }
-
-util.getEl = function () {
-
-}
-
-
 
 util.getEl = function (el, tagName) {
   return document.querySelector(el);

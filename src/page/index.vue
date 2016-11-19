@@ -23,10 +23,12 @@
 
           <div class="tab-container" v-else>
             <img :src="item.object_image" alt="object_image">
-            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
-            <p>
-              {{ item.object_description }}
-            </p>
+            <div class="maincontent">
+              <h3 class="tit">{{ item.object_title }}</h3>
+              <p class="desc">
+                {{ item.object_description }}
+              </p>
+            </div>
           </div>
 
         </mt-tab-container-item>
@@ -43,10 +45,12 @@
 
           <div class="tab-container" v-else>
             <img :src="item.object_image" alt="object_image">
-            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
-            <p>
-              {{ item.object_description }}
-            </p>
+            <div class="maincontent">
+              <h3 class="tit">{{ item.object_title }}</h3>
+              <p class="desc">
+                {{ item.object_description }}
+              </p>
+            </div>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
@@ -62,10 +66,12 @@
 
           <div class="tab-container" v-else>
             <img :src="item.object_image" alt="object_image">
-            <h3 style="padding: 10px;">{{ item.object_title }}</h3>
-            <p>
-              {{ item.object_description }}
-            </p>
+            <div class="maincontent">
+              <h3 class="tit">{{ item.object_title }}</h3>
+              <p class="desc">
+                {{ item.object_description }}
+              </p>
+            </div>
           </div>
         </mt-tab-container-item>
       </mt-tab-container>
@@ -73,7 +79,7 @@
 
     <div class="loadmore" style="border-top-color: rgb(204, 204, 204);border-left-color: rgb(204, 204, 204);border-bottom-color: rgb(204, 204, 204);height: 28px;width: 28px;" v-show="loading"></div>
 
-    <sideBar/>
+    <sideBar :clickTab="clickTab" />
     <footBar />
 
   </div>
@@ -116,12 +122,14 @@
       me.loading = true;
 
       ;[1,2,3].forEach((item, i)=> {
+        
         me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
           me['renderData' + i] = me['renderData' + i].concat(data);
         })
+
       })
 
       // 下拉加载更多
@@ -166,7 +174,7 @@
           url : window.q.interfaceHost +'index.php',
           data: data,
           callback : function(res) {
-            console.log(res);
+            //console.log(res);
             me.loading = false;
             if(res.code === 0){
               let data = res.data;
@@ -199,6 +207,7 @@
 
       },
       clickTab(tabNum){
+        //alert(tabNum);
         //console.log(tabNum)
         const me = this;
         me.active = 'tab-container' + tabNum;
@@ -225,7 +234,7 @@
           // console.log(me['bLoadData'+n])
           if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
             if (util.scrollFunc() == 'down' && me['bLoadData'+n]) {
-              console.log(13)
+              //console.log(13)
               me['bLoadData'+n] = false;
               me.loading = true;
               me['pageNo'+n]++;
@@ -275,7 +284,7 @@
   .iconMenu {
     position: absolute;
     display: block;
-    background-image: url(../assets/img/menubtn.png);
+    background-image: url(../assets/img/btn_menu_white@2x.png);
     background-size: cover;
     height: 0.7rem;
     width: 0.7rem;
@@ -334,6 +343,21 @@
     position: relative;
   }*/
 
+  .maincontent{
+    margin: 15px;
+  }
+
+  .maincontent .tit{
+    font-size: .5rem;
+    /*padding: */
+  }
+
+  .maincontent .desc{
+    padding: 10px 0;
+    line-height: .5rem;
+  }
+  
+
   .content1{
     position: absolute;
     color: #fff;
@@ -345,50 +369,7 @@
     line-height: .7rem;
   }
 
-  .loadmore{
-    position: fixed;
-    bottom: 60px;
-    left: 0;
-    left: 50%;
-    margin-left: -14px;
-    -webkit-animation: mint-spinner-rotate .8s infinite linear;
-    animation: mint-spinner-rotate .8s infinite linear;
-    border: 4px solid transparent;
-    border-radius: 50%;
-  }
-
-
-.mint-spinner-snake {
-  -webkit-animation: mint-spinner-rotate 0.8s infinite linear;
-          animation: mint-spinner-rotate 0.8s infinite linear;
-  border: 4px solid transparent;
-  border-radius: 50%;
-}
-
-@-webkit-keyframes mint-spinner-rotate {
-  0% {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-  }
-  100% {
-      -webkit-transform: rotate(360deg);
-              transform: rotate(360deg);
-  }
-  }
-  @keyframes mint-spinner-rotate {
-  0% {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-  }
-  100% {
-      -webkit-transform: rotate(360deg);
-              transform: rotate(360deg);
-  }
-}
-
-.mint-tab-container-item{
-  margin-bottom: 60px;
-}
+  
 
 
 
