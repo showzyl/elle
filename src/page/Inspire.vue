@@ -1,19 +1,32 @@
 <template>
 <div class="inspire">
   <div class="inspireNav">
-    <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">ALL</a>
-    <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">独家</a>
-    <a @click.prevent="active = 'tab-container3'" :class="[active == 'tab-container3' ? 'on' : '']">搭配</a>
+    <a @click.prevent="active = 'tab-container0'" :class="[active == 'tab-container0' ? 'on' : '']">ALL</a>
+    <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">独家</a>
+    <a @click.prevent="active = 'tab-container2'" :class="[active == 'tab-container2' ? 'on' : '']">搭配</a>
+    <a @click.prevent="active = 'tab-container3'" :class="[active == 'tab-container3' ? 'on' : '']">礼物</a>
+    <a @click.prevent="active = 'tab-container4'" :class="[active == 'tab-container4' ? 'on' : '']">推荐</a>
+    <a @click.prevent="active = 'tab-container5'" :class="[active == 'tab-container5' ? 'on' : '']">话题</a>
+    <a @click.prevent="active = 'tab-container6'" :class="[active == 'tab-container6' ? 'on' : '']">LOOKBOOK</a>
   </div>
   <div class="page-tab-container">
     <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+      
+      <mt-tab-container-item id="tab-container0" v-for="tab in tabs">
+        <ul>
+          <li v-for="item in items0" :key="item.id" v-if="items0">
+            <img :src="item.app_image" alt="">
+          </li>
+          <li v-else>
+            暂无数据
+          </li>
+        </ul>
+      </mt-tab-container-item>
+      
       <mt-tab-container-item id="tab-container1">
         <ul>
           <li v-for="item in items1" :key="item.id" v-if="items1">
-            <h3>{{item.name}}</h3>
-            <div class="" style="height: 5rem;">
-              <img :src="item.image" alt="">
-            </div>
+            <img :src="item.app_image" alt="">
           </li>
           <li v-else>
             暂无数据
@@ -21,29 +34,50 @@
         </ul>
       </mt-tab-container-item>
       <mt-tab-container-item id="tab-container2">
-        <ul>
           <li v-for="item in items2" :key="item.id" v-if="items2">
-            <h3>{{item.name}}</h3>
-            <div class="" style="height: 5rem;">
-              <img :src="item.image" alt="">
-            </div>
+           <img :src="item.app_image" alt="">
           </li>
           <li v-else>
             暂无数据
           </li>
-        </ul>
       </mt-tab-container-item>
+
       <mt-tab-container-item id="tab-container3">
-        <li v-for="item in items3" :key="item.id" v-if="items3.length">
-            <h3>{{item.name}}</h3>
-            <div class="" style="height: 5rem;">
-              <img :src="item.image" alt="">
-            </div>
+          <li v-for="item in items3" :key="item.id" v-if="items3">
+            <img :src="item.app_image" alt="">
           </li>
           <li v-else>
             暂无数据
           </li>
       </mt-tab-container-item>
+
+      <mt-tab-container-item id="tab-container4">
+          <li v-for="item in items4" :key="item.id" v-if="items4">
+            <img :src="item.app_image" alt="">
+          </li>
+          <li v-else>
+            暂无数据
+          </li>
+      </mt-tab-container-item>
+
+      <mt-tab-container-item id="tab-container5">
+          <li v-for="item in items5" :key="item.id" v-if="items5">
+           <img :src="item.app_image" alt="">
+          </li>
+          <li v-else>
+            暂无数据
+          </li>
+      </mt-tab-container-item>
+
+      <mt-tab-container-item id="tab-container6">
+          <li v-for="item in items6" :key="item.id" v-if="items6">
+           <img :src="item.app_image" alt="">
+          </li>
+          <li v-else>
+            暂无数据
+          </li>
+      </mt-tab-container-item>
+
     </mt-tab-container>
   </div>
   <footBar pageName="inspire" />
@@ -63,9 +97,9 @@
     display: block;
     -webkit-box-flex: 1;
     text-align: center;
-    font-size: 0.45rem;
+    font-size: 0.35rem;
     line-height: 1rem;
-    margin: 0 .4rem;
+    /*margin: 0 .4rem;*/
   }
 
    .inspireNav a.on{
@@ -81,34 +115,42 @@ import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } fro
 import core from '../assets/lib/q.core.js'
 import store from '../assets/lib/q.store.js'
 import footBar from '../components/footBar.vue'
+import util from '../assets/lib/q.util.js'
 
 
 export default {
   data(){
     return {
-      active: 'tab-container1',
+      active: 'tab-container0',
       scrolled: false,
+      tabs: [0,1,2,3,4,5,6],
+      items0: [],
       items1: [],
       items2: [],
-      items3: []
+      items3: [],
+      items4: [],
+      items5: [],
+      items6: []
     }
   },
   created(){ 
     var me = this
+
+    me.tabs.forEach( (item, i) => {
+      //console.log(i)
+      me.fetchData({
+        event_type_id: item
+      }, res => {
+        me['items'+i] = me['items'+i].concat(res);
+      })
+    });
+
 
     // Indicator.open({
     //   text: '加载中...',
     //   spinnerType: 'fading-circle'
     // });
 
-    // ;[109,110,130].map(function(item,i){
-    //   me.asyncData(item, function(res){
-    //     let param = 'items'+ (i+1)
-    //     me[param] = res
-    //   })
-    // })
-
-    //console.log(me.items3.length)
     
   },
   components: {
@@ -122,28 +164,28 @@ export default {
   },
   methods: {
     // 没有缓存
-    asyncData(id, cb){
-      var me = this
-      // $.ajax({
-      //   url: 'http://106.75.17.211:6603/index.php?route=mapi/event&format=jsonp',
-      //   data: {
-      //     event_id: id
-      //   },
-      //   dataType: 'jsonp',
-      //   jsonp: 'callback',
-      //   crossDomain: true
-      // }).done(function(res){
-      //   //console.log(res)
-      //   Indicator.close()
-      //   if(res.code+'' === '0' && res.data.app.length){
-      //     cb && cb(res.data.app)
-      //   }else{
-      //     // 无数据
-      //     cb && cb([])
-      //   }
-      // }).fail(function(err){
-      //   console.log(err)
-      // })
+    fetchData(data, cb){
+      var me = this;
+
+      data.route = 'mapi/eventlist';
+      data.format = 'jsonp';
+
+      util.jsonp({
+        url : window.q.interfaceHost +'index.php',
+        data: data,
+        callback : function(res) {
+          //console.log(res);
+          //me.loading = false;
+          if(res.code+'' === '0'){
+            let data = res.data;
+            cb && cb(data);
+            //me.renderData = data
+          }else{
+            Toast('暂无数据, 请稍后刷新页面...')
+          }
+        }
+      }, 'callback')
+      
     }
   },
   mounted() {

@@ -270,8 +270,8 @@
   .loveIcon{
     background-image: url(../assets/img/profile/icon_fucus@3x.png);
     background-size: cover;
-    width: .5rem;
-    height: .42rem;
+    width: 22px;
+    height: 20px;
     display: inline-block;
   }
 

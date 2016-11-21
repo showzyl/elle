@@ -11,7 +11,7 @@
   </ul>
 
   <div class="btnGroup">
-    <div class="btn btn-black">
+    <div class="btn btn-black" @click="clickLogin">
       <span class="txt">
         登录
       </span>
@@ -63,7 +63,9 @@
 </style>
 <script lang="babel">
 import commonNav from '../components/commonNav.vue'
-// import lizi from '../api/t.js'
+import util from '../assets/lib/q.util.js'
+import { Toast } from 'mint-ui'
+
 
 export default {
   data(){
@@ -75,11 +77,57 @@ export default {
   components: {
     commonNav
   },
+  created(){
+    // login
+    
+    
+  },
   computed: {
 
   },
   methods: {
-
+    fnLogin(data){
+      // alert(1)
+      // data.route = 'mapi/register'; // 注册
+      // data.route = 'mapi/register/tel'; // 验证码
+      
+      data.route = 'mapi/login';
+      data.format = 'jsonp';
+      
+      util.jsonp({
+        url : window.q.interfaceHost +'index.php',
+        data: data,
+        callback : function(res) {
+          if(res.code+'' === '0'){
+            // login success
+            
+            
+          }else{
+            // login error
+            Toast({
+              message: res.msg,
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+        }
+      }, 'callback')
+      
+    },
+    clickLogin(){
+      if(!this.pass || !this.phone){
+        Toast({
+          message: '手机号或者密码不能为空...',
+          position: 'bottom',
+          duration: 3000
+        })
+        return;
+      }
+      this.fnLogin({
+        password: this.pass,
+        tel: this.phone
+      });
+    }
   },
   mounted() {
 

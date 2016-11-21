@@ -6,10 +6,10 @@
       <input v-model.number="phone" name="phone" type="number" placeholder="手机号" v-model.trim="phone" class="inputTxt">
     </li>
     <li class="inputBox">
-      <input type="password" name="pass" value="" placeholder="请输入6-16位字符密码" class="inputTxt">
+      <input type="password" name="pass" v-model="pass" placeholder="请输入6-16位字符密码" class="inputTxt">
     </li>
     <li class="inputBox">
-      <input type="password" name="pass" value="" placeholder="确认密码" class="inputTxt">
+      <input type="password" name="confirmpass" v-model="confirmpass" placeholder="确认密码" class="inputTxt">
     </li>
     <li class="inputBox verifycode">
       <input type="password" name="pass" value="" placeholder="验证码" class="inputTxt">
@@ -40,7 +40,7 @@
   </ul>
 
   <div class="regBtnGroup" >
-    <div class="btn btn-black" @click='fnReg'>
+    <div class="btn btn-black" @click='fnTelReg'>
       <span class="txt">
         √
       </span>
@@ -52,7 +52,7 @@
 </template>
 <script lang="babel">
 import commonNav from '../components/commonNav.vue'
-import { Checklist, Cell } from 'mint-ui';
+import { Checklist, Cell, Toast } from 'mint-ui';
 //let nCount = 5
 
 export default {
@@ -62,6 +62,7 @@ export default {
       value: ['梨子', '香蕉'],
       phone: null,
       pass: '',
+      confirmpass: '12345',
       btnTxt: '获取验证码',
       bLockVerifi: false,
       count: 5
@@ -77,11 +78,23 @@ export default {
   methods: {
     getCode(){
       var me = this;
+
+      if(!me.phone || !me.pass || !me.con){
+        Toast('手机号或者密码不能为空...');
+        return;
+      } 
+
       if(me.bLockVerifi) return;
       me.bLockVerifi = true;
-      // console.log(11111111)
       var timer = null;
       if(me.count === 5){
+        fnSendCode({
+
+        }, (res) => {
+          // 
+          Toast(res);
+          
+        })
         timer = setInterval(function(){
           me.count--;
           console.log(me.count)
@@ -99,9 +112,53 @@ export default {
       }
 
     },
-    fnReg(){
-      //alert('dianjizhuce')
+    fnTelReg(data){
+
+      data.route = 'mapi/register';
+      data.format = 'jsonp';
+      
+      util.jsonp({
+        url : window.q.interfaceHost +'index.php',
+        data: data,
+        callback : function(res) {
+          if(res.code+'' === '0'){
+            // reg success
+            
+          }else{
+            // reg error
+            Toast({
+              message: res.msg,
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+        }
+      }, 'callback')
     },
+    fnSendCode(data, cb){
+      data.route = 'mapi/register/tel'; // 验证码
+      data.format = 'jsonp';
+      
+      util.jsonp({
+        url : window.q.interfaceHost +'index.php',
+        data: data,
+        callback : function(res) {
+          if(res.code+'' === '0'){
+            // send success
+            cb && cb(res);
+            
+          }else{
+            // send error
+            Toast({
+              message: res.msg,
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+        }
+      }, 'callback')
+
+    }
   },
   mounted() {
 

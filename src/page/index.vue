@@ -116,7 +116,7 @@
       }
     },
     created(){
-      var me = this;
+      const me = this;
 
       //Toast('123')
       me.loading = true;
