@@ -14,34 +14,42 @@
 
   <div class="content" v-if="tab === 'category'">
     <div class="subBar">
-      <a @click.prevent="active1 = 'tab-container1'" :class="[active1 == 'tab-container1' ? 'on' : '']">女士</a>
-      <a @click.prevent="active1 = 'tab-container2'" :class="[active1 == 'tab-container2' ? 'on' : '']">男士</a>
-      <a @click.prevent="active1 = 'tab-container3'" :class="[active1 == 'tab-container3' ? 'on' : '']">生活</a>
+      <a @click.prevent="active1 = 'tab-container0'" :class="[active1 == 'tab-container0' ? 'on' : '']">女士</a>
+      <a @click.prevent="active1 = 'tab-container1'" :class="[active1 == 'tab-container1' ? 'on' : '']">男士</a>
+      <a @click.prevent="active1 = 'tab-container2'" :class="[active1 == 'tab-container2' ? 'on' : '']">生活</a>
     </div>
 
      <div class="page-tab-container">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active1" swipeable>
+        <mt-tab-container-item id="tab-container0">
+          <ul class="shopList">
+            <li class="shopItem" v-for="item in categoryItems0">
+              <div class="shopImg">
+                <img :src="item.app_image" alt="">
+              </div>
+              <h3 class="tit">{{item.category_name}}</h3>
+            </li>
+          </ul>
+        </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
-            <li class="shopItem">
+            <li class="shopItem" v-for="item in categoryItems1">
               <div class="shopImg">
-                <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+                <img :src="item.app_image" alt="">
               </div>
-              <h3 class="tit">呵呵呵</h3>
-            </li>
-            <li class="shopItem">
-              <div class="shopImg">
-                <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
-              </div>
-              <h3 class="tit">呵呵呵</h3>
+              <h3 class="tit">{{item.category_name}}</h3>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
-          pinpai content2
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container3">
-          pinpai content3
+          <ul class="shopList">
+            <li class="shopItem" v-for="item in categoryItems2">
+              <div class="shopImg">
+                <img :src="item.app_image" alt="">
+              </div>
+              <h3 class="tit">{{item.category_name}}</h3>
+            </li>
+          </ul>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -50,19 +58,34 @@
 
   <div class="content" v-else>
     <div class="subBar">
-      <a @click.prevent="active2 = 'tab-container1'" :class="[active2 == 'tab-container1' ? 'on' : '']">女士</a>
-      <a @click.prevent="active2 = 'tab-container2'" :class="[active2 == 'tab-container2' ? 'on' : '']">男士</a>
-      <a @click.prevent="active2 = 'tab-container3'" :class="[active2 == 'tab-container3' ? 'on' : '']">生活</a>
+      <a @click.prevent="active2 = 'tab-container0'" :class="[active2 == 'tab-container0' ? 'on' : '']">女士</a>
+      <a @click.prevent="active2 = 'tab-container1'" :class="[active2 == 'tab-container1' ? 'on' : '']">男士</a>
+      <a @click.prevent="active2 = 'tab-container2'" :class="[active2 == 'tab-container2' ? 'on' : '']">生活</a>
     </div>
 
      <div class="page-tab-container">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active2" swipeable>
-        <mt-tab-container-item id="tab-container1">
+        <mt-tab-container-item id="tab-container0">
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
               <img :src="item.app_image" alt="">
-              <h3 class="title">{{item.title}}</h3>
-              <div class="collectTime">
+              <h3 class="title">{{item.name}}</h3>
+              <div class="desiger">{{item.desiger}}</div>
+              <div class="collectTime" :class="{ on: item.iswish }">
+                <span class="loveIcon"></span>
+                <span class="count">{{item.wishcount}}</span>
+              </div>
+              <div class="brandItemBg"></div>
+            </li>
+          </ul>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="tab-container1">
+          <ul class="brandList">
+            <li v-for="item in brandItems1" class="brandItem">
+              <img :src="item.app_image" alt="">
+              <h3 class="title">{{item.name}}</h3>
+              <div class="desiger">{{item.desiger}}</div>
+              <div class="collectTime" :class="{ on: item.iswish }">
                 <span class="loveIcon"></span>
                 <span class="count">{{item.wishcount}}</span>
               </div>
@@ -71,10 +94,18 @@
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
-          category content2
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container3">
-          category content3
+          <ul class="brandList">
+            <li v-for="item in brandItems2" class="brandItem">
+              <img :src="item.app_image" alt="">
+              <h3 class="title">{{item.name}}</h3>
+              <div class="desiger">{{item.desiger}}</div>
+              <div class="collectTime" :class="{ on: item.iswish }">
+                <span class="loveIcon"></span>
+                <span class="count">{{item.wishcount}}</span>
+              </div>
+              <div class="brandItemBg"></div>
+            </li>
+          </ul>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -122,6 +153,7 @@
 
   .subBar a{
     color: #d7d7d5;
+    font-size: .4rem;
     
   }
 
@@ -164,12 +196,12 @@
 
   .brandItem{
     position: relative;
-    height: 200px;
+    /*height: 200px;*/
     color: #fff;
   }
 
   .brandItem img{
-    height: 200px;
+    height: 196px;
   }
 
   .brandItemBg{
@@ -182,12 +214,21 @@
     opacity: .8;
   }
 
-  .brandItem .title{
+  .brandItem .title, .brandItem .desiger{
     position: absolute;
     left: 10%;
     z-index: 2;
-    top: 45%;
+    
+  }
+
+  .brandItem .title{
+    top: 40%;
     font-size: .45rem;
+  }
+
+  .brandItem .desiger{
+    top: 55%;
+    font-size: .35rem;
   }
 
   .brandItem .collectTime{
@@ -199,6 +240,7 @@
     font-size: .45rem;
   }
 
+  
   .collectTime .count{
 
   }
@@ -211,6 +253,13 @@
     display: inline-block;
   }
 
+  .on .loveIcon{
+    background-image: url('../assets/img/recomend/collection_h@3x.png');
+  }
+
+  .on .count{
+    color: #ca4848;
+  }
 
 
 </style>
@@ -226,24 +275,34 @@
   export default {
     data(){
       return {
-        active1: 'tab-container1',
-        active2: 'tab-container1',      
-        tab: 'brand',
+        active1: 'tab-container0',
+        active2: 'tab-container0',      
+        tab: 'category',
         brandItems0: [],
         brandItems1: [],
-        brandItems2: []
+        brandItems2: [],
+        categoryItems0: [],
+        categoryItems1: [],
+        categoryItems2: []
       }
     },
     created(){
       const me = this;
 
-      this.fetchBrandData({
-        type_id: 4
-      }, res => {
-        me.brandItems0 = me.brandItems0.concat(res);
-        //me.brandItems0
+      ;[20, 59, 75].forEach( (item,i) => {
+        me.fetchBrandData({
+          type_id: item
+        }, res => {
+          me['brandItems'+i] = me['brandItems'+i].concat(res);
+        })
       })
-
+      
+      me.fetchCategoryData({}, function(res){
+        // console.log(res.list);
+        me.categoryItems0 = res.list[0].subcategories;
+        me.categoryItems1 = res.list[1].subcategories;
+        me.categoryItems2 = res.list[2].subcategories;
+      });
     },
     components: {
       footBar
@@ -258,18 +317,43 @@
         data.route = 'mapi/manufacturer';
         data.format = 'jsonp';
 
-        util.jsonp({
-          url : window.q.interfaceHost +'index.php',
-          data: data,
-          callback : function(res) {
-            if(res.code+'' === '0'){
-              let data = res.data;
-              cb && cb(data);
-            }else{
-              Toast('暂无数据, 请稍后刷新页面...')
-            }
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {params: data})
+        .then(res => {
+          //console.log(res)
+          let data = res.body;
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据, 请稍后刷新页面...')
           }
-        }, 'callback')
+        }, err => {
+          console.log(err)
+        })
+
+      },
+      fetchCategoryData(data, cb){
+        var me = this;
+
+        data.route = 'mapi/category/getallcategory';
+        data.format = 'jsonp';
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {params: data})
+        .then(res => {
+          //console.log(res)
+          let data = res.body;
+          console.log(data.data)
+          if(data.data.list){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据, 请稍后刷新页面...')
+          }
+        }, err => {
+          console.log(err)
+        })
 
       }
     },

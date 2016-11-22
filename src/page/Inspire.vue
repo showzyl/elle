@@ -117,7 +117,6 @@ import store from '../assets/lib/q.store.js'
 import footBar from '../components/footBar.vue'
 import util from '../assets/lib/q.util.js'
 
-
 export default {
   data(){
     return {
@@ -134,14 +133,14 @@ export default {
     }
   },
   created(){ 
-    var me = this
+    var me = this;
 
     me.tabs.forEach( (item, i) => {
-      //console.log(i)
       me.fetchData({
         event_type_id: item
       }, res => {
-        me['items'+i] = me['items'+i].concat(res);
+        me['items'+item] = me['items'+item].concat(res);
+        //console.log( me['items'+i] )
       })
     });
 
@@ -166,27 +165,24 @@ export default {
     // 没有缓存
     fetchData(data, cb){
       var me = this;
-
       data.route = 'mapi/eventlist';
       data.format = 'jsonp';
-
-      util.jsonp({
-        url : window.q.interfaceHost +'index.php',
-        data: data,
-        callback : function(res) {
-          //console.log(res);
-          //me.loading = false;
-          if(res.code+'' === '0'){
-            let data = res.data;
-            cb && cb(data);
-            //me.renderData = data
-          }else{
-            Toast('暂无数据, 请稍后刷新页面...')
-          }
+      this.$http.jsonp(
+        window.q.interfaceHost +'index.php?',
+        {params: data})
+      .then(res => {
+        //console.log(res)
+        let data = res.body;
+        if(data.code+'' === '0'){
+          cb && cb(data.data);
+        }else{
+          Toast('暂无数据, 请稍后刷新页面...')
         }
-      }, 'callback')
-      
+      }, err => {
+        console.log(err)
+      })
     }
+
   },
   mounted() {
 

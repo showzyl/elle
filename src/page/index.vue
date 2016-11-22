@@ -14,11 +14,15 @@
           <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
           <div class="item-mask0"></div>
           <div v-for="(item, index) in renderData0" v-if="index === 0">
-            <div class="content1">
-              <p>{{ item.object_title }}</p>
-              <p>{{ item.object_description }}</p>
-            </div>
-            <img :src="item.object_image" alt="object_image">
+            <!--<router-link to=" 'item.clickUrl' ">-->
+              <a :href="item.clickUrl">
+                <div class="content1">
+                  <p>{{ item.object_title }}</p>
+                  <p>{{ item.object_description }}</p>
+                </div>
+                <img :src="item.object_image" alt="object_image">
+              </a>
+            <!--</router-link>-->
           </div>
 
           <div class="tab-container" v-else>
@@ -122,11 +126,13 @@
       me.loading = true;
 
       ;[1,2,3].forEach((item, i)=> {
-        
         me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
+          data.forEach(item => {
+            item.clickUrl = '/#/product?id='+item.object_id 
+          })
           me['renderData' + i] = me['renderData' + i].concat(data);
         })
 
@@ -170,40 +176,42 @@
         data.route = 'mapi/home_waterfall';
         data.format = 'jsonp';
 
-        util.jsonp({
-          url : window.q.interfaceHost +'index.php',
-          data: data,
-          callback : function(res) {
-            //console.log(res);
-            me.loading = false;
-            if(res.code === 0){
-              let data = res.data;
-              cb && cb(data);
-              //me.renderData = data
-            }else{
-              Toast('暂无数据, 请稍后刷新页面...')
-            }
-          }
-        }, 'callback')
+        // util.jsonp({
+        //   url : window.q.interfaceHost +'index.php',
+        //   data: data,
+        //   callback : function(res) {
+        //     //console.log(res);
+        //     me.loading = false;
+        //     if(res.code === 0){
+        //       let data = res.data;
+        //       cb && cb(data);
+        //       //me.renderData = data
+        //     }else{
+        //       Toast('暂无数据, 请稍后刷新页面...')
+        //     }
+        //   }
+        // }, 'callback')
 
-        // this.$http.jsonp(
-        //   window.q.interfaceHost +'index.php',
-        //   {
-        //     params: data
-        //   }
-        // ).then( res => {
-        //   let data = res.body;
-        //   if(data.code === 0){
-        //     //console.log(data.data)
-        //     // renderPage
-        //     me.renderData = data.data
-        //   }else{
-        //     Toast('暂无数据, 请稍后刷新页面...')
-        //   }
-        // }, err => {
-        //   console.log(res)
-        //   Toast('暂无数据, 请稍后刷新页面...')
-        // })
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          if(data.code === 0){
+            me.loading = false;
+            cb && cb(data.data);
+            //console.log(data.data)
+            // renderPage
+            //me.renderData = data.data
+          }else{
+            Toast('暂无数据, 请稍后刷新页面...')
+          }
+        }, err => {
+          console.log(res)
+          Toast('暂无数据, 请稍后刷新页面...')
+        })
 
       },
       clickTab(tabNum){

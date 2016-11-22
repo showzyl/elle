@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-// import vueResource from 'vue-resource'
+import vueResource from 'vue-resource'
 
 import Vuex from 'vuex'
 import store from './store/'
@@ -11,7 +11,7 @@ import routes from './router/index.js'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
-//Vue.use(vueResource)
+Vue.use(vueResource)
 
 
 var interfaceHost = location.hostname === '//api.elleshop.com.cn/' ? '' : 'http://106.75.17.211:6603/' 

@@ -1,8 +1,7 @@
 {
-  "name": "mint-ui-starter",
+  "name": "elle shop",
   "description": "A Vue.js project",
-  "author": "yi.shyang@ele.me",
-  "private": true,
+  "author": "showzyl@qq.com",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
@@ -11,6 +10,7 @@
     "lodash": "^4.16.6",
     "mint-ui": "^2.0.4",
     "vue": "^2.0.1",
+    "vue-resource": "^1.0.3",
     "vue-router": "^2.0.1",
     "vuex": "^2.0.0"
   },

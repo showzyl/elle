@@ -54,7 +54,7 @@ const routes = [
   { name: '分类', path: '/classify', component: Classify },
   { name: '灵感', path: '/inspire', component: Inspire },
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
-  { name: '商品', path: '/product/:id', component: Product },
+  { name: '商品', path: '/product', component: Product },
   { name: '详情', path: '/detail', component: Shopcar },
   { name: '收藏', path: '/collect', component: Collect },
   { name: '订单', path: '/order', component: Order },

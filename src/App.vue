@@ -223,6 +223,11 @@ export default {
   }
   /* loadmore end */
 
+  .product .mint-swipe-indicator.is-active {
+    opacity: 1;
+    background: #000000;
+  }
+
 
   /*.mint-swipe-item:nth-child(1){
     background-color: red

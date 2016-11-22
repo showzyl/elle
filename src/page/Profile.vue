@@ -24,7 +24,7 @@
             蓝色会员
           </div>
         </div>
-
+        
       </div>
 
       <div class="collectBox ">
