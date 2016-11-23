@@ -24,14 +24,14 @@
       </router-link>
     </li>
 
-    <li class="footBarItem" :class="[pageName == 'shopcar' ? 'on' : '']">
+    <li class="footBarItem none" :class="[pageName == 'shopcar' ? 'on' : '']">
       <router-link to="/shopcar">
         <i class="iconShopinglist"/></i>
         <h3 class="footBarTxt">购物车</h3>
       </router-link>
     </li>
 
-    <li class="footBarItem" :class="[pageName == 'profile' ? 'on' : '']">
+    <li class="footBarItem none" :class="[pageName == 'profile' ? 'on' : '']">
       <router-link to="/profile">
         <i class="iconProfile"/></i>
         <h3 class="footBarTxt">我的</h3>

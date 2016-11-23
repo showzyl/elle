@@ -120,6 +120,15 @@ export default {
     background-size: cover;
     background-image: url('./assets/img/address/address@3x.png');
   }
+
+  .collectIconGray{
+    display: inline-block;
+    width: 18px;
+    height: 17px;
+    margin: .2rem 0 0;
+    background-size: cover;
+    background-image: url('./assets/img/profile/icon_fucus@3x.png');
+  }
   /* icon end*/
 
   /* order start */

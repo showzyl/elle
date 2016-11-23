@@ -26,13 +26,15 @@
           </div>
 
           <div class="tab-container" v-else>
-            <img :src="item.object_image" alt="object_image">
-            <div class="maincontent">
-              <h3 class="tit">{{ item.object_title }}</h3>
-              <p class="desc">
-                {{ item.object_description }}
-              </p>
-            </div>
+            <a :href="item.clickUrl">
+              <img :src="item.object_image" alt="object_image">
+              <div class="maincontent">
+                <h3 class="tit">{{ item.object_title }}</h3>
+                <p class="desc">
+                  {{ item.object_description }}
+                </p>
+              </div>
+            </a>
           </div>
 
         </mt-tab-container-item>
@@ -40,42 +42,50 @@
           <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
           <div class="item-mask1"></div>
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
-            <div class="content1">
-              <p>{{ item.object_title }}</p>
-              <p>{{ item.object_description }}</p>
-            </div>
-            <img :src="item.object_image" alt="object_image">
+            <a :href="item.clickUrl">
+              <div class="content1">
+                <p>{{ item.object_title }}</p>
+                <p>{{ item.object_description }}</p>
+              </div>
+              <img :src="item.object_image" alt="object_image">
+            </a>
           </div>
 
           <div class="tab-container" v-else>
-            <img :src="item.object_image" alt="object_image">
-            <div class="maincontent">
-              <h3 class="tit">{{ item.object_title }}</h3>
-              <p class="desc">
-                {{ item.object_description }}
-              </p>
-            </div>
+            <a :href="item.clickUrl">
+              <img :src="item.object_image" alt="object_image">
+              <div class="maincontent">
+                <h3 class="tit">{{ item.object_title }}</h3>
+                <p class="desc">
+                  {{ item.object_description }}
+                </p>
+              </div>
+            </a>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
           <div class="item-mask2"></div>
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
-            <div class="content1">
-              <p>{{ item.object_title }}</p>
-              <p>{{ item.object_description }}</p>
-            </div>
-            <img :src="item.object_image" alt="object_image">            
+            <a :href="item.clickUrl">
+              <div class="content1">
+                <p>{{ item.object_title }}</p>
+                <p>{{ item.object_description }}</p>
+              </div>
+              <img :src="item.object_image" alt="object_image"> 
+            </a>           
           </div>
 
           <div class="tab-container" v-else>
-            <img :src="item.object_image" alt="object_image">
-            <div class="maincontent">
-              <h3 class="tit">{{ item.object_title }}</h3>
-              <p class="desc">
-                {{ item.object_description }}
-              </p>
-            </div>
+            <a :href="item.clickUrl">
+              <img :src="item.object_image" alt="object_image">
+              <div class="maincontent">
+                <h3 class="tit">{{ item.object_title }}</h3>
+                <p class="desc">
+                  {{ item.object_description }}
+                </p>
+              </div>
+            </a>
           </div>
         </mt-tab-container-item>
       </mt-tab-container>
@@ -121,7 +131,6 @@
     },
     created(){
       const me = this;
-
       //Toast('123')
       me.loading = true;
 
@@ -130,9 +139,24 @@
           category_id: item,
           page_id: 1
         }, function(data){
+
           data.forEach(item => {
-            item.clickUrl = '/#/product?id='+item.object_id 
+            console.log(item.object_type);
+            switch(item.object_type){
+              case '1': // Product
+                item.clickUrl = '/#/product/'+item.object_id;
+              break;
+              case '2': // Brand
+                item.clickUrl = '/#/brand/'+item.object_id;
+              break;
+              case '4': // inspire
+                item.clickUrl = '/#/inspire/'+item.object_id;
+              break;
+              default:
+                item.clickUrl = '#';
+            }
           })
+
           me['renderData' + i] = me['renderData' + i].concat(data);
         })
 
@@ -140,7 +164,7 @@
 
       // 下拉加载更多
       window.onscroll = function(e){
-        //console.log(1221212212)
+        if(me.$route.path !== '/') return;
         //console.log(e)
         //console.log(util.getEl('.tab-bg0').style)
         //console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
