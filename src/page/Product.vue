@@ -148,7 +148,6 @@
   Vue.component(Swipe.name, Swipe);
   Vue.component(SwipeItem.name, SwipeItem);
 
-  let buyData = {};
 
   export default {
     data() {

@@ -15,7 +15,9 @@
       <mt-tab-container-item id="tab-container0" v-for="tab in tabs">
         <ul>
           <li v-for="item in items0" :key="item.id" v-if="items0">
+            <a :href="item.clickUrl">
             <img :src="item.app_image" alt="">
+            </a>
           </li>
           <li v-else>
             暂无数据
@@ -134,22 +136,22 @@ export default {
   },
   created(){ 
     var me = this;
+    Indicator.open({
+      text: '加载中...',
+      spinnerType: 'fading-circle'
+    })
 
     me.tabs.forEach( (item, i) => {
       me.fetchData({
         event_type_id: item
       }, res => {
+        res.forEach(item => {
+          item.clickUrl = '/#/inspire/'+item.event_id
+        })
         me['items'+item] = me['items'+item].concat(res);
         //console.log( me['items'+i] )
       })
     });
-
-
-    // Indicator.open({
-    //   text: '加载中...',
-    //   spinnerType: 'fading-circle'
-    // });
-
     
   },
   components: {
@@ -171,15 +173,18 @@ export default {
         window.q.interfaceHost +'index.php?',
         {params: data})
       .then(res => {
+        Indicator.close();
         //console.log(res)
         let data = res.body;
         if(data.code+'' === '0'){
           cb && cb(data.data);
         }else{
-          Toast('暂无数据, 请稍后刷新页面...')
+          Toast('暂无数据...')
         }
       }, err => {
-        console.log(err)
+        console.log(err);        
+        Indicator.close();
+        Toast('网络错误...');
       })
     }
 

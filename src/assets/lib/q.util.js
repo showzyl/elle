@@ -5,6 +5,7 @@
 
 let util = {}
 
+
 util.jsonp = function(option, callbackName){
   //没有url，函数结束
   if(!option.url || !callbackName){
@@ -56,6 +57,29 @@ util.jsonp = function(option, callbackName){
     document.getElementsByTagName('head')[0].appendChild(script);
   }
 
+}
+
+// 收藏
+util.collect = function (data, cb) {
+  var me = this;
+  data.route = 'mapi/wishlist/add';
+  data.format = 'jsonp';
+  this.$http.jsonp(
+    window.q.interfaceHost +'index.php?',
+    {params: data})
+  .then(res => {
+    Indicator.close()
+    //console.log(res)
+    let data = res.body;
+    if(data.code+'' === '0'){
+      cb && cb(data);
+    } else {
+      // 无数据
+      cb && cb('no data');
+    }
+  }, err => {
+    cb && cb('err');
+  })
 }
 
 util.getEl = function (el, tagName) {

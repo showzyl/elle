@@ -105,8 +105,6 @@
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
 
-  //console.log(util)
-
   Vue.component(TabContainer.name, TabContainer);
   Vue.component(TabContainerItem.name, TabContainerItem);
 
@@ -134,14 +132,19 @@
       //Toast('123')
       me.loading = true;
 
+      // Indicator.open({
+      //   text: '加载中...',
+      //   spinnerType: 'fading-circle'
+      // });
+
       ;[1,2,3].forEach((item, i)=> {
         me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
-
+          
           data.forEach(item => {
-            console.log(item.object_type);
+            //console.log(item.object_type);
             switch(item.object_type){
               case '1': // Product
                 item.clickUrl = '/#/product/'+item.object_id;
@@ -199,22 +202,6 @@
 
         data.route = 'mapi/home_waterfall';
         data.format = 'jsonp';
-
-        // util.jsonp({
-        //   url : window.q.interfaceHost +'index.php',
-        //   data: data,
-        //   callback : function(res) {
-        //     //console.log(res);
-        //     me.loading = false;
-        //     if(res.code === 0){
-        //       let data = res.data;
-        //       cb && cb(data);
-        //       //me.renderData = data
-        //     }else{
-        //       Toast('暂无数据, 请稍后刷新页面...')
-        //     }
-        //   }
-        // }, 'callback')
 
         this.$http.jsonp(
           window.q.interfaceHost +'index.php',

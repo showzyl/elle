@@ -16,6 +16,7 @@ import Collect from '../page/Collect.vue'
 import Order from '../page/Order.vue'
 import OrderDetail from '../page/OrderDetail.vue'
 import Product from '../page/Product.vue'
+import Filter from '../page/Filter.vue'
 import Brand from '../page/Brand.vue'
 import Login from '../page/Login.vue'
 import TelReg from '../page/TelReg.vue'
@@ -37,6 +38,7 @@ import Changepwd from '../page/Changepwd.vue'
 // const Order = () => System.import('../page/Order.vue')
 // const OrderDetail = () => System.import('../page/OrderDetail.vue')
 // const Product = () => System.import('../page/Product.vue')
+// const Filter = () => System.import('../page/Filter.vue')
 // const Brand = () => System.import('../page/Brand.vue')
 // const Login = () => System.import('../page/Login.vue')
 // const TelReg = () => System.import('../page/TelReg.vue')
@@ -57,6 +59,7 @@ const routes = [
   { name: '灵感', path: '/inspire', component: Inspire },
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
   { name: '商品详情', path: '/product/:id', component: Product },
+  { name: '排序和筛选', path: '/filter/:id', component: Filter },
   { name: '品牌详情', path: '/brand/:id', component: Brand },
   { name: '详情', path: '/detail', component: Shopcar },
   { name: '收藏', path: '/collect', component: Collect },
