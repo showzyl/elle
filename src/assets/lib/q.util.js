@@ -3,6 +3,8 @@
 // }
 'use strict'
 
+import core from './q.core.js'
+
 let util = {}
 
 
@@ -58,6 +60,8 @@ util.jsonp = function(option, callbackName){
   }
 
 }
+
+//util.
 
 // 收藏
 util.collect = function (data, cb) {

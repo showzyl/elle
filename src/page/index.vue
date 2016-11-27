@@ -13,7 +13,7 @@
         <mt-tab-container-item id="tab-container0">
           <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
           <div class="item-mask0"></div>
-          <div v-for="(item, index) in renderData0" v-if="index === 0">
+          <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
               <a :href="item.clickUrl">
                 <div class="content1">
@@ -27,7 +27,9 @@
 
           <div class="tab-container" v-else>
             <a :href="item.clickUrl">
-              <img :src="item.object_image" alt="object_image">
+              <div class="imgBox">
+                <img :src="item.object_image" alt="object_image">
+              </div>
               <div class="maincontent">
                 <h3 class="tit">{{ item.object_title }}</h3>
                 <p class="desc">
@@ -53,7 +55,9 @@
 
           <div class="tab-container" v-else>
             <a :href="item.clickUrl">
-              <img :src="item.object_image" alt="object_image">
+              <div class="imgBox">
+                <img :src="item.object_image" alt="object_image">
+              </div>
               <div class="maincontent">
                 <h3 class="tit">{{ item.object_title }}</h3>
                 <p class="desc">
@@ -78,7 +82,9 @@
 
           <div class="tab-container" v-else>
             <a :href="item.clickUrl">
-              <img :src="item.object_image" alt="object_image">
+              <div class="imgBox">
+                <img :src="item.object_image" alt="object_image">
+              </div>
               <div class="maincontent">
                 <h3 class="tit">{{ item.object_title }}</h3>
                 <p class="desc">
@@ -90,18 +96,20 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
-
-    <div class="loadmore" style="border-top-color: rgb(204, 204, 204);border-left-color: rgb(204, 204, 204);border-bottom-color: rgb(204, 204, 204);height: 28px;width: 28px;" v-show="loading"></div>
-
+    
     <sideBar :clickTab="clickTab" />
-    <footBar />
+
+    <footBar pageName="index"/>
+
+    <loadMore :loading="loading" >
 
   </div>
 </template>
 <script lang="babel">
   import Vue from 'vue'
   import footBar from '../components/footBar.vue'
-  import { Toast, TabContainer, TabContainerItem } from 'mint-ui'
+  import loadMore from '../components/loadmore.vue'
+  import { Toast, TabContainer, TabContainerItem, Indicator } from 'mint-ui'
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
 
@@ -130,12 +138,12 @@
     created(){
       const me = this;
       //Toast('123')
-      me.loading = true;
-
-      // Indicator.open({
-      //   text: '加载中...',
-      //   spinnerType: 'fading-circle'
-      // });
+      //me.loading = true;
+      
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
 
       ;[1,2,3].forEach((item, i)=> {
         me.fetchData({
@@ -186,10 +194,12 @@
         }
 
       }
+      
     },
     components: {
       footBar,
-      sideBar
+      sideBar,
+      loadMore
     },
     computed: {},
     methods: {
@@ -211,7 +221,6 @@
         ).then( res => {
           let data = res.body;
           if(data.code === 0){
-            me.loading = false;
             cb && cb(data.data);
             //console.log(data.data)
             // renderPage
@@ -219,8 +228,12 @@
           }else{
             Toast('暂无数据, 请稍后刷新页面...')
           }
+          me.loading = false;
+          Indicator.close();
         }, err => {
-          console.log(res)
+          Indicator.close();
+          me.loading = false;
+          //console.log(res)
           Toast('暂无数据, 请稍后刷新页面...')
         })
 
@@ -376,7 +389,6 @@
     line-height: .5rem;
   }
   
-
   .content1{
     position: absolute;
     color: #fff;
@@ -386,6 +398,14 @@
     z-index: 5;
     font-size: .45rem;
     line-height: .7rem;
+  }
+
+  .tab-container {
+    
+  }
+
+  .imgBox{
+    height: 15.5rem;
   }
 
   

@@ -59,7 +59,7 @@ const routes = [
   { name: '灵感', path: '/inspire', component: Inspire },
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },
   { name: '商品详情', path: '/product/:id', component: Product },
-  { name: '排序和筛选', path: '/filter/:id', component: Filter },
+  { name: '排序和筛选', path: '/filter', component: Filter },
   { name: '品牌详情', path: '/brand/:id', component: Brand },
   { name: '详情', path: '/detail', component: Shopcar },
   { name: '收藏', path: '/collect', component: Collect },

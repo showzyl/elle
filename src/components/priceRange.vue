@@ -1,17 +1,19 @@
 <template>
   <div class="priceRange">
-    <h3 class="tit">PRIVDQW DWQDWQ</h3>
+    <h3 class="tit">PRICE INTERVAL</h3>
     <div class="" >
       <span class="title">价格： </span>
       <div style="">
-        <mt-range v-model="rangeValue" :min="3000" :max="30000">
-          <div slot="start" class="start">￥3000</div>
+        <mt-range v-model="rangeValue" :min="0" :max="30000">
+          <div slot="start" class="start">￥0</div>
           <div slot="end" class="end">￥30000</div>
         </mt-range>
       </div>
     </div>
 
     <div slot="money" class="money">￥{{rangeValue}}</div>
+
+    <div class="btn btnConfirmPrice" @click="">完成</div>
     
   </div>
 </template>
@@ -74,14 +76,22 @@
     text-align: center;
   }
 
+  .btnConfirmPrice{
+    position: fixed;
+    width: 90%;
+    bottom: .5rem;
+  }
+
 </style>
 
 <script lang="babel">
-  import { TabContainer, TabContainerItem, Range } from 'mint-ui';
+  import Vue from 'vue'
+  import { TabContainer, TabContainerItem, Range } from 'mint-ui'
+  Vue.component(Range.name, Range);
   export default {
     data() {
       return {
-        rangeValue: 3001
+        rangeValue: 0
       }
     },
     components: {

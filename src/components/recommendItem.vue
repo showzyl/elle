@@ -6,10 +6,11 @@
       </div>
       <div class="priceBox">
         <div class="priceBoxLeft">
-          <p class="oldprice">¥1233432</p>
-          <p class="newprice" :class="{ colorRed: product.isRed }">¥{{product.price}}</p>            
+          <p class="newprice" v-if="product.price">¥{{product.price}}</p>
+          <p class="oldprice" v-if="product.spcial">¥{{product.price}}</p>
+          <p class="newprice" :class="{ colorRed: product.is_wish }" v-if="product.spcial">¥{{product.spcial}}</p>
         </div>
-        <span class="iconCarShop collectRed"></span>
+        <span class="iconCarShop" :class="{ colorRed: product.is_wish }"></span>
       </div>
       <div class="recommendName">
         {{product.name}}
@@ -27,7 +28,7 @@
 
   .recommendItem{
     width: 50%;
-    padding: 0 .3rem;
+    padding: 0 .25rem;
     box-sizing: border-box;
     float: left;
   }
@@ -40,9 +41,8 @@
   .iconCarShop{
     float: right;
     display: inline-block;
-    width: .54rem;
-    height: .5rem;
-    /*margin-top: .5rem;*/
+    width: 20px;
+    height: 18px;
     margin: 0 .2rem 0 0;
     background-image: url('../assets/img/recomend/collection@3x.png');
     background-size: cover;
@@ -58,6 +58,10 @@
     overflow: hidden;
   }
 
+  .imgBox{
+    height: 5.8rem;
+  }
+
   .oldprice{
     text-decoration: line-through;
     /*margin-bottom: .2rem;*/
@@ -68,7 +72,7 @@
   }
 
   .recommendName{
-    margin-top: .5rem;
+    margin: .5rem 0;
   }
 
   
@@ -94,7 +98,7 @@
       }
     },
     created(){
-      console.log(this.props)
+     // console.log(this.props)
     },
     components: {
       

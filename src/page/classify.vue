@@ -24,10 +24,12 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems0">
-              <div class="shopImg">
-                <img :src="item.app_image" alt="">
-              </div>
-              <h3 class="tit">{{item.category_name}}</h3>
+              <a :href="item.clickUrl">
+                <div class="shopImg">
+                  <img :src="item.app_image" alt="">
+                </div>
+                <h3 class="tit">{{item.category_name}}</h3>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>
@@ -68,6 +70,7 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
+
               <img :src="item.app_image" alt="">
               <h3 class="title">{{item.name}}</h3>
               <div class="desiger">{{item.desiger}}</div>
@@ -163,7 +166,6 @@
 
   .shopList{
     margin: .2rem;
-
   }
   
   .shopItem{
@@ -174,6 +176,7 @@
 
   .shopImg{
     margin: .2rem;
+    height: 4.5rem;
   }
 
   .tit{
@@ -299,6 +302,9 @@
       
       me.fetchCategoryData({}, function(res){
         // console.log(res.list);
+        res.list[0].subcategories.forEach(item => {
+          item.clickUrl = '/#/filter?name=' + item.category_name + '&id=' + item.category_id;
+        });
         me.categoryItems0 = res.list[0].subcategories;
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;

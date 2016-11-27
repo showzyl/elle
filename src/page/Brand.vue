@@ -186,17 +186,16 @@
     },
     created(){
       const me = this;
-      //console.log(me.$route.params.id);
       me.fetchData({
         manufacturer_id: me.$route.params.id, // 商品ID
         customer_id: '' // 用户ID
       }, function(res){
         console.log(res);
+        var reg = /\s/gi;
+        if( reg.test(res.head_image) ){
+          res.head_image = res.head_image.replace(reg, '%20')
+        }
         me.info = res;
-        //me.headImage = res.head_image;
-        //document.querySelector('.headImag').style.backgroundImage = res.head_image;
-        //console.log(res.head_image)
-       // me.info.iswish = 1;
       });
     },
     components: {

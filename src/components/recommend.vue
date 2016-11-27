@@ -39,9 +39,6 @@
   import { TabContainer, TabContainerItem } from 'mint-ui'
   import recomendItem from './recommendItem.vue'
   
-
-  //console.log(location.href)
-
   export default {
     props: {
       title: {

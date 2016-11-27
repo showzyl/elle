@@ -9,7 +9,7 @@
 
 	import _ from 'lodash'
 
-	var Q_core = {
+	let Q_core = {
 		version : '0.0.1',
 		time_stamp : +new Date(),
 		noop : function() {

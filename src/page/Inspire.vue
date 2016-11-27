@@ -108,6 +108,10 @@
      border-bottom: 1px solid black;
    }
 
+   ul li{
+     height: 10rem;
+   }
+
 
 </style>
 <script lang="babel">
@@ -139,7 +143,7 @@ export default {
     Indicator.open({
       text: '加载中...',
       spinnerType: 'fading-circle'
-    })
+    });
 
     me.tabs.forEach( (item, i) => {
       me.fetchData({
