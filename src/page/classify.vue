@@ -271,7 +271,7 @@
 //import commonNav from '../components/commonNav.vue'
 // import core from '../assets/lib/q.core.js'
 // import store from '../assets/lib/q.store.js'
-  import { Toast } from 'mint-ui'
+  import { Toast, Indicator } from 'mint-ui'
   import footBar from '../components/footBar.vue'
   import util from '../assets/lib/q.util.js'
 
@@ -291,6 +291,11 @@
     },
     created(){
       const me = this;
+
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
 
       ;[20, 59, 75].forEach( (item,i) => {
         me.fetchBrandData({
@@ -334,8 +339,11 @@
           }else{
             Toast('暂无数据, 请稍后刷新页面...')
           }
+          Indicator.close();
         }, err => {
           console.log(err)
+          Toast('网络错误...')
+          Indicator.close();
         })
 
       },

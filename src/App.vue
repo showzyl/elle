@@ -200,6 +200,40 @@ export default {
   }
 
 
+  /* filterBrand start */
+  .filterBrand .mint-indexlist-nav{
+    background-color: transparent; 
+     border-left: 0 none;
+  }
+
+  .mint-indexlist-content{
+    margin-right: 0!important;
+  }
+
+  .filterBrand .mint-cell::before{
+    border-bottom: 0 none;
+  }
+
+  .filterBrand .mint-cell::after{
+    color: #fff;
+  }
+
+  .filterBrand .mint-cell-wrapper{
+    font-size: .4rem;
+  }
+
+
+  .filterBrand .checked .mint-cell-value, .filterSize .checked .mint-cell-value, .filterColor .checked .mint-cell-value{
+    width: 20px;
+    height: 15px;
+    background-image: url(./assets/img/recomend/headtick@3x.png);
+    margin-right: 40px;
+    background-size: cover;
+  }
+  
+  
+  /* filterBrand end */
+
   /*.mint-swipe-item:nth-child(1){
     background-color: red
   }*/

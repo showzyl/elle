@@ -7,7 +7,7 @@
         <a href="javascript:;">排序</a>
         <span class="iconDrop"></span>
       </li>
-      <li @click="content = 'filterLimit'">
+      <li @click="filterLimit">
         <a href="javascript:;">筛选</a>
         <span class="iconDrop"></span>
       </li>
@@ -69,16 +69,21 @@
       </h2>
       <span class="clearAll" @click="clearAllBrand">CLEAR 清除</span>
     </div>
-    <div class="" v-for="(brand, key) in brands">
-      <h3 v-if="brand.length">{{key}}</h3>
-      <ul>
-        <li v-for="(item,i) in brand" style="padding: 20px;" :key="item.manufacturer_id" :class="{ colorRed: item.checked }" @click="choseBrand(item, i, key)">
-          &nbsp&nbsp&nbsp&nbsp{{item.name}}{{item}}
-        </li>
-      </ul>
-    </div>
+    <mt-index-list>
 
-    <div class="btn btnConfirmBrand">完成</div>
+      <p v-for="(brand, key) in brands">
+        <mt-index-section :index="key" v-if="brand.length">
+          <p v-for="(item,i) in brand" :key="item.manufacturer_id" @click="choseBrand(item, i, key)" :class="{ checked: item.checked }">
+            <mt-cell :title="item.name"></mt-cell>
+          </p>
+        </mt-index-section>
+      </p>
+
+
+    </mt-index-list>
+
+
+    <div class="btn btnConfirmBrand" @click="confirmBrand">完成</div>
   </div>
 
   <div class="filterSize" v-show="content === 'filterSize'">
@@ -87,8 +92,13 @@
       <h2 class="title">
         尺寸
       </h2>
-      <!--<span class="clearAll">CLEAR 清除</span>-->
     </div>
+
+    <p v-for="item in sizes" class="sizes" @click="choseSize(item)" :class="{ checked: item.checked }">
+      <mt-cell :title="item.name"></mt-cell>
+    </p>
+
+    <div class="btn btnConfirmSize" @click="confirmSize">完成</div>
     
   </div>
 
@@ -98,8 +108,15 @@
       <h2 class="title">
         颜色
       </h2>
-      <!--<span class="clearAll">CLEAR 清除</span>-->
+
+      <span class="chouseAll" @click="chouseAll">ALL</span>
     </div>
+
+    <p v-for="(item,i) in colors" class="colors" @click="choseColors(item, i)" :class="{ checked: item.checked }">
+      <mt-cell :title="item.color"></mt-cell>
+    </p>
+
+    <div class="btn btnConfirmColor" @click="confirmColor">完成</div>
     
   </div>
 
@@ -123,8 +140,20 @@
 
 <style media="screen" scoped>
 
+  .chouseAll{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: .4rem;
+    font-weight: bold;
+    font-size: .4rem;
+  }
   .filterBrand{
     margin-bottom: 1.5rem;
+  }
+
+  .filterSize .sizes{
+    /*text-align: left;*/
   }
 
   .btnConfirmBrand{
@@ -141,6 +170,7 @@
     border-left: 0 none;
     position: relative;
   }
+
 
   .filterItem{
     border-bottom: 1px solid #d7d7d5;
@@ -169,7 +199,7 @@
     background-image: url(../assets/img/recomend/close01@3x.png);
   }
 
-  .btnConfirmFilter{
+  .btnConfirmFilter, .btnConfirmSize, .btnConfirmColor{
     position: absolute;
     bottom: .4rem;
     width: 90%;
@@ -286,8 +316,8 @@
 </style>
 
 <script lang="babel">
-
-  import { Toast } from 'mint-ui'
+  import Vue from 'vue'
+  import { Toast, IndexList, IndexSection, Cell, Indicator } from 'mint-ui'
   import footBar from '../components/footBar.vue'
   import commonNav from '../components/commonNav.vue'
   import loadMore from '../components/loadmore.vue'
@@ -295,14 +325,17 @@
   import priceRange from '../components/priceRange.vue'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
-  import testData from '../router/test.js'
+
+  Vue.component(Cell.name, Cell);
+  Vue.component(IndexList.name, IndexList);
+  Vue.component(IndexSection.name, IndexSection);
 
   //console.log(testData);
 
   export default {
     data(){
       return {
-        content: 'filterBrand',
+        content: 'content',
         bLoadData: true,
         loading: false,
         products: [],
@@ -314,7 +347,9 @@
           order: 'DESC', // ASC 
           sort: 'pd.name' //  p.price  p.rating
         },
-        brands: {}
+        brands: {},
+        sizes: [],
+        colors: []
       }
     },
     created(){
@@ -325,7 +360,7 @@
         me.loading = false;
         me.products = res.results;
         me.total = res.total;
-        console.log(res);
+        //console.log(res);
       })
 
       // 下拉加载更多
@@ -348,11 +383,6 @@
         }
 
       }
-
-      // 
-      me.handleBrandData({});
-      
-
 
     },
     components: {
@@ -412,23 +442,25 @@
       },
       fetchFilterData(data, cb){
         var me = this;
-        data.route = 'route=mapi/option_filter';
+        //data.route = 'route=mapi/option_filter';
         data.format = 'jsonp';
         this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
+          window.q.interfaceHost +'index.php?route=mapi/option_filter',
           {params: data})
         .then(res => {
           //console.log(res)
           let data = res.body;
-          console.log(data.data)
-          if(data.data.list){
+          //console.log(data.data)
+          if(data.data){
             cb && cb(data.data);
           }else{
             Toast('暂无数据, 请稍后刷新页面...')
           }
+          Indicator.close();
         }, err => {
+          Indicator.close();
           Toast('网络错误, 请稍后刷新页面...');
-          console.log(err)
+          console.log(err);
         })
         
       },
@@ -471,6 +503,27 @@
       fnFilter(){
         
       },
+      filterLimit(){
+        const me = this;
+
+        Indicator.open({
+          text: '加载中...',
+          spinnerType: 'fading-circle'
+        });
+
+        setTimeout(function(){
+          Indicator.close();
+        }, 20000)
+
+        me.content = 'filterLimit';
+        me.fetchFilterData({
+          category_id: me.$route.query.id
+        }, res => {
+          me.handleBrandData(res.manufacturers);
+          me.handleSizeData(res.size);
+          me.handleColorData(res.color);
+        });
+      },
       filterByType(type){
         var me = this;
         switch(type){
@@ -492,10 +545,10 @@
       handleBrandData(data){
         let oRes = {};
         const aBrandKey = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-        let brands = testData.data.manufacturers;
+        //let brands = testData.data.manufacturers;
+        let brands = data;
         let filterBrand = store.get('filterBrand');
         
-
         for(let i=0;i<brands.length;i++){
           brands[i].checked = false;
           if(filterBrand && filterBrand.length){
@@ -534,10 +587,8 @@
 
         me.brands[key][i] = data;
 
-        // `强制刷新 vue的坑`
-        var old = me.brands['Z'];
-        me.brands['Z'] = [];
-        me.brands['Z'] = old;
+        // `强制刷新`
+        me.forceUpdate();
 
         if(filterBrand && filterBrand.length){
           //console.log('has data');
@@ -559,7 +610,110 @@
         }
       },
       clearAllBrand(){
+        const me = this;
         store.set('filterBrand', []);
+
+        for(let k in me.brands){
+          for(let i=0;i<me.brands[k].length;i++){
+            me.brands[k][i].checked = false;
+          }
+        }
+        me.forceUpdate();
+        
+      },
+      confirmBrand(){
+
+      },
+      handleSizeData(size){
+        const filterSize = store.get('filterSize');
+        size.forEach(item => {
+          if(filterSize && (item.option_value_id === filterSize.option_value_id)){
+            item.checked = true;
+          }else{
+            item.checked = false;
+          }
+        })
+        this.sizes = size;
+      },
+      choseSize(item){
+        console.log(item.name)
+        console.log(item.option_value_id)
+        this.sizes.forEach(item => {
+          item.checked = false;
+        })
+        item.checked = !item.checked;
+        store.set('filterSize', item);
+
+      },
+      confirmSize(){},
+      handleColorData(colors){
+        console.log(colors)
+        const filterColor = store.get('filterColor');
+
+        // colors.forEach(item => {
+        //   // if(filterColor && (item.product_id === filterColor.product_id)){
+        //   //   item.checked = true;
+        //   // }else{
+        //   //   item.checked = false;
+        //   // }
+        //   item.checked = false;
+        // }) 
+        //cons
+        for(let i=0;i<colors.length;i++){
+          colors[i].checked = false;
+          if(filterColor && filterColor.length){
+            for(let j=0;j<filterColor.length;j++){
+              if(filterColor[j].product_id === colors[i].product_id){
+                colors[i].checked = true;
+              }
+            }
+          }
+        }
+
+        
+        this.colors = colors;
+        
+      },
+      choseColors(item, i){
+        let filterColor = store.get('filterColor');
+
+        item.checked = !item.checked;
+        this.colors[i] = item;
+
+        if(filterColor && filterColor.length){
+          //console.log('has data');
+          for(var i=0;i<filterColor.length;i++){
+            if(item.product_id === filterColor[i].product_id){
+              //return true;
+              //console.log('del', i);
+              filterColor.splice(i, 1);
+              store.set('filterColor', filterColor);
+              return;
+            }
+          }
+          //console.log('push');
+          
+          filterColor.push(item);
+          store.set('filterColor', filterColor);
+        }else{
+          //console.log('no data');
+          //item.checked = !item.checked;
+          store.set('filterColor', [item]);
+        }
+        
+      },
+      confirmColor(){},
+      chouseAll(){
+        this.colors.forEach(item => {
+          item.checked = true;
+        })
+        store.set('filterColor', this.colors);
+      },
+      forceUpdate(){
+        const me = this; 
+        const old = me.brands['Z'];
+        me.brands['Z'] = [];
+        me.brands['Z'] = old;
       }
     },
     mounted() {

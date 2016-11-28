@@ -74,6 +74,7 @@
 
   .priceRange .money{
     text-align: center;
+    font-size: .45rem;
   }
 
   .btnConfirmPrice{

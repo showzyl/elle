@@ -3,7 +3,6 @@
 // }
 'use strict'
 
-import core from './q.core.js'
 
 let util = {}
 
