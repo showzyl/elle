@@ -13,7 +13,7 @@
 
     <div slot="money" class="money">￥{{rangeValue}}</div>
 
-    <div class="btn btnConfirmPrice" @click="">完成</div>
+    <div class="btn btnConfirmPrice" @click="confirmPrice(rangeValue)">完成</div>
     
   </div>
 </template>
@@ -90,6 +90,11 @@
   import { TabContainer, TabContainerItem, Range } from 'mint-ui'
   Vue.component(Range.name, Range);
   export default {
+    props: {
+      confirmPrice: {
+        type: Function
+      }
+    },
     data() {
       return {
         rangeValue: 0

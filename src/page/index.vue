@@ -244,8 +244,8 @@
         const me = this;
         me.active = 'tab-container' + tabNum;
 
-        setTimeout(function(){
-           window.scrollTo(0, me['scrollTop' + tabNum]);
+        setTimeout( () => {
+          window.scrollTo(0, me['scrollTop' + tabNum]);
         }, 200)
        
       },
@@ -260,10 +260,8 @@
       loadmoreData(n){
         const me = this;
         //console.log(n)
-        setTimeout(function(){
-          // console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
-          // console.log(util.scrollFunc())
-          // console.log(me['bLoadData'+n])
+        
+        setTimeout( () => {
           if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
             if (util.scrollFunc() == 'down' && me['bLoadData'+n]) {
               //console.log(13)
@@ -283,7 +281,7 @@
             }
           }
         }, 210)
-        
+
       }
     },
     mounted() {

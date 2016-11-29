@@ -14,7 +14,7 @@
       <div class="tabborder"></div>
     </ul>
 
-    <p class="total">{{total}} 件商品</p>
+    <p class="total">{{total || 0}} 件商品</p>
 
     <recomendItem :products="products"></recomenditem>
 
@@ -41,15 +41,29 @@
     <ul class="filterList">
       <li class="filterItem" @click="filterByType(0)">
         <span class="name">品牌</span>
-        <span class="chose">ALL</span>
+        <p class="filterBrandList" v-if="filterCondition[0]">
+          <span class="chose" v-if="filterBrand.length>2">
+            {{filterBrand[0].name}} & {{filterBrand[1].name}}...
+          </span>
+          <span class="chose" v-else>{{filterBrand[0].name}}</span>
+        </p>
+        <span class="chose" v-else>ALL</span>
       </li>
       <li class="filterItem" @click="filterByType(1)">
         <span class="name">尺寸</span>
-        <span class="chose">ALL</span>
+        <span class="chose" v-if="filterCondition[1]">{{filterSize.name}}</span>
+        <span class="chose" v-else>ALL</span>
       </li>
       <li class="filterItem" @click="filterByType(2)">
         <span class="name">颜色</span>
-        <span class="chose">ALL</span>
+         <p class="filterColorList" v-if="filterCondition[2]">
+          <span class="chose" v-if="filterColor.length>2">
+            {{filterColor[0].color}} & {{filterColor[1].color}}...
+          </span>
+          <span class="chose" v-else>{{filterColor[0].name}}</span>
+        </p>
+        <span class="chose" v-else>ALL</span>
+        
       </li>
       <li class="filterItem" @click="filterByType(3)">
         <span class="name">价格</span>
@@ -128,7 +142,7 @@
       </h2>
     </div>
 
-    <priceRange />
+    <priceRange :confirmPrice="confirmPrice" :rangeValue="price"/>
     
   </div>
 
@@ -140,6 +154,15 @@
 
 <style media="screen" scoped>
 
+  .filterBrandList, .filterColorList{
+    width: 50%;
+    float: right;
+    overflow: hidden;
+    height: .4rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .chouseAll{
     position: absolute;
     right: 0;
@@ -148,6 +171,7 @@
     font-weight: bold;
     font-size: .4rem;
   }
+
   .filterBrand{
     margin-bottom: 1.5rem;
   }
@@ -200,7 +224,7 @@
   }
 
   .btnConfirmFilter, .btnConfirmSize, .btnConfirmColor{
-    position: absolute;
+    position: fixed;
     bottom: .4rem;
     width: 90%;
     left: 5%;
@@ -330,7 +354,6 @@
   Vue.component(IndexList.name, IndexList);
   Vue.component(IndexSection.name, IndexSection);
 
-  //console.log(testData);
 
   export default {
     data(){
@@ -349,7 +372,13 @@
         },
         brands: {},
         sizes: [],
-        colors: []
+        colors: [],
+        price: 0,
+        filterCondition: [false, false, false, false],
+        filterBrand: [],
+        filterSize:{},
+        filterColor: [],
+        filterPrice: ''
       }
     },
     created(){
@@ -360,7 +389,6 @@
         me.loading = false;
         me.products = res.results;
         me.total = res.total;
-        //console.log(res);
       })
 
       // 下拉加载更多
@@ -522,6 +550,8 @@
           me.handleBrandData(res.manufacturers);
           me.handleSizeData(res.size);
           me.handleColorData(res.color);
+          let filterCondition = [false, false, false, false];
+          store.set('filterCondition', filterCondition);
         });
       },
       filterByType(type){
@@ -598,15 +628,21 @@
               //console.log('del', i);
               filterBrand.splice(i, 1);
               store.set('filterBrand', filterBrand);
+              me.filterBrand = filterBrand;
+              console.log(me.filterBrand);
               return;
             }
           }
           //console.log('push');
           filterBrand.push(data);
           store.set('filterBrand', filterBrand);
+          me.filterBrand = filterBrand;
+          console.log(me.filterBrand);
         }else{
           //console.log('no data');
           store.set('filterBrand', [data]);
+          me.filterBrand = [data];
+          console.log(me.filterBrand);
         }
       },
       clearAllBrand(){
@@ -622,7 +658,7 @@
         
       },
       confirmBrand(){
-
+        this.filterCondition(0, 'filterBrand');
       },
       handleSizeData(size){
         const filterSize = store.get('filterSize');
@@ -643,9 +679,11 @@
         })
         item.checked = !item.checked;
         store.set('filterSize', item);
-
+        this.filterSize = item;
       },
-      confirmSize(){},
+      confirmSize(){
+        this.filterCondition(1, 'filterSize');
+      },
       handleColorData(colors){
         console.log(colors)
         const filterColor = store.get('filterColor');
@@ -675,6 +713,7 @@
         
       },
       choseColors(item, i){
+        const me = this;
         let filterColor = store.get('filterColor');
 
         item.checked = !item.checked;
@@ -688,6 +727,7 @@
               //console.log('del', i);
               filterColor.splice(i, 1);
               store.set('filterColor', filterColor);
+              me.filterColor = filterColor;
               return;
             }
           }
@@ -695,19 +735,39 @@
           
           filterColor.push(item);
           store.set('filterColor', filterColor);
+          me.filterColor = filterColor;
         }else{
           //console.log('no data');
           //item.checked = !item.checked;
           store.set('filterColor', [item]);
+          me.filterColor = [item];
         }
         
       },
-      confirmColor(){},
+      confirmColor(){
+        this.filterCondition(2, 'filterColor');
+      },
+      confirmPrice(price){
+        console.log(price);
+        
+        //this.filterCondition(3, 'filterPrice');
+      },
       chouseAll(){
         this.colors.forEach(item => {
           item.checked = true;
         })
         store.set('filterColor', this.colors);
+      },
+      filterCondition(i, condition){
+        console.log(i, condition);
+        let filter = store.get(condition);
+        let filterCondition = store.get('filterCondition');
+        if((condition === 'filterSize') || filter.length){
+          filterCondition[i] = true;
+          this.filterCondition[i] = true;
+          store.set('filterCondition', filterCondition);
+        }
+        this.content = 'filterLimit';
       },
       forceUpdate(){
         const me = this; 
