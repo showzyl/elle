@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar" >
     <div class="logo">
-      <img src="" alt="" class="logoImg" />
+      <div class="logoImg"></div>
+      <!--<img src="../assets/img/bg_side_elleshop.png" alt="" class="logoImg" />-->
     </div>
 
     <ul class="tabUl">
@@ -60,16 +61,16 @@
     z-index: 2147483647;
     background-color: #fff;    
   }
-  .logo{
-    height: 2.5rem;
-    /*line-height: 2.5rem;*/
-    text-align: center;
-  }
+
   .logoImg{
-    width: 5rem;
+    width: 3rem;
     height: 1rem;
-    margin-top: .8rem;
+    margin: .8rem auto;
+    height: .6rem;
+    background-image: url(../assets/img/bg_side_elleshop.png);
+    background-size: cover;
   }
+  
   .tabUl{
     margin-bottom: .2rem;
     font-size: .4rem;

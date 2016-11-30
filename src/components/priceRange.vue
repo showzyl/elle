@@ -79,8 +79,8 @@
 
   .btnConfirmPrice{
     position: fixed;
-    width: 90%;
-    bottom: .5rem;
+    bottom: 0;
+    margin: 0 -.5rem;
   }
 
 </style>

@@ -24,7 +24,7 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems0">
-              <a :href="item.clickUrl">
+              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
                 <div class="shopImg">
                   <img :src="item.app_image" alt="">
                 </div>
@@ -36,20 +36,24 @@
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems1">
-              <div class="shopImg">
-                <img :src="item.app_image" alt="">
-              </div>
-              <h3 class="tit">{{item.category_name}}</h3>
+              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
+                <div class="shopImg">
+                  <img :src="item.app_image" alt="">
+                </div>
+                <h3 class="tit">{{item.category_name}}</h3>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems2">
-              <div class="shopImg">
-                <img :src="item.app_image" alt="">
-              </div>
-              <h3 class="tit">{{item.category_name}}</h3>
+              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
+                <div class="shopImg">
+                  <img :src="item.app_image" alt="">
+                </div>
+                <h3 class="tit">{{item.category_name}}</h3>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>
@@ -268,9 +272,6 @@
 </style>
 
 <script lang="babel">
-//import commonNav from '../components/commonNav.vue'
-// import core from '../assets/lib/q.core.js'
-// import store from '../assets/lib/q.store.js'
   import { Toast, Indicator } from 'mint-ui'
   import footBar from '../components/footBar.vue'
   import util from '../assets/lib/q.util.js'
@@ -306,10 +307,6 @@
       })
       
       me.fetchCategoryData({}, function(res){
-        // console.log(res.list);
-        res.list[0].subcategories.forEach(item => {
-          item.clickUrl = '/#/filter?name=' + item.category_name + '&id=' + item.category_id;
-        });
         me.categoryItems0 = res.list[0].subcategories;
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;
@@ -367,6 +364,7 @@
           }
         }, err => {
           console.log(err)
+          Toast('网络错误...')
         })
 
       }

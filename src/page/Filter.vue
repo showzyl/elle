@@ -32,7 +32,7 @@
 
   <div class="filterLimit" v-show="content === 'filterLimit'">
     <div class="filterNav">
-      <i class="closebtnBlack" @click="content = 'content'"></i>
+      <i class="closebtnBlack" @click="clearfilterCondition"></i>
       <h2 class="title">
         筛选
       </h2>
@@ -42,7 +42,7 @@
       <li class="filterItem" @click="filterByType(0)">
         <span class="name">品牌</span>
         <p class="filterBrandList" v-if="filterCondition[0]">
-          <span class="chose" v-if="filterBrand.length>2">
+          <span class="chose" v-if="filterBrand.length>1">
             {{filterBrand[0].name}} & {{filterBrand[1].name}}...
           </span>
           <span class="chose" v-else>{{filterBrand[0].name}}</span>
@@ -57,21 +57,22 @@
       <li class="filterItem" @click="filterByType(2)">
         <span class="name">颜色</span>
          <p class="filterColorList" v-if="filterCondition[2]">
-          <span class="chose" v-if="filterColor.length>2">
+          <span class="chose" v-if="filterColor.length>1">
             {{filterColor[0].color}} & {{filterColor[1].color}}...
           </span>
-          <span class="chose" v-else>{{filterColor[0].name}}</span>
+          <span class="chose" v-else>{{filterColor[0].color}}</span>
         </p>
         <span class="chose" v-else>ALL</span>
         
       </li>
       <li class="filterItem" @click="filterByType(3)">
         <span class="name">价格</span>
-        <span class="chose">ALL</span>
+        <span class="chose" v-if="filterCondition[3]">{{filterPrice}}</span>
+        <span class="chose" v-else>ALL</span>
       </li>
     </ul>
 
-    <div class="btn btnConfirmFilter">完成</div>
+    <div class="btn btnConfirmFilter" @click="filterAll">完成</div>
     
   </div>
 
@@ -225,9 +226,8 @@
 
   .btnConfirmFilter, .btnConfirmSize, .btnConfirmColor{
     position: fixed;
-    bottom: .4rem;
-    width: 90%;
-    left: 5%;
+    bottom: 0;
+    width: 100%;
   }
 
   .iconBack{
@@ -492,6 +492,32 @@
         })
         
       },
+      fetchProductData(data, cb){
+        var me = this;
+        //data.route = 'route=mapi/product_category';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?route=mapi/product_category',
+          {params: data})
+        .then(res => {
+          //console.log(res)
+          let data = res.body;
+          console.log(data.data)
+          if(data.code+'' === '0' && data.data.results.length){
+            cb && cb(data.data);
+          }else{
+            cb && cb('err');
+            Toast('暂无数据, 请稍后刷新页面...')
+          }
+          Indicator.close();
+        }, err => {
+          Toast('网络错误, 请稍后刷新页面...');
+          cb && cb('err');
+          Indicator.close();
+          console.log(err);
+        })
+        
+      },
       fnOrder(type){
         const me = this;
         switch(type){
@@ -528,8 +554,58 @@
           me.total = res.total;
         })
       },
-      fnFilter(){
-        
+      clearfilterCondition(){
+        this.content = 'content';
+        this.filterCondition = [false, false, false, false];
+        store.set('filterCondition', this.filterCondition);
+      },
+      filterAll(){
+        const me = this;
+        // 提交过滤条件
+        let filterCondition = store.get('filterCondition');
+        let params = {};
+        if(filterCondition[0]){
+          let aTmp = [];
+          let filterBrand = store.get('filterBrand');
+          filterBrand.forEach(item => {
+            aTmp.push(item.manufacturer_id)
+          })
+          params.brand_id = aTmp.join(',');
+        }
+
+        if(filterCondition[1]){
+          let filterSize = store.get('filterSize');
+          params.size_id = filterSize.option_value_id;
+        }
+
+        if(filterCondition[2]){
+          let aTmp = [];
+          let filterColor = store.get('filterColor');
+          filterColor.forEach(item => {
+            aTmp.push(item.product_id)
+          })
+          params.color_id = aTmp.join(',');
+        }
+
+        if(filterCondition[3]){
+          let filterPrice = store.get('filterPrice');
+          params.minPrice = filterPrice;
+        }
+
+        //console.log(params);
+
+        this.fetchProductData(params, res => {
+          console.log(res)          
+          if(res === 'err'){
+            me.products = [];
+            me.total = 0;
+          }else{
+            me.products = res.results;
+            me.total = res.total;
+          }
+          me.bLoadData = false;
+        })
+        this.content = 'content'
       },
       filterLimit(){
         const me = this;
@@ -628,21 +704,15 @@
               //console.log('del', i);
               filterBrand.splice(i, 1);
               store.set('filterBrand', filterBrand);
-              me.filterBrand = filterBrand;
-              console.log(me.filterBrand);
               return;
             }
           }
           //console.log('push');
           filterBrand.push(data);
           store.set('filterBrand', filterBrand);
-          me.filterBrand = filterBrand;
-          console.log(me.filterBrand);
         }else{
           //console.log('no data');
           store.set('filterBrand', [data]);
-          me.filterBrand = [data];
-          console.log(me.filterBrand);
         }
       },
       clearAllBrand(){
@@ -654,11 +724,12 @@
             me.brands[k][i].checked = false;
           }
         }
+        me.filterCondition[0] = false;
         me.forceUpdate();
         
       },
       confirmBrand(){
-        this.filterCondition(0, 'filterBrand');
+        this.filterConfirm(0, 'filterBrand');
       },
       handleSizeData(size){
         const filterSize = store.get('filterSize');
@@ -682,7 +753,7 @@
         this.filterSize = item;
       },
       confirmSize(){
-        this.filterCondition(1, 'filterSize');
+        this.filterConfirm(1, 'filterSize');
       },
       handleColorData(colors){
         console.log(colors)
@@ -745,11 +816,20 @@
         
       },
       confirmColor(){
-        this.filterCondition(2, 'filterColor');
+        this.filterConfirm(2, 'filterColor');
       },
       confirmPrice(price){
         console.log(price);
-        
+        let filterPrice = store.get('filterPrice') || 0;
+        this.filterPrice = price;
+        store.set('filterPrice', price);
+
+        let filterCondition = store.get('filterCondition');
+        this.filterCondition[3] = true;
+        filterCondition[3] = true;
+        store.set('filterCondition', filterCondition);
+
+        this.content = 'filterLimit';
         //this.filterCondition(3, 'filterPrice');
       },
       chouseAll(){
@@ -758,16 +838,24 @@
         })
         store.set('filterColor', this.colors);
       },
-      filterCondition(i, condition){
+      filterConfirm(i, condition){
         console.log(i, condition);
+        const me = this;
         let filter = store.get(condition);
         let filterCondition = store.get('filterCondition');
+        console.log(filter, filterCondition)
         if((condition === 'filterSize') || filter.length){
+          console.log('in')
           filterCondition[i] = true;
-          this.filterCondition[i] = true;
+          console.log(filterCondition)
+          me.filterCondition[i] = true;
+          console.log('here')
           store.set('filterCondition', filterCondition);
         }
-        this.content = 'filterLimit';
+        console.log(filter);
+        me[condition] = filter;
+        console.log(condition, me.condition)
+        me.content = 'filterLimit'    
       },
       forceUpdate(){
         const me = this; 

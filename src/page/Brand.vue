@@ -12,6 +12,9 @@
           <span class="count">{{info.wishcount}}</span>
         </div>
       </div>
+
+      <recomendItem :products="products" />
+
     </div>
 
     <div class="content1" v-else>
@@ -59,6 +62,7 @@
     top: 1.5rem;
     opacity: .2;
     z-index: 2;
+    height: 153px;
   }
 
   .brand .brandBox{
@@ -164,12 +168,19 @@
     margin-bottom: 1.5rem;
   }
 
+  .content0 .recommendList{
+    padding: 0 0 1.5rem 0;
+  }
+
 
 </style>
 <script lang="babel">
   // import Vue from 'vue'
   import commonNav from '../components/commonNav.vue'
+  import recomendItem from '../components/recommendItem.vue'
   import { Toast } from 'mint-ui'
+  import util from '../assets/lib/q.util.js'
+  
 
   // Vue.component(Swipe.name, Swipe);
   // Vue.component(SwipeItem.name, SwipeItem);
@@ -180,26 +191,65 @@
     data() {
       return {
         info: {},
+        products: [],
         headImage: null,
-        tab: 'tab1'
+        tab: 'tab0',
+        bLoadData: true,
+        pageNo: 1
       }
     },
     created(){
       const me = this;
+
       me.fetchData({
         manufacturer_id: me.$route.params.id, // 商品ID
         customer_id: '' // 用户ID
       }, function(res){
-        console.log(res);
+        //console.log(res);
         var reg = /\s/gi;
         if( reg.test(res.head_image) ){
           res.head_image = res.head_image.replace(reg, '%20')
         }
         me.info = res;
       });
+
+      me.fetchProductData({
+        manufacturer_id: me.$route.params.id,
+        page_id: me.pageNo
+      }, res => {
+        console.log(res);
+        me.products = me.products.concat(res);
+      })
+
+      window.onscroll = function(e){
+        if( !(/brand/.test(me.$route.path)) ) return;
+        if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
+          if (util.scrollFunc() == 'down' && me['bLoadData']) {
+            // 下拉
+            me['bLoadData'] = false;
+            me.pageNo++;
+
+            me.fetchProductData({
+              manufacturer_id: me.$route.params.id,
+              page_id: me.pageNo
+            }, res => {
+              me['bLoadData'] = true;
+              me.products = me.products.concat(res);
+            })
+            
+          }
+        }
+      }
+
+      
+      
+      
+      
+
     },
     components: {
-      commonNav
+      commonNav,
+      recomendItem
     },
     computed: {
 
@@ -225,6 +275,27 @@
         }, err => {
           console.log(err)
         })
+      },
+      fetchProductData(data, cb){
+        var me = this;
+        // console.log(me.$route.params.id)
+        // manufacturer/products
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?route=mapi/manufacturer/products',
+          {params: data})
+        .then(res => {
+          let data = res.body;
+          console.log(data);
+          if(data.data.product_list.length){
+            cb && cb(data.data.product_list);
+          } else {
+            Toast('暂无数据, 请稍后刷新页面...')
+          }
+        }, err => {
+          Toast('网络错误...')
+        })
+
       },
       clickBuy(){
         console.log(buyData);

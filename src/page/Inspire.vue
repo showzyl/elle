@@ -15,7 +15,7 @@
       <mt-tab-container-item id="tab-container0" v-for="tab in tabs">
         <ul>
           <li v-for="item in items0" :key="item.id" v-if="items0">
-            <a :href="item.clickUrl">
+            <a :href="'/#/inspire/'+item.event_id">
             <img :src="item.app_image" alt="">
             </a>
           </li>
@@ -149,11 +149,7 @@ export default {
       me.fetchData({
         event_type_id: item
       }, res => {
-        res.forEach(item => {
-          item.clickUrl = '/#/inspire/'+item.event_id
-        })
         me['items'+item] = me['items'+item].concat(res);
-        //console.log( me['items'+i] )
       })
     });
     
