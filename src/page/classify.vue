@@ -74,43 +74,48 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
-
-              <img :src="item.app_image" alt="">
-              <h3 class="title">{{item.name}}</h3>
-              <div class="desiger">{{item.desiger}}</div>
-              <div class="collectTime" :class="{ on: item.iswish }">
-                <span class="loveIcon"></span>
-                <span class="count">{{item.wishcount}}</span>
-              </div>
-              <div class="brandItemBg"></div>
+              <a :href="'/#/brand/' + item.manufacturer_id">
+                <img :src="item.app_image" alt="">
+                <h3 class="title">{{item.name}}</h3>
+                <div class="desiger">{{item.desiger}}</div>
+                <div class="collectTime" :class="{ on: item.iswish }">
+                  <span class="loveIcon"></span>
+                  <span class="count">{{item.wishcount}}</span>
+                </div>
+                <div class="brandItemBg"></div>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="brandList">
             <li v-for="item in brandItems1" class="brandItem">
-              <img :src="item.app_image" alt="">
-              <h3 class="title">{{item.name}}</h3>
-              <div class="desiger">{{item.desiger}}</div>
-              <div class="collectTime" :class="{ on: item.iswish }">
-                <span class="loveIcon"></span>
-                <span class="count">{{item.wishcount}}</span>
-              </div>
-              <div class="brandItemBg"></div>
+              <a :href="'/#/brand/' + item.manufacturer_id">
+                <img :src="item.app_image" alt="">
+                <h3 class="title">{{item.name}}</h3>
+                <div class="desiger">{{item.desiger}}</div>
+                <div class="collectTime" :class="{ on: item.iswish }">
+                  <span class="loveIcon"></span>
+                  <span class="count">{{item.wishcount}}</span>
+                </div>
+                <div class="brandItemBg"></div>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="brandList">
             <li v-for="item in brandItems2" class="brandItem">
-              <img :src="item.app_image" alt="">
-              <h3 class="title">{{item.name}}</h3>
-              <div class="desiger">{{item.desiger}}</div>
-              <div class="collectTime" :class="{ on: item.iswish }">
-                <span class="loveIcon"></span>
-                <span class="count">{{item.wishcount}}</span>
-              </div>
-              <div class="brandItemBg"></div>
+              <a :href="'/#/brand/' + item.manufacturer_id">
+                <img :src="item.app_image" alt="">
+                <h3 class="title">{{item.name}}</h3>
+                <div class="desiger">{{item.desiger}}</div>
+                <div class="collectTime" :class="{ on: item.iswish }">
+                  <span class="loveIcon"></span>
+                  <span class="count">{{item.wishcount}}</span>
+                </div>
+                <div class="brandItemBg"></div>
+              </a>
             </li>
           </ul>
         </mt-tab-container-item>

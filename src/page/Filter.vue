@@ -405,7 +405,7 @@
               me.loading = false;
               me.products = me.products.concat(res.results);
               //me.total = res.total;
-              console.log(res);
+              //console.log(res);
             })
           }
         }
@@ -435,14 +435,14 @@
           {params: data})
         .then(res => {
           let data = res.body;
-          //console.log(data)
+          ////console.log(data)
           if(data.code+'' === '0' && data.data.results.length){
             cb && cb(data.data);
           }else{
             Toast('暂无数据, 请稍后刷新页面...')
           }
         }, err => {
-          console.log(err)
+          //console.log(err)
           Toast('网络错误...')
         })
 
@@ -455,16 +455,16 @@
           window.q.interfaceHost +'index.php?',
           {params: data})
         .then(res => {
-          //console.log(res)
+          ////console.log(res)
           let data = res.body;
-          console.log(data.data)
+          //console.log(data.data)
           if(data.data.list){
             cb && cb(data.data);
           }else{
             Toast('暂无数据, 请稍后刷新页面...')
           }
         }, err => {
-          console.log(err)
+          //console.log(err)
         })
 
       },
@@ -476,9 +476,9 @@
           window.q.interfaceHost +'index.php?route=mapi/option_filter',
           {params: data})
         .then(res => {
-          //console.log(res)
+          ////console.log(res)
           let data = res.body;
-          //console.log(data.data)
+          ////console.log(data.data)
           if(data.data){
             cb && cb(data.data);
           }else{
@@ -488,7 +488,7 @@
         }, err => {
           Indicator.close();
           Toast('网络错误, 请稍后刷新页面...');
-          console.log(err);
+          //console.log(err);
         })
         
       },
@@ -500,9 +500,9 @@
           window.q.interfaceHost +'index.php?route=mapi/product_category',
           {params: data})
         .then(res => {
-          //console.log(res)
+          ////console.log(res)
           let data = res.body;
-          console.log(data.data)
+          //console.log(data.data)
           if(data.code+'' === '0' && data.data.results.length){
             cb && cb(data.data);
           }else{
@@ -514,7 +514,7 @@
           Toast('网络错误, 请稍后刷新页面...');
           cb && cb('err');
           Indicator.close();
-          console.log(err);
+          //console.log(err);
         })
         
       },
@@ -592,10 +592,10 @@
           params.minPrice = filterPrice;
         }
 
-        //console.log(params);
+        ////console.log(params);
 
         this.fetchProductData(params, res => {
-          console.log(res)          
+          //console.log(res)          
           if(res === 'err'){
             me.products = [];
             me.total = 0;
@@ -682,8 +682,8 @@
       },
       choseBrand(brand, i, key){
         const me = this;
-        console.log(i);
-        //console.log(brand.manufacturer_id, brand.name)
+        //console.log(i);
+        ////console.log(brand.manufacturer_id, brand.name)
         const data = {
           manufacturer_id: brand.manufacturer_id,
           name: brand.name,
@@ -697,21 +697,21 @@
         me.forceUpdate();
 
         if(filterBrand && filterBrand.length){
-          //console.log('has data');
+          ////console.log('has data');
           for(var i=0;i<filterBrand.length;i++){
             if(data.manufacturer_id === filterBrand[i].manufacturer_id){
               //return true;
-              //console.log('del', i);
+              ////console.log('del', i);
               filterBrand.splice(i, 1);
               store.set('filterBrand', filterBrand);
               return;
             }
           }
-          //console.log('push');
+          ////console.log('push');
           filterBrand.push(data);
           store.set('filterBrand', filterBrand);
         }else{
-          //console.log('no data');
+          ////console.log('no data');
           store.set('filterBrand', [data]);
         }
       },
@@ -743,8 +743,8 @@
         this.sizes = size;
       },
       choseSize(item){
-        console.log(item.name)
-        console.log(item.option_value_id)
+        //console.log(item.name)
+        //console.log(item.option_value_id)
         this.sizes.forEach(item => {
           item.checked = false;
         })
@@ -756,7 +756,7 @@
         this.filterConfirm(1, 'filterSize');
       },
       handleColorData(colors){
-        console.log(colors)
+        //console.log(colors)
         const filterColor = store.get('filterColor');
 
         // colors.forEach(item => {
@@ -791,24 +791,24 @@
         this.colors[i] = item;
 
         if(filterColor && filterColor.length){
-          //console.log('has data');
+          ////console.log('has data');
           for(var i=0;i<filterColor.length;i++){
             if(item.product_id === filterColor[i].product_id){
               //return true;
-              //console.log('del', i);
+              ////console.log('del', i);
               filterColor.splice(i, 1);
               store.set('filterColor', filterColor);
               me.filterColor = filterColor;
               return;
             }
           }
-          //console.log('push');
+          ////console.log('push');
           
           filterColor.push(item);
           store.set('filterColor', filterColor);
           me.filterColor = filterColor;
         }else{
-          //console.log('no data');
+          ////console.log('no data');
           //item.checked = !item.checked;
           store.set('filterColor', [item]);
           me.filterColor = [item];
@@ -819,7 +819,7 @@
         this.filterConfirm(2, 'filterColor');
       },
       confirmPrice(price){
-        console.log(price);
+        //console.log(price);
         let filterPrice = store.get('filterPrice') || 0;
         this.filterPrice = price;
         store.set('filterPrice', price);
@@ -839,22 +839,22 @@
         store.set('filterColor', this.colors);
       },
       filterConfirm(i, condition){
-        console.log(i, condition);
+        //console.log(i, condition);
         const me = this;
         let filter = store.get(condition);
         let filterCondition = store.get('filterCondition');
-        console.log(filter, filterCondition)
+        //console.log(filter, filterCondition)
         if((condition === 'filterSize') || filter.length){
-          console.log('in')
+          //console.log('in')
           filterCondition[i] = true;
-          console.log(filterCondition)
+          //console.log(filterCondition)
           me.filterCondition[i] = true;
-          console.log('here')
+          //console.log('here')
           store.set('filterCondition', filterCondition);
         }
-        console.log(filter);
+        //console.log(filter);
         me[condition] = filter;
-        console.log(condition, me.condition)
+        //console.log(condition, me.condition)
         me.content = 'filterLimit'    
       },
       forceUpdate(){

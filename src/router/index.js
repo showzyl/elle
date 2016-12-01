@@ -2,6 +2,7 @@
 
 import Index from '../page/Index.vue'
 
+
 import Shopcar from '../page/Shopcar.vue'
 import Profile from '../page/Profile.vue'
 import Personal from '../page/Personal.vue'
