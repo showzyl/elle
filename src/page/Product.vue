@@ -50,21 +50,19 @@
 
   }
 
-  .product .swipe{
-    height: 500px;
+  .product .swipe, .product .mint-swipe, .product .mint-swipe-item{
+    height: 12rem;
   }
 
-  .product .mint-swipe{
-    height: 500px;
-  }
+ 
 
-  .product .mint-swipe-item{
+  /*.product .mint-swipe-item{
     height: 500px;
   }
 
   .mint-swipe-item img{
     height: 500px;
-  }
+  }*/
 
   .recomentList{
     display: -webkit-box;

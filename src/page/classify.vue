@@ -75,12 +75,14 @@
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
               <a :href="'/#/brand/' + item.manufacturer_id">
-                <img :src="item.app_image" alt="">
-                <h3 class="title">{{item.name}}</h3>
-                <div class="desiger">{{item.desiger}}</div>
-                <div class="collectTime" :class="{ on: item.iswish }">
-                  <span class="loveIcon"></span>
-                  <span class="count">{{item.wishcount}}</span>
+                <div class="brandContent">
+                  <img :src="item.app_image" alt="">
+                  <h3 class="title">{{item.name}}</h3>
+                  <div class="desiger">{{item.desiger}}</div>
+                  <div class="collectTime" :class="{ on: item.iswish }">
+                    <span class="loveIcon"></span>
+                    <span class="count">{{item.wishcount}}</span>
+                  </div>
                 </div>
                 <div class="brandItemBg"></div>
               </a>
@@ -91,12 +93,14 @@
           <ul class="brandList">
             <li v-for="item in brandItems1" class="brandItem">
               <a :href="'/#/brand/' + item.manufacturer_id">
-                <img :src="item.app_image" alt="">
-                <h3 class="title">{{item.name}}</h3>
-                <div class="desiger">{{item.desiger}}</div>
-                <div class="collectTime" :class="{ on: item.iswish }">
-                  <span class="loveIcon"></span>
-                  <span class="count">{{item.wishcount}}</span>
+                <div class="brandContent">
+                  <img :src="item.app_image" alt="">
+                  <h3 class="title">{{item.name}}</h3>
+                  <div class="desiger">{{item.desiger}}</div>
+                  <div class="collectTime" :class="{ on: item.iswish }">
+                    <span class="loveIcon"></span>
+                    <span class="count">{{item.wishcount}}</span>
+                  </div>
                 </div>
                 <div class="brandItemBg"></div>
               </a>
@@ -107,12 +111,14 @@
           <ul class="brandList">
             <li v-for="item in brandItems2" class="brandItem">
               <a :href="'/#/brand/' + item.manufacturer_id">
-                <img :src="item.app_image" alt="">
-                <h3 class="title">{{item.name}}</h3>
-                <div class="desiger">{{item.desiger}}</div>
-                <div class="collectTime" :class="{ on: item.iswish }">
-                  <span class="loveIcon"></span>
-                  <span class="count">{{item.wishcount}}</span>
+                <div class="brandContent">
+                  <img :src="item.app_image" alt="">
+                  <h3 class="title">{{item.name}}</h3>
+                  <div class="desiger">{{item.desiger}}</div>
+                  <div class="collectTime" :class="{ on: item.iswish }">
+                    <span class="loveIcon"></span>
+                    <span class="count">{{item.wishcount}}</span>
+                  </div>
                 </div>
                 <div class="brandItemBg"></div>
               </a>
@@ -212,6 +218,10 @@
     color: #fff;
   }
 
+  .brandContent .title, .brandContent .desiger{
+    color: #fff;
+  }
+
   .brandItem img{
     height: 196px;
   }
@@ -221,7 +231,7 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 200px;
+    height: 100%;
     background: #000000;
     opacity: .8;
   }

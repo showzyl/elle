@@ -1,6 +1,6 @@
 <template>
 <div class="login">
-  <commonNav title="登录"/>
+  <commonNav title="登录" iconRight="" />
   <ul class="inputGroup">
     <li class="inputBox">
       <input v-model.number="phone" name="phone" class="inputTxt" type="number" placeholder="手机号 / 邮箱" v-model.trim="phone">
@@ -19,7 +19,8 @@
   </div>
 
   <div class="regGroup">
-    <a href="#">忘记密码 </a> | <a href="#"> 注册</a>
+    <!--<a href="#">忘记密码 </a> | -->
+    <a href="/#/reg"> 注册</a>
   </div>
 
 
@@ -80,38 +81,43 @@ export default {
   created(){
     // login
     
-    
   },
   computed: {
 
   },
   methods: {
     fnLogin(data){
-      // alert(1)
-      // data.route = 'mapi/register'; // 注册
-      // data.route = 'mapi/register/tel'; // 验证码
-      
+
       data.route = 'mapi/login';
       data.format = 'jsonp';
-      
-      util.jsonp({
-        url : window.q.interfaceHost +'index.php',
-        data: data,
-        callback : function(res) {
-          if(res.code+'' === '0'){
-            // login success
-            
-            
-          }else{
-            // login error
-            Toast({
-              message: res.msg,
-              position: 'bottom',
-              duration: 3000
-            })
-          }
+
+      this.$http.jsonp(
+        window.q.interfaceHost +'index.php',
+        {
+          params: data
         }
-      }, 'callback')
+      ).then( res => {
+        let data = res.body;
+
+        console.log(data);
+        return;
+        if(data.code === 0){
+          cb && cb(data.data);
+        }else{
+          Toast({
+            message: '暂无数据...',
+            position: 'bottom',
+            duration: 3000
+          })
+        }
+        me.loading = false;
+        Indicator.close();
+      }, err => {
+        Indicator.close();
+        me.loading = false;
+        //console.log(res)
+        Toast('网络错误...')
+      })
       
     },
     clickLogin(){

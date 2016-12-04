@@ -23,6 +23,7 @@ import Login from '../page/Login.vue'
 import TelReg from '../page/TelReg.vue'
 import Findpwd from '../page/Findpwd.vue'
 import Changepwd from '../page/Changepwd.vue'
+import Test from '../page/Test.vue'
 
 
 // const Shopcar = () => System.import('../page/Shopcar.vue')
@@ -45,6 +46,7 @@ import Changepwd from '../page/Changepwd.vue'
 // const TelReg = () => System.import('../page/TelReg.vue')
 // const Findpwd = () => System.import('../page/Findpwd.vue')
 // const Changepwd = () => System.import('../page/Changepwd.vue')
+// const Test = () => System.import('../page/Test.vue')
 
 
 const routes = [
@@ -70,6 +72,7 @@ const routes = [
   { name: '地址新增和修改', path: '/adddetail', component: AddressDetail },
   { name: '发票新增', path: '/invoice', component: Invoice },
   { name: '发票详情', path: '/invdetail', component: InvoiceDetail },
+  { name: '测试', path: '/test', component: Test },
 ]
 
 

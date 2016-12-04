@@ -15,7 +15,7 @@
           <div class="item-mask0"></div>
           <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
-              <a :href="item.clickUrl">
+              <a :href="item.clickUrl" style="display: inline-block;">
                 <div class="content1">
                   <p>{{ item.object_title }}</p>
                   <p>{{ item.object_description }}</p>
@@ -226,7 +226,7 @@
             // renderPage
             //me.renderData = data.data
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
           me.loading = false;
           Indicator.close();
@@ -234,7 +234,7 @@
           Indicator.close();
           me.loading = false;
           //console.log(res)
-          Toast('暂无数据, 请稍后刷新页面...')
+          Toast('网络错误...')
         })
 
       },
