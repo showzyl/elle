@@ -349,7 +349,7 @@
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
           Indicator.close();
         }, err => {
@@ -375,7 +375,7 @@
           if(data.data.list){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
         }, err => {
           console.log(err)

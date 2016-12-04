@@ -36,11 +36,10 @@
       </li>
     </ul>
 
-    <div class="btn btnBuy none" @click="clickBuy">
-      <!--<a :href="'/#/test?options='+options">
-        
-      </a>-->
-      加入购物车
+    <div class="btn btnBuy">
+      <a :href="'/#/detail/'+$route.params.id">
+        加入购物车
+      </a>
     </div>
 
   </div>
@@ -55,7 +54,6 @@
   }
 
  
-
   /*.product .mint-swipe-item{
     height: 500px;
   }
@@ -146,7 +144,6 @@
   Vue.component(Swipe.name, Swipe);
   Vue.component(SwipeItem.name, SwipeItem);
 
-
   export default {
     data() {
       return {
@@ -161,6 +158,12 @@
     created(){
       const me = this;
       //console.log(me.$route);
+      me.fetchOption({
+        product_id: me.$route.params.id, // 商品ID
+      }, res => {
+        console.log(res);
+      })
+
       me.fetchData({
         product_id: me.$route.params.id, // 商品ID
         customer_id: '' // 用户ID
@@ -204,16 +207,32 @@
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
         }, err => {
           console.log(err)
+          Toast('网络错误...')
         })
       },
-      clickBuy(){
-        console.log(buyData);
-        //return
-        location.href = '/#/test?options=' + JSON.stringify(this.options);
+      fetchOption(data, cb){
+        var me = this;
+        data.route = 'mapi/product/getoption';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {params: data})
+        .then(res => {
+          //console.log(res)
+          let data = res.body;
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据...')
+          }
+        }, err => {
+          console.log(err)
+          Toast('网络错误...')
+        })
       }
 
     },

@@ -3,8 +3,8 @@
     <commonNav :title="info.name" iconRight="" />
     <!--{{$route.params.id}}-->
     <div class="content0" v-if="tab === 'tab0'">
-      <div class="brandBg"></div>
       <div class="brandBox">
+        <div class="brandBg"></div>
         <img :src="info.app_image" alt="">
         <div class="wishBox" :class="{on: info.iswish}">
           <h3 class="tit">{{info.title}}</h3>
@@ -59,14 +59,15 @@
     width: 100%;
     position: absolute;
     background: #000000;
-    top: 1.5rem;
+    /* top: 1.5rem; */
     opacity: .2;
     z-index: 2;
-    height: 153px;
+    height: 100%;
   }
 
   .brand .brandBox{
     position: relative;
+    margin-bottom: .5rem;
   }
 
   .brandBox .wishBox{
@@ -241,11 +242,6 @@
         }
       }
 
-      
-      
-      
-      
-
     },
     components: {
       commonNav,
@@ -270,7 +266,7 @@
           // if(data.code+'' === '0'){
             
           // }else{
-          //   Toast('暂无数据, 请稍后刷新页面...')
+          //   Toast('暂无数据...')
           // }
         }, err => {
           console.log(err)
@@ -290,7 +286,7 @@
           if(data.data.product_list.length){
             cb && cb(data.data.product_list);
           } else {
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
         }, err => {
           Toast('网络错误...')

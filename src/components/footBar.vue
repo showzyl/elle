@@ -85,7 +85,7 @@
   }
 
   .footBarTxt{
-    font-size: 0.1rem;
+    /*font-size: 0.1rem;*/
     margin: 0;
   }
 

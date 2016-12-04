@@ -439,7 +439,7 @@
           if(data.code+'' === '0' && data.data.results.length){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
         }, err => {
           //console.log(err)
@@ -461,7 +461,7 @@
           if(data.data.list){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
         }, err => {
           //console.log(err)
@@ -482,12 +482,12 @@
           if(data.data){
             cb && cb(data.data);
           }else{
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
           Indicator.close();
         }, err => {
           Indicator.close();
-          Toast('网络错误, 请稍后刷新页面...');
+          Toast('网络错误...');
           //console.log(err);
         })
         
@@ -507,11 +507,11 @@
             cb && cb(data.data);
           }else{
             cb && cb('err');
-            Toast('暂无数据, 请稍后刷新页面...')
+            Toast('暂无数据...')
           }
           Indicator.close();
         }, err => {
-          Toast('网络错误, 请稍后刷新页面...');
+          Toast('网络错误...');
           cb && cb('err');
           Indicator.close();
           //console.log(err);
