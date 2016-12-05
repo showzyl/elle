@@ -129,6 +129,16 @@ export default {
     background-size: cover;
     background-image: url('./assets/img/profile/icon_fucus@3x.png');
   }
+
+  .closebtnBlack{
+    position: absolute;
+    margin: .3rem 0 0 .5rem;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    background-image: url(./assets/img/recomend/close01@3x.png);
+  }
+
   /* icon end*/
 
   /* order start */

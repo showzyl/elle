@@ -215,13 +215,7 @@
   }
 
   .closebtnBlack{
-    position: absolute;
     left: 0;
-    margin: .3rem 0 0 .5rem;
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    background-image: url(../assets/img/recomend/close01@3x.png);
   }
 
   .btnConfirmFilter, .btnConfirmSize, .btnConfirmColor{

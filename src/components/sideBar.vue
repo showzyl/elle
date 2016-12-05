@@ -82,7 +82,7 @@
     width: .8rem;
     height: .7rem;
     background-size: cover;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     margin-left: .6rem;
   }
 

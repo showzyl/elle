@@ -11,11 +11,11 @@
     <div class="page-tab-container ">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
         <mt-tab-container-item id="tab-container0">
-          <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
-          <div class="item-mask0"></div>
           <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
               <a :href="item.clickUrl" style="display: inline-block;">
+                <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
+                <div class="item-mask0"></div>
                 <div class="content1">
                   <p>{{ item.object_title }}</p>
                   <p>{{ item.object_description }}</p>
@@ -41,10 +41,10 @@
 
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
-          <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
-          <div class="item-mask1"></div>
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
+              <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
+              <div class="item-mask1"></div>
               <div class="content1">
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
@@ -68,10 +68,10 @@
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
-          <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
-          <div class="item-mask2"></div>
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
+              <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
+              <div class="item-mask2"></div>
               <div class="content1">
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
@@ -222,11 +222,8 @@
           let data = res.body;
           if(data.code === 0){
             cb && cb(data.data);
-            //console.log(data.data)
-            // renderPage
-            //me.renderData = data.data
           }else{
-            Toast('暂无数据...')
+            Toast('暂无数据...');
           }
           me.loading = false;
           Indicator.close();
@@ -239,8 +236,6 @@
 
       },
       clickTab(tabNum){
-        //alert(tabNum);
-        //console.log(tabNum)
         const me = this;
         me.active = 'tab-container' + tabNum;
 
