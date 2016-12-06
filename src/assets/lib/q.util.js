@@ -47,7 +47,7 @@ export default {
     }
   },
 
-  // 判断页面滚动方向
+  // 判断页面滚动方向 (有问题)
   scrollFunc() {
     let scrollAction = {x: 0, y: 0}, scrollDirection;
     var diffX = scrollAction.x - window.pageXOffset;
@@ -111,6 +111,27 @@ export default {
     }
     scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
     return scrollHeight;
+  },
+
+  // 隐藏显示头部  
+  scrollToggleCommonNav(beforeFn, el){
+    var beforeScrollTop = document.body.scrollTop;
+    window.onscroll = () => {
+      let bGoon = beforeFn();
+      // console.log(bGoon);
+      if(!bGoon) return;
+      var afterScrollTop = document.body.scrollTop,
+          delta = afterScrollTop - beforeScrollTop;
+      if( delta === 0 ) return false;
+      let el = el || this.getEl('.commonNav');
+      if(delta > 0){
+        // 向上
+        el.style.display = "none";
+      }else{
+        el.style.display = "block";
+      }
+      beforeScrollTop = afterScrollTop;
+    }
   }
 
 

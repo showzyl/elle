@@ -1,13 +1,16 @@
 <template>
 <div class="inspireDetail">
   <commonNav :title="name" iconRight="" />
-  <p v-for="item in items">
+  <p v-for="item in items" class="imgList">
     <img :src="item.image" alt="">
   </p>
   <recommend :products="products" />
 </div>
 </template>
 <style media="screen" scoped>
+  .imgList{
+    margin-top: 1.5rem;
+  }
 
   .inspireNav{
     display: -webkit-box;
@@ -85,12 +88,12 @@ export default {
             item.image = item.image + '?iopcmd=thumbnail&type=4&width=640|iopcmd=convert&dst=jpg&Q=60'
           })
           me.name = data.data.name;
-          // if(data.data.products){
-          //   data.data.products.forEach(item => {
-          //     item.isRed = false
-          //   })
-          //   me.products = data.data.products
-          // }
+          if(data.data.products){
+            data.data.products.forEach(item => {
+              item.isRed = false
+            })
+            me.products = data.data.products
+          }
         }else{
           // 无数据
           Toast('暂无数据...')

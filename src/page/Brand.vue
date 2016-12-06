@@ -52,15 +52,14 @@
   }
 
   .brand .brandBg, .brand .brandBox{
-    height: 178px;
+    height: 100%;
   }
 
   .brand .brandBg{
     width: 100%;
     position: absolute;
     background: #000000;
-    /* top: 1.5rem; */
-    opacity: .2;
+    opacity: .5;
     z-index: 2;
     height: 100%;
   }
@@ -169,6 +168,10 @@
     margin-bottom: 1.5rem;
   }
 
+  .content0{
+    margin-top: 1.5rem;
+  }
+
   .content0 .recommendList{
     padding: 0 0 1.5rem 0;
   }
@@ -241,6 +244,11 @@
           }
         }
       }
+
+      util.scrollToggleCommonNav(function(){
+        if( !(/brand/.test(me.$route.path)) ) return;
+        return ( /brand/.test(me.$route.path) && me.tab === 'tab0' )
+      })
 
     },
     components: {

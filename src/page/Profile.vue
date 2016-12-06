@@ -481,7 +481,13 @@
 
     },
     created(){
+      const me = this;
 
+      me.fetchData({
+
+      }, res => {
+
+      })
     },
     components: {
       commonNav,
@@ -500,6 +506,36 @@
         console.log(this.myform.$valid);
         if(this.myform.$valid==true)
             alert("提交成功");
+      },
+      fetchData(data, cb){
+        data.route = 'mapi/account';
+        data.format = 'jsonp';
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          console.log(data);
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          me.loading = false;
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          me.loading = false;
+          //console.log(res)
+          Toast('网络错误...')
+        })
       }
     }
   }

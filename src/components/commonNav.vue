@@ -41,10 +41,13 @@
 }
 
 .commonNav{
-  position: relative;
+  position: fixed;
+  top: 0;
   height: 1.5rem;
   line-height: 1.5rem;
-  background: #fff;
+  background-color: transparent;
+  width: 100%;
+  z-index: 2;
 }
 
 .title{

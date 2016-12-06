@@ -40,6 +40,11 @@
       <div class="btn btnBuy" @click="content = 'detailOption'">
           加入购物车
       </div>
+
+      <div class="" style="margin-bottom:.8rem;">
+        <recommendItem :products="recommands">
+      </div>
+      
     </div>
 
     <div class="detailOption" v-else>
@@ -62,7 +67,7 @@
               <option v-for="size in sizes" :value="size.product_option_value_id">{{size.ovdname}}</option>
             </select>
           </div>
-          <p class="selectMain" v-else>
+          <p class="selectMain" style="color: #d7d7d5;" v-else>
             <span v-for="size in sizes">{{size.ovdname}}</span>
           </p>
           <span class="iconArrowBottom iconArrowBottom1" :class=" {iconArrowGray: sizes.length < 2} "></span>
@@ -116,8 +121,8 @@
 
   .add,.minus{
     /*width: 9%;*/
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     background-size: cover;
     position: absolute;
     top: .4rem;
@@ -157,8 +162,8 @@
   }
 
   .iconArrowBottom{
-    width: 17px;
-    height: 10px;
+    width: 12px;
+    height: 7px;
     position: absolute;
     top: .5rem;
     z-index: -1;
@@ -197,12 +202,16 @@
   }
 
   .detailOption .imgBox{
-    width: 7rem;
+    height: 8rem;
     margin: 2rem auto 2.5rem;
   }
 
   .product{
 
+  }
+
+  .product .swipe{
+    margin-top: 1.5rem;
   }
 
   .product .swipe, .product .mint-swipe, .product .mint-swipe-item{
@@ -301,12 +310,15 @@
   }
 
   .detailOption{
-    margin: .5rem;
+    margin: .5rem .5rem 0;
     position: relative;
   }
 
   .detailOption .title{
     margin: .6rem 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .tabborder{
@@ -329,7 +341,9 @@
 <script lang="babel">
   import Vue from 'vue'
   import commonNav from '../components/commonNav.vue'
+  import recommendItem from '../components/recommendItem.vue'
   import { Swipe, SwipeItem, Toast } from 'mint-ui'
+  import util from '../assets/lib/q.util.js'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
   // mutations 必须是同步 commit
   // actions 异步处理 dispatch
@@ -340,7 +354,7 @@
   export default {
     data() {
       return {
-        arr: [0,1,2,3],
+        content: 'productDetail',
         images: [],
         description: [],
         is_wish: null,
@@ -348,9 +362,10 @@
         options: [],
         sizes: [],
         colors: [],
-        content: 'detailOption',
+        recommands: [],
         thumbImg: null,
-        number: 1
+        number: 1,
+        inventory: null
       }
     },
     created(){
@@ -372,6 +387,7 @@
         me.description = res.description;
         me.is_wish = res.is_wish;
         me.thumbImg = res.thumb;
+        me.recommands = res.product_recommand;
 
         me.productInfo = {
           name: res.name,
@@ -383,11 +399,18 @@
         me.options = res.options;
 
       });
+
+    
+      util.scrollToggleCommonNav(function(){
+        return ( /\/product\//.test(me.$route.path) && me.content === 'productDetail' )
+      })
+      
     },
     components: {
       commonNav,
       Swipe,
-      SwipeItem
+      SwipeItem,
+      recommendItem
     },
     computed: {
 

@@ -248,6 +248,7 @@
     border: 1px solid #d7d7d5;
     border-left: 0 none;
     border-right: 0 none;
+    margin-top: 1.5rem;
   }
 
   .tab li{
@@ -378,6 +379,11 @@
     created(){
       const me = this;
       const id = me.$route.query.id;
+
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
       
       me.fetchData(me.params, res => {
         me.loading = false;
@@ -435,9 +441,11 @@
           }else{
             Toast('暂无数据...')
           }
+          Indicator.close();
         }, err => {
           //console.log(err)
           Toast('网络错误...')
+          Indicator.close();
         })
 
       },

@@ -30,9 +30,17 @@
 
   .recommendItem{
     width: 50%;
-    padding: 0 .25rem;
+    padding: 0 3%;
     box-sizing: border-box;
     float: left;
+  }
+
+  .recommendItem:nth-child(odd){
+    padding-right: 1.5%;
+  }
+
+  .recommendItem:nth-child(even){
+    padding-left: 1.5%;
   }
 
   .priceBoxLeft{
@@ -75,6 +83,12 @@
 
   .recommendName{
     margin: .5rem 0;
+    font-size: .3rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
 
   
@@ -84,8 +98,6 @@
 <script lang="babel">
 
   import { TabContainer, TabContainerItem } from 'mint-ui';
-
-  //console.log(location.href)
 
   export default {
     props: {

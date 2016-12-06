@@ -62,6 +62,10 @@
 </template>
 <style media="screen" scoped>
 
+  .addList{
+    margin-top: 1.5rem;
+  }
+
   .addItem{
     font-size: .4rem;
     padding: 0 2%;

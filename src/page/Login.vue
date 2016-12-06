@@ -6,7 +6,7 @@
       <input v-model.number="phone" name="phone" class="inputTxt" type="number" placeholder="手机号 / 邮箱" v-model.trim="phone">
     </li>
     <li class="inputBox">
-      <input type="password" name="pass" value="" placeholder="密码" class="inputTxt">
+      <input type="password" v-model.trim="pass" placeholder="密码" class="inputTxt">
     </li>
   </ul>
 
@@ -86,7 +86,7 @@ export default {
 
   },
   methods: {
-    fnLogin(data){
+    fnLogin(data, cb){
 
       data.route = 'mapi/login';
       data.format = 'jsonp';
@@ -98,9 +98,6 @@ export default {
         }
       ).then( res => {
         let data = res.body;
-
-        console.log(data);
-        return;
         if(data.code === 0){
           cb && cb(data.data);
         }else{
@@ -130,9 +127,11 @@ export default {
         return;
       }
       this.fnLogin({
-        password: this.pass,
-        tel: this.phone
-      });
+        account: this.phone,
+        password: this.pass
+      }, (res) => {
+        location.href = '/#/profile'
+      })
     }
   },
   mounted() {

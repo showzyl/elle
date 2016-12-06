@@ -23,7 +23,7 @@
 
 <style scoped>
   .changeList{
-    margin: .8rem;
+    margin: 1.5rem .8rem .8rem;
   }
 
   .changeItem{
