@@ -14,8 +14,9 @@ Vue.use(Vuex)
 Vue.use(vueResource)
 
 
-var interfaceHost = location.hostname === '//api.elleshop.com.cn/' ? '' : '//106.75.17.211:6603/' 
+var interfaceHost = location.hostname === '//api.elleshop.com.cn/' ? '' : '//beta.elleshop.com.cn/' 
 
+// //106.75.17.211:6603/
 
 window.q = {
   interfaceHost: interfaceHost

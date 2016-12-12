@@ -130,6 +130,8 @@
     
   </div>
 
+  <div class="btn btnMoreCategary">更多分类</div>
+
   <footBar pageName="classify" />
 </div>
 </template>
@@ -139,6 +141,15 @@
     
   }
 
+  .mint-tab-container-item{
+    margin-bottom: 30px;
+  }
+
+  .btnMoreCategary{
+    width: 90%;
+    margin: 0 auto;
+  }
+  
   .header, .subBar{
     /*height: 1rem;
     line-height: 1rem;*/

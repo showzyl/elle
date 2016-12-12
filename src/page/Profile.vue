@@ -11,7 +11,8 @@
       <div class="profileTop ">
         <div class="headImg">
           <router-link to="/personal">
-            <img alt="headImg" src="../assets/img/profile/touxiang.png">
+            <img alt="headImg" :src="info.headimgurl" v-if="info.headimgurl">
+            <img alt="headImg" src="../assets/img/profile/touxiang.png" v-else>
           </router-link>
         </div>
 
@@ -34,7 +35,9 @@
         </router-link>
 
         <a href="">
-          <span class="txt">1212121</span><br>
+          <span class="txt" v-if="info.cart_count">{{info.cart_count}}</span>
+          <span class="txt" v-else>0</span>
+          <br>
           浏览记录
         </a>
       </div>
@@ -83,7 +86,8 @@
         <div class="account">
           <div class="accountLeft">
             <p class="tit">账户余额</p>
-            <span class="num">￥1000</span>
+            <span class="num" v-if="info.remaining_total">￥{{info.remaining_total}}</span>
+            <span class="num" v-else>暂无数据</span>
           </div>
           
           <div class="accountRight">
@@ -484,9 +488,13 @@
       const me = this;
 
       me.fetchData({
-
+        customer_id: 280944
       }, res => {
-
+        console.log(res);
+        let info = res.info;
+        info.cart_count = res.cart_count;
+        info.remaining_total = res.remaining_total;
+        me.info = info;
       })
     },
     components: {
@@ -498,16 +506,19 @@
       return {
         msg: 'profile',
         myform: {},
-        model: {}
+        info: {
+
+        }
       }
     },
     methods: {
       onSubmit: function() {
-        console.log(this.myform.$valid);
-        if(this.myform.$valid==true)
-            alert("提交成功");
+//        console.log(this.myform.$valid);
+//        if(this.myform.$valid==true)
+//            alert("提交成功");
       },
       fetchData(data, cb){
+        const me = this;
         data.route = 'mapi/account';
         data.format = 'jsonp';
 
@@ -518,7 +529,7 @@
           }
         ).then( res => {
           let data = res.body;
-          console.log(data);
+//          console.log(data);
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{

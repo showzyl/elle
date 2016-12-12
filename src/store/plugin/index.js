@@ -1,7 +1,7 @@
 import createLogger from './logger'
 import ls from '../../assets/lib/q.store.js'
 
-console.log(ls);
+// console.log(ls);
 
 const localStoragePlugin = store => {
   store.subscribe((mutation, {cart}) => {

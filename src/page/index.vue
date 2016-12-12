@@ -137,22 +137,19 @@
     },
     created(){
       const me = this;
-      //Toast('123')
-      //me.loading = true;
-      
+
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
       });
 
-      ;[1,2,3].forEach((item, i)=> {
+      [1,2,3].forEach((item, i)=> {
         me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
           
           data.forEach(item => {
-            //console.log(item.object_type);
             switch(item.object_type){
               case '1': // Product
                 item.clickUrl = '/#/product/'+item.object_id;

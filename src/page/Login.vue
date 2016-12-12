@@ -46,12 +46,6 @@
     margin: .2rem .4rem;
   }
 
-
-  /*.btn-black{
-    background: black;
-    color: white;
-  }*/
-
   .regGroup{
     text-align: center;
     margin-top: .8rem;
@@ -65,7 +59,8 @@
 <script lang="babel">
 import commonNav from '../components/commonNav.vue'
 import util from '../assets/lib/q.util.js'
-import { Toast } from 'mint-ui'
+import store from '../assets/lib/q.store.js'
+import { Toast, Indicator } from 'mint-ui'
 
 
 export default {
@@ -87,7 +82,7 @@ export default {
   },
   methods: {
     fnLogin(data, cb){
-
+      const me = this;
       data.route = 'mapi/login';
       data.format = 'jsonp';
 
@@ -123,14 +118,17 @@ export default {
           message: '手机号或者密码不能为空...',
           position: 'bottom',
           duration: 3000
-        })
+        });
         return;
       }
       this.fnLogin({
         account: this.phone,
         password: this.pass
       }, (res) => {
-        location.href = '/#/profile'
+        console.log(res);
+        store.set('customer_id', res.id);
+        store.set('mobile_token', res.mobile_token);
+        location.href = '/#/profile';
       })
     }
   },

@@ -44,7 +44,7 @@
       <div class="" style="margin-bottom:.8rem;">
         <recommendItem :products="recommands">
       </div>
-      
+
     </div>
 
     <div class="detailOption" v-else>
@@ -63,8 +63,8 @@
 
         <div class="main">
           <div class="selectMain" v-if="sizes.length > 1">
-            <select>
-              <option v-for="size in sizes" :value="size.product_option_value_id">{{size.ovdname}}</option>
+            <select v-model="cartInfo.size">
+              <option v-for="size in sizes" :value="size.product_option_id + ',' +size.product_option_value_id">{{size.ovdname}}</option>
             </select>
           </div>
           <p class="selectMain" style="color: #d7d7d5;" v-else>
@@ -73,13 +73,13 @@
           <span class="iconArrowBottom iconArrowBottom1" :class=" {iconArrowGray: sizes.length < 2} "></span>
         </div>
 
-        
+
         <div class="tabborder"></div>
 
         <div class="main">
           <div class="selectMain" v-if="colors.length > 1">
-            <select>
-              <option v-for="color in colors" :value="color.product_id" selected>{{color.color}}</option>
+            <select v-model="cartInfo.color">
+              <option v-for="color in colors" :value="color.product_id+','+color.color" >{{color.color}}</option>
             </select>
           </div>
           <p class="selectMain" style="color: #d7d7d5;" v-else>
@@ -95,7 +95,7 @@
         <span class="num">{{number}}</span>
         <span class="add" @click="add"></span>
       </div>
-      
+
 
       <div class="btn btnAddCart" @click="addToCart">确定</div>
 
@@ -107,7 +107,6 @@
 <style media="screen" scoped>
 
   .numberBox{
-    /*padding: .5rem 0;*/
     height: 1.2rem;
     line-height: 1.2rem;
     border-bottom: 1px solid #d7d7d5;
@@ -120,7 +119,6 @@
   }
 
   .add,.minus{
-    /*width: 9%;*/
     width: 15px;
     height: 15px;
     background-size: cover;
@@ -169,7 +167,6 @@
     z-index: -1;
     background-image: url(../assets/img/recomend/arrow-bottom@3x.png);
     background-size: cover;
-    /*background: red;*/
   }
 
   .iconArrowBottom1{
@@ -217,15 +214,6 @@
   .product .swipe, .product .mint-swipe, .product .mint-swipe-item{
     height: 12rem;
   }
-
- 
-  /*.product .mint-swipe-item{
-    height: 500px;
-  }
-
-  .mint-swipe-item img{
-    height: 500px;
-  }*/
 
   .recomentList{
     display: -webkit-box;
@@ -306,7 +294,7 @@
     position: fixed;
     bottom: 0;
     margin-left: -.5rem;
-    
+
   }
 
   .detailOption{
@@ -334,7 +322,7 @@
     background-image: url(../assets/img/recomend/arrow02@2x.png);
   }
 
-  
+
 
 </style>
 
@@ -365,7 +353,10 @@
         recommands: [],
         thumbImg: null,
         number: 1,
-        inventory: null
+        inventory: null,
+        cartInfo: {
+
+        }
       }
     },
     created(){
@@ -377,6 +368,8 @@
         //console.log(res);
         me.sizes = res.Size;
         me.colors = res.color;
+        me.cartInfo.size = this.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
+        me.cartInfo.color = this.colors[0].product_id+','+this.colors[0].color;
       })
 
       me.fetchData({
@@ -394,22 +387,22 @@
           price: res.price,
           manufacturer_img: res.manufacturer_img,
           manufacturer: res.manufacturer
-        }
+        };
 
         me.options = res.options;
 
       });
 
-    
+
       util.scrollToggleCommonNav(function(){
         return ( /\/product\//.test(me.$route.path) && me.content === 'productDetail' )
       })
-      
+
     },
     components: {
-      commonNav,
       Swipe,
       SwipeItem,
+      commonNav,
       recommendItem
     },
     computed: {
@@ -432,7 +425,6 @@
             Toast('暂无数据...')
           }
         }, err => {
-          console.log(err)
           Toast('网络错误...')
         })
       },
@@ -444,7 +436,6 @@
           window.q.interfaceHost +'index.php?',
           {params: data})
         .then(res => {
-          //console.log(res)
           let data = res.body;
           if(data.code+'' === '0'){
             cb && cb(data.data);
@@ -457,14 +448,35 @@
         })
       },
       addToCart(e){
+        const me = this;
+        const aTmp = me.cartInfo.color.split(',');
 
-        // let item = {
-        //   id: this.$route.params.id,
-        //   size: this.sizes[0].ovdname,
-        //   color: this.colors[0].color,
-        //   num: 1
-        // };
+        let item = {
+         id: aTmp[0],
+         size: me.cartInfo.size,
+         color: aTmp[1],
+         quantity: me.number
+        };
+
+        console.log(item);
         // this.$store.commit('ADD_TO_CART', {item})
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {params: {
+            route: 'mapi/cart/add'
+          }})
+          .then(res => {
+          //console.log(res)
+          let data = res.body;
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据...')
+          }
+        }, err => {
+            Toast('网络错误...')
+        })
       },
       add(){
         if(this.number <= 98){

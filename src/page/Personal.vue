@@ -37,19 +37,19 @@
 </template>
 
 <style scoped>
+
+  .commonNav{
+    position: absolute;
+  }
+
   .personal{
     /*margin: .8rem;*/
 
   }
-  
-
-  .personalHead{
-    position: relative;
-  }
 
   .personal .personalHead{
-    /*padding: .2rem 0;
-    border-bottom: 1px solid;*/
+    margin-top: 1.5rem;
+    position: relative;
     height: 4rem;
     border-top: 1px solid;
   }

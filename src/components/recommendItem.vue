@@ -83,6 +83,7 @@
 
   .recommendName{
     margin: .5rem 0;
+    height: .8rem;
     font-size: .3rem;
     overflow: hidden;
     display: -webkit-box;

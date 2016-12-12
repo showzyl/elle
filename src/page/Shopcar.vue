@@ -212,9 +212,29 @@
   import { mapState } from 'vuex'
   import footBar from '../components/footBar.vue'
   import { Toast, Indicator } from 'mint-ui'
+  import util from '../assets/lib/q.util.js'
+  import store from '../assets/lib/q.store.js'
 
   export default {
-    props: {
+    data() {
+      return {
+        loading: false
+      }
+    },
+    created(){
+      const me = this;
+
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
+      const mobile_token = store.get('mobile_token');
+      me.fetchCartData({
+        customer_id: 280944,
+        mobile_token: mobile_token
+      }, res => {
+//        cons
+      })
 
     },
     components: {
@@ -226,9 +246,57 @@
       }
     },
     methods: {
-      test1(){
+      fetchCartData(data, cb){
+        var me = this;
+        data.route = 'mapi/cart';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          if(data.code === 0){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据...');
+          }
+          me.loading = false;
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          me.loading = false;
+          //console.log(res)
+          Toast('网络错误...')
+        })
 
-
+      },
+      deleteCartItem(data, cb){
+        // cart_id: xxxx
+        var me = this;
+        data.route = 'mapi/cart/delete';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          if(data.code === 0){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据...');
+          }
+          me.loading = false;
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          me.loading = false;
+          //console.log(res)
+          Toast('网络错误...')
+        })
       }
     }
   }

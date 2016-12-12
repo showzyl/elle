@@ -45,7 +45,8 @@
   top: 0;
   height: 1.5rem;
   line-height: 1.5rem;
-  background-color: transparent;
+  background-color: #ffffff;
+  opacity: .8;
   width: 100%;
   z-index: 2;
 }
