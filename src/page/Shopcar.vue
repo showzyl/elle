@@ -18,7 +18,7 @@
               <div class="addBottom">
                 <label class="mint-checklist-label">
                   <span class="mint-checkbox">
-                    <input type="checkbox" class="mint-checkbox-input" value="">
+                    <input type="checkbox" class="mint-checkbox-input" checked @change="calMoney({quantity: item.quantity,cart_id: item.cart_id, index: i, checked: item.checked, total: item.total})">
                     <span class="mint-checkbox-core"></span>
                   </span>
                 </label>
@@ -33,7 +33,10 @@
                   数量 {{item.quantity}}
                 </p>
               </div>
-              <a href="" class="change">修改</a>
+
+              <a :href="'/#/product/'+item.product_id+'?sizeName='+item.option[0].value+'&colorName='+item.color+'&quantity='+item.quantity+'&cart_id='+item.cart_id" class="change">
+                修改
+              </a>
             </div>
             <div class="shopcarItemB">
               <h3 class="price">¥{{item.total}}</h3>
@@ -58,7 +61,7 @@
 
     <div class="settlement">
       总计: ￥{{ total }}（{{quantity}} 件）
-      <div class="settlementBtn">结算</div>
+      <div class="settlementBtn" @click="checkout">结算</div>
     </div>
 
     <footBar pageName="shopcar"/>
@@ -118,9 +121,11 @@
     border-bottom: 1px solid #d7d7d5;
   }
   .shopcarItemT .imgBox{
-    width: 25%;
+    width: 2.2rem;
+    height: 2.8rem;
     float: left;
   }
+
   .shopcarItemT .moneyBox{
     float: left;
     width: 75%;
@@ -253,12 +258,14 @@
         customer_id: customer_id,
         mobile_token: mobile_token
       }, res => {
-        console.log(res.products);
+//        console.log(res.products);
         me.products = res.products;
 //        me.totals = res.totals;
-        me.total = res.totals[0].text;
+//        me.total = res.totals[0].text;
         me.products.forEach(item => {
+          item.checked = true;
           me.quantity += parseInt(item.quantity);
+          me.total += parseInt(item.total);
         })
 
       })
@@ -343,7 +350,43 @@
             })
           }
         })
-      }
+      },
+      checkout(){
+        const bChecked = this.products.find(item => {
+          return item.checked;
+        });
+
+        if(!bChecked){
+          return Toast('您还未选中要结算的商品!')
+        }
+
+        // 结算
+
+        console.log('进行结算');
+
+      },
+      calMoney({
+        checked,
+        quantity,
+        cart_id,
+        total,
+        index
+      }){
+        const me = this;
+        console.log(checked, quantity, index, cart_id, total);
+        if(checked){
+          console.log(me.total)
+          me.quantity -= parseInt(quantity);
+          me.total -= parseInt(total);
+          console.log(me.total)
+        }else{
+          me.quantity += parseInt(quantity);
+          me.total += parseInt(total);
+        }
+        me.products[index].checked = !checked;
+        console.log(me.quantity, me.products[index].checked);
+
+      },
     }
   }
 </script>

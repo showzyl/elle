@@ -52,7 +52,7 @@
       <i class="closebtnBlack" @click="content = 'productDetail'"></i>
 
       <div class="imgBox">
-        <img :src="thumbImg" alt="">
+        <img :src="thumbImg">
       </div>
 
       <h2 class="title">
@@ -201,6 +201,7 @@
   .detailOption .imgBox{
     height: 8rem;
     margin: 2rem auto 2.5rem;
+    overflow: hidden;
   }
 
   .product{
@@ -362,16 +363,27 @@
     },
     created(){
       const me = this;
+      const route = me.$route;
+      const query = route.query;
 
-      me.fetchOption({
-        product_id: me.$route.params.id, // 商品ID
-      }, res => {
-        //console.log(res);
-        me.sizes = res.Size;
-        me.colors = res.color;
-        me.cartInfo.size = this.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
-        me.cartInfo.color = this.colors[0].product_id+','+this.colors[0].color;
-      })
+      if(query.sizeName && query.colorName && query.quantity){
+        // url param
+        me.sizes = [{ovdname: query.sizeName}];
+        me.colors = [{color: query.colorName}];
+        me.number = query.quantity;
+        me.content = 'detailOption';
+      }else{
+        me.fetchOption({
+          product_id: route.params.id, // 商品ID
+        }, res => {
+          //console.log(res);
+          me.sizes = res.Size;
+          me.colors = res.color;
+          me.cartInfo.size = this.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
+          me.cartInfo.color = this.colors[0].product_id+','+this.colors[0].color;
+        })
+      }
+
 
       me.fetchData({
         product_id: me.$route.params.id, // 商品ID
@@ -450,8 +462,15 @@
       },
       addToCart(e){
         const me = this;
-        const aTmp = me.cartInfo.color.split(',');
+        const route = me.$route;
+        const query = route.query;
 
+        if(query.sizeName && query.colorName && query.quantity){
+          me.editToCart();
+          return;
+        }
+
+        const aTmp = me.cartInfo.color.split(',');
         const customer_id = store.get('customer_id');
         const mobile_token = store.get('mobile_token');
 
@@ -473,7 +492,6 @@
           .then(res => {
           //let data = res.body;
           console.log(res)
-        return
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{
@@ -482,6 +500,36 @@
         }, err => {
             Toast('网络错误...')
         })
+      },
+      editToCart(){
+        const me = this;
+        const query = me.$route.query;
+        const customer_id = store.get('customer_id');
+        const mobile_token = store.get('mobile_token');
+
+        const params = {
+          customer_id,
+          mobile_token,
+          quantity: me.number,
+          cart_id: query.cart_id
+        };
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?route=mapi/cart/edit',
+          {params: params})
+          .then(res => {
+          //let data = res.body;
+          if(data.code+'' === '0'){
+            location.href = '/#/shopcar';
+          }else{
+            Toast('暂无数据...')
+          }
+        }, err => {
+          Toast('网络错误...')
+        })
+
+
+
       },
       add(){
         if(this.number <= 98){
