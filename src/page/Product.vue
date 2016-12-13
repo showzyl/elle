@@ -332,6 +332,7 @@
   import recommendItem from '../components/recommendItem.vue'
   import { Swipe, SwipeItem, Toast } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
+  import store from '../assets/lib/q.store.js'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
   // mutations 必须是同步 commit
   // actions 异步处理 dispatch
@@ -451,24 +452,28 @@
         const me = this;
         const aTmp = me.cartInfo.color.split(',');
 
+        const customer_id = store.get('customer_id');
+        const mobile_token = store.get('mobile_token');
+
         let item = {
-         id: aTmp[0],
-         size: me.cartInfo.size,
-         color: aTmp[1],
-         quantity: me.number
+          customer_id: customer_id,
+          mobile_token: mobile_token,
+          product_id: aTmp[0],
+          size: me.cartInfo.size,
+          color: aTmp[1],
+          quantity: me.number
         };
 
         console.log(item);
         // this.$store.commit('ADD_TO_CART', {item})
 
         this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {params: {
-            route: 'mapi/cart/add'
-          }})
+          window.q.interfaceHost +'index.php?route=mapi/cart/add',
+          {params: item})
           .then(res => {
-          //console.log(res)
-          let data = res.body;
+          //let data = res.body;
+          console.log(res)
+        return
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{

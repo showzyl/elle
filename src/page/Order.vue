@@ -41,6 +41,7 @@
     background-color: #fff;
     margin: .3rem .2rem;
     min-height: 100%;
+    padding-top: 1.5rem;
   }
 
   .orderItem{

@@ -1,52 +1,45 @@
 <template>
   <div class="shopcar">
-    <div class="shopcarTop none">
-        <img src="../assets/img/shopcart.png" alt="" class="shopcarImg"/>
-        <h3 class="emptyTxt">
-          您的购物车暂无商品
-        </h3>
-    </div>
-
-    <ul class="shopcarList">
-      <li class="shopcarItem">
+    <ul class="shopcarList" v-if="products.length" >
+      <li class="shopcarItem" v-for="(item,i) in products">
         <a href="/#">
           <h3 class="tit">
-            我是标题
+            {{item.mname}}
           </h3>
           <div class="shopcarItemMain">
             <div class="shopcarItemT">
               <div class="imgBox">
-                <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+                <img :src="item.thumb">
               </div>
               <div class="moneyBox">
-                <p class="money">$789</p>
-                <p class="des">wdqqqqqqqq</p>
+                <p class="money">¥{{item.price}}</p>
+                <p class="des">{{item.mname}} {{item.name}}</p>
               </div>
               <div class="addBottom">
                 <label class="mint-checklist-label">
                   <span class="mint-checkbox">
-                    <input type="checkbox" class="mint-checkbox-input" value=""> 
+                    <input type="checkbox" class="mint-checkbox-input" value="">
                     <span class="mint-checkbox-core"></span>
-                  </span> 
+                  </span>
                 </label>
               </div>
             </div>
             <div class="shopcarItemM">
               <div class="numBox">
                 <p>
-                  颜色[黑色]/尺码[均码]
+                  颜色[{{item.color}}]/尺码[{{item.option[0]['value']}}]
                 </p>
                 <p>
-                  数量 1
+                  数量 {{item.quantity}}
                 </p>
               </div>
               <a href="" class="change">修改</a>
             </div>
             <div class="shopcarItemB">
-              <h3 class="price">$323213</h3>
+              <h3 class="price">¥{{item.total}}</h3>
               <div class="iconList">
-                <i class="iconLove"></i>
-                <i class="iconGarbage"></i>
+                <i class="iconLove" :class="{iconRed: item.is_wished}"></i>
+                <i class="iconGarbage" @click.prevent="confirmDel({cart_id: item.cart_id})"></i>
               </div>
             </div>
           </div>
@@ -54,8 +47,17 @@
       </li>
     </ul>
 
+
+    <div class="shopcarTop" v-else>
+        <img src="../assets/img/shopcart.png" alt="" class="shopcarImg"/>
+        <h3 class="emptyTxt">
+          您的购物车暂无商品
+        </h3>
+    </div>
+
+
     <div class="settlement">
-      总计: ￥23321（4 件）
+      总计: ￥{{ total }}（{{quantity}} 件）
       <div class="settlementBtn">结算</div>
     </div>
 
@@ -68,6 +70,7 @@
   .shopcar{
     background-color: #e5e5e5;
     min-height: 100%;
+    margin-bottom: 3rem;
   }
   .shopcarTop{
     height: 6rem;
@@ -102,6 +105,12 @@
     /*padding: .3rem;*/
 
   }
+  .shopcarItemMain .desc{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .shopcarItemT{
     overflow: auto;
     padding: .3rem;
@@ -114,7 +123,7 @@
   }
   .shopcarItemT .moneyBox{
     float: left;
-
+    width: 75%;
   }
   .shopcarItemT p{
     padding: .4rem 0 0 .2rem;
@@ -173,6 +182,10 @@
     background-image: url(../assets/img/recomend/collection@3x.png);
   }
 
+  .iconRed{
+    background-image: url(../assets/img/recomend/collection_h@3x.png);
+  }
+
   .shopcarItemB .iconList i.iconGarbage{
     height: 23px;
   }
@@ -211,14 +224,18 @@
 <script>
   import { mapState } from 'vuex'
   import footBar from '../components/footBar.vue'
-  import { Toast, Indicator } from 'mint-ui'
+  import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
 
   export default {
     data() {
       return {
-        loading: false
+        loading: false,
+        products: [],
+        totals: [],
+        total: 0,
+        quantity: 0
       }
     },
     created(){
@@ -228,22 +245,27 @@
         text: '加载中...',
         spinnerType: 'fading-circle'
       });
+
       const mobile_token = store.get('mobile_token');
+      const customer_id = store.get('customer_id');
+
       me.fetchCartData({
-        customer_id: 280944,
+        customer_id: customer_id,
         mobile_token: mobile_token
       }, res => {
-//        cons
+        console.log(res.products);
+        me.products = res.products;
+//        me.totals = res.totals;
+        me.total = res.totals[0].text;
+        me.products.forEach(item => {
+          me.quantity += parseInt(item.quantity);
+        })
+
       })
 
     },
     components: {
       footBar
-    },
-    data () {
-      return {
-        msg: 'shopcar'
-      }
     },
     methods: {
       fetchCartData(data, cb){
@@ -284,6 +306,7 @@
           }
         ).then( res => {
           let data = res.body;
+//          console.log(data);
           if(data.code === 0){
             cb && cb(data.data);
           }else{
@@ -296,6 +319,29 @@
           me.loading = false;
           //console.log(res)
           Toast('网络错误...')
+        })
+      },
+      confirmDel({cart_id}){
+        const me = this;
+        console.log(cart_id);
+//        MessageBox({
+//          title: '提示',
+//          message: '确定删除?',
+//          showCancelButton: true
+//        });
+        MessageBox.confirm('确定删除此商品?').then(action => {
+//          console.log(action);
+          if(action == 'confirm'){
+            const mobile_token = store.get('mobile_token');
+            const customer_id = store.get('customer_id');
+            me.deleteCartItem({
+              cart_id,
+              mobile_token,
+              customer_id
+            }, ()=>{
+              //location.reload();
+            })
+          }
         })
       }
     }

@@ -32,7 +32,8 @@
     position: relative;
     border: 1px solid #d7d7d5;
     border-right: 0 none;
-    border-left: 0 none; 
+    border-left: 0 none;
+    margin-top: 1.5rem;
   }
   .collectTab .on{
     border-bottom: 2px solid;

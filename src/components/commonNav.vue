@@ -48,7 +48,7 @@
   background-color: #ffffff;
   opacity: .8;
   width: 100%;
-  z-index: 2;
+  z-index: 4;
 }
 
 .title{

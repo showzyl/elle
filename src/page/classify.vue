@@ -149,7 +149,7 @@
     width: 90%;
     margin: 0 auto;
   }
-  
+
   .header, .subBar{
     /*height: 1rem;
     line-height: 1rem;*/
