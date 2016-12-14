@@ -1,7 +1,7 @@
 
 <template>
-<div class="address">
-  买买买
+<div class="test">
+  test page
 </div>
 </template>
 <style media="screen">
