@@ -1,6 +1,6 @@
 <template>
 <div class="classify">
-  <ul class="header">
+  <ul class="header" v-show="tab === 'category' || tab === 'brand'">
    
     <li @click.prevent="tab = 'category'" :class="[tab == 'category' ? 'on' : '']">
       <a href="javascript:;">品类</a>
@@ -32,6 +32,7 @@
               </a>
             </li>
           </ul>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(0)">更多分类</div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
@@ -44,6 +45,7 @@
               </a>
             </li>
           </ul>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(1)">更多分类</div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
@@ -56,13 +58,14 @@
               </a>
             </li>
           </ul>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(2)">更多分类</div>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
     
   </div>
 
-  <div class="content" v-else>
+  <div class="content" v-if="tab === 'brand'">
     <div class="subBar">
       <a @click.prevent="active2 = 'tab-container0'" :class="[active2 == 'tab-container0' ? 'on' : '']">女士</a>
       <a @click.prevent="active2 = 'tab-container1'" :class="[active2 == 'tab-container1' ? 'on' : '']">男士</a>
@@ -130,13 +133,89 @@
     
   </div>
 
-  <div class="btn btnMoreCategary">更多分类</div>
+
+  <div class="moreCategory" v-if="tab === 'moreCategory'">
+    <!--<div class="" @click.prevent="tab = prevTab" style="margin: 20px;">-->
+      <!--点我返回-->
+    <!--</div>-->
+
+    <div class="categoryNav">
+      <i class="iconBack" @click.prevent="tab = prevTab"></i>
+      <h2 class="title">
+        全部分类
+      </h2>
+    </div>
+
+    <ul class="listUl">
+      <li v-for="items in renderList" class="listLi">
+        <h3 class="name">{{items.category_name}}</h3>
+        <ul class="subUl">
+          <li v-for="item in items.subcategories" class="subLi">
+            <a :href="'/#/filter?id='+item.category_id+'&name='+item.category_name">
+              {{item.category_name}}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
 
   <footBar pageName="classify" />
 </div>
 </template>
 
 <style media="screen" scoped>
+
+  .categoryNav{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    /*border: 1px solid #d7d7d5;*/
+    /*border-right: 0 none;*/
+    /*border-left: 0 none;*/
+    position: relative;
+  }
+
+  .iconBack{
+    position: absolute;
+    display: block;
+    background-image: url(../assets/img/backbtn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 25px;
+    width: 28px;
+    margin: .4rem;
+  }
+
+  .listUl{
+    margin: .3rem 0 0 .4rem;
+  }
+
+  .listLi{
+    margin-top: .3rem;
+  }
+
+  .listUl .name{
+    font-size: .5rem;
+  }
+
+
+  .listUl .subLi{
+    border-bottom: 1px solid #d7d7d5;
+    margin: 0 .45rem 0 .2rem;
+    font-size: .45rem;
+    padding: .35rem 0;
+  }
+
+  .listUl .subLi a{
+    display: block;
+  }
+
+  .listUl .subLi:last-child{
+    border-bottom: 0 none;
+  }
+
   .classify{
     
   }
@@ -192,6 +271,7 @@
 
   .shopList{
     margin: .2rem;
+    overflow: hidden;
   }
   
   .shopItem{
@@ -308,12 +388,15 @@
         active1: 'tab-container0',
         active2: 'tab-container0',      
         tab: 'category',
+        prevTab: '',
         brandItems0: [],
         brandItems1: [],
         brandItems2: [],
         categoryItems0: [],
         categoryItems1: [],
-        categoryItems2: []
+        categoryItems2: [],
+        allList: [],
+        renderList: []
       }
     },
     created(){
@@ -324,7 +407,7 @@
         spinnerType: 'fading-circle'
       });
 
-      ;[20, 59, 75].forEach( (item,i) => {
+      [20, 59, 75].forEach( (item,i) => {
         me.fetchBrandData({
           type_id: item
         }, res => {
@@ -337,6 +420,10 @@
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;
       });
+
+      me.fetchMoreCategary({}, res => {
+        me.allList = res;
+      });
     },
     components: {
       footBar
@@ -346,7 +433,7 @@
     },
     methods: {
       fetchBrandData(data, cb){
-        var me = this;
+        const me = this;
 
         data.route = 'mapi/manufacturer';
         data.format = 'jsonp';
@@ -371,7 +458,7 @@
 
       },
       fetchCategoryData(data, cb){
-        var me = this;
+        const me = this;
 
         data.route = 'mapi/category/getallcategory';
         data.format = 'jsonp';
@@ -393,6 +480,36 @@
           Toast('网络错误...')
         })
 
+      },
+      fetchMoreCategary(data, cb){
+        // 获取更多分类
+        const me = this;
+        data.route = 'mapi/category/getallcategory';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+            window.q.interfaceHost +'index.php?',
+          {params: data})
+          .then(res => {
+          console.log(res);
+          let data = res.body;
+          if(data.data.list.length){
+            cb && cb(data.data.list);
+          }else{
+            Toast('暂无数据...')
+          }
+          Indicator.close();
+        }, err => {
+          console.log(err);
+          Toast('网络错误...');
+          Indicator.close();
+        })
+      },
+      changeCategaryTab(index){
+        const me = this;
+        console.log(index);
+        me.prevTab = me.tab;
+        me.tab = 'moreCategory';
+        me.renderList = me.allList[index]['subcategories'];
       }
     },
     mounted() {
