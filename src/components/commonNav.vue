@@ -62,37 +62,37 @@
 
 <script lang="babel">
 
-export default {
-  props: {
-    title: {
-      type: String,
-      default: ''
+  export default {
+    props: {
+      title: {
+        type: String,
+        default: ''
+      },
+      iconRight: {
+        type: String,
+        default: 'has'
+      }
     },
-    iconRight: {
-      type: String,
-      default: 'has'
-    }
-  },
-  components: {
+    components: {
 
-  },
-  computed: {
-
-  },
-  methods: {
-    clickBack(){
-      //alert('back');
-      history.back()
     },
-    clickMenu(){
-      alert('menu');
+    computed: {
+
+    },
+    methods: {
+      clickBack(){
+        history.back()
+      },
+      clickMenu(){
+        alert('menu');
+      }
+    },
+    mounted() {
+
+    },
+    watch: {
+
     }
-  },
-  mounted() {
-
-  },
-  watch: {
-
   }
-}
+
 </script>

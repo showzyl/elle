@@ -16,7 +16,7 @@
           </router-link>
         </div>
 
-        <h3 class="userName">梨子o</h3>
+        <h3 class="userName">{{info.firstname}}</h3>
 
         <div class="member">
           <span class="memberIcon blueMemberIcon"></span>
@@ -463,10 +463,6 @@
     right: .5rem;
     position: absolute;
   }
-
-
-
-
 
 </style>
 
