@@ -1,72 +1,51 @@
 <template>
 <div class="address">
-  <!--<commonNav title="地址管理" iconRight="" />-->
+  <commonNav title="地址管理" iconRight="" />
   <ul class="addressItems">
-    <li class="addressItem">
+    <li class="addressItem" v-for="item in address">
       <h3>
-        梨子&nbsp&nbsp
-        18511368463
+        {{item.firstname}}&nbsp&nbsp
+        {{item.tel}}
       </h3>
       <div class="addMid">
         <i class="iconAdd"></i>&nbsp
-        北京市西城区前门西大街
+        {{item.country}} {{item.zone}} {{item.city}} {{item.address_1}}
       </div>
       
       <div class="addBottom">
         <label class="mint-checklist-label">
           <span class="mint-checkbox">
-            <input type="radio" class="mint-checkbox-input" value="" name="addname"> 
+            <input type="radio" class="mint-checkbox-input" name="t" v-if="item.is_default" checked>
+            <input type="radio" class="mint-checkbox-input" name="t" v-else @click="setDefaultAdd({id: item.address_id})">
             <span class="mint-checkbox-core"></span>
-          </span> 
+          </span>
           <span class="mint-checkbox-label">设为默认</span>
         </label>
 
         <div class="iconList">
-          <router-link to="/">
+          <router-link :to="'/adddetail?id='+item.address_id
+          + '&name=' + item.firstname
+          + '&phone=' + item.tel
+          + '&sex=' + item.sex
+          + '&country=' + item.country
+          + '&country_id=' + item.country_id
+          + '&zone=' + item.zone
+          + '&zone_id=' + item.zone_id
+          + '&city=' + item.city
+          + '&detailAddress=' + item.address_1
+          ">
             <i class="iconPen"></i>
           </router-link>
-          <router-link to="/">
+
+          <a href="javascript:;" @click.prevent="delAddress({id: item.address_id})">
             <i class="iconGarbage"></i>
-          </router-link>
-        </div>
-      </div>
-
-      
-    </li>
-
-    <li class="addressItem">
-      <h3>
-        梨子&nbsp&nbsp
-        18511368463
-      </h3>
-      <div class="addMid">
-        <i class="iconAdd"></i>&nbsp
-        北京市西城区前门西大街
-      </div>
-      
-      <div class="addBottom">
-        <label class="mint-checklist-label">
-          <span class="mint-checkbox">
-            <input type="radio" class="mint-checkbox-input" value="" name="addname"> 
-            <span class="mint-checkbox-core"></span>
-          </span> 
-          <span class="mint-checkbox-label">设为默认</span>
-        </label>
-
-        <div class="iconList">
-          <router-link to="/">
-            <i class="iconPen"></i>
-          </router-link>
-          <router-link to="/">
-            <i class="iconGarbage"></i>
-          </router-link>
+          </a>
         </div>
       </div>
     </li>
-    
-   
+
   </ul>
-  <div class="btn btnAddAds" @click="addAds">
+  <div class="btn btnAddAds">
     <router-link to="/adddetail">
       + 新建地址
     </router-link>
@@ -80,7 +59,7 @@
   }
 
   .addressItems{
-    margin: .8rem .4rem;
+    margin: 1.6rem .4rem;
   }
 
   .addressItem{
@@ -124,11 +103,9 @@
 
   .iconList i{
     display: inline-block;
-    width: .58rem;
-    height: .6rem;
-    /*margin-right: .2rem;*/
+    width: 20px;
+    height: 22px;
     margin-left: .6rem;
-    /*background-color: red;*/
     background-size: cover;
   }
 
@@ -144,48 +121,133 @@
 </style>
 <script lang="babel">
 
-import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-// //import commonNav from '../components/commonNav.vue'
-// import core from '../assets/lib/q.core.js'
-import commonNav from '../components/commonNav.vue'
-// import footBar from '../components/footBar.vue'
+  import { Toast, Checklist, Indicator } from 'mint-ui'
+  import core from '../assets/lib/q.core.js'
+  import store from '../assets/lib/q.store.js'
+  import commonNav from '../components/commonNav.vue'
 
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
-export default {
-  data(){
-    return {
-
-    }
-  },
-  created(){ 
-    var me = this
-
-  },
-  components: {
-    commonNav,
-    Checklist
-  },
-  computed: {
-    // 有缓存
-    
-    
-  },
-  methods: {
-    // 没有缓存
-    asyncData(id, cb){
-      var me = this
-      
+  export default {
+    data(){
+      return {
+        address: []
+      }
     },
-    addAds(){
-      console.log('add')
+    created(){
+      var me = this;
+
+      me.fetchAddressData({
+        customer_id,
+        mobile_token
+      }, res => {
+        me.address = res;
+      })
+
+    },
+    components: {
+      commonNav
+    },
+    computed: {
+
+
+    },
+    methods: {
+      fetchAddressData(data, cb){
+        const me = this;
+        data.route = 'mapi/address';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          console.log(data);
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          Toast('网络错误...')
+        })
+      },
+      setDefaultAdd({id}){
+        const me = this;
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: {
+              customer_id,
+              address_id: id,
+              route: 'mapi/address/setdefault',
+              format: 'jsonp'
+            }
+          }
+        ).then( res => {
+          let data = res.body;
+          console.log(data);
+          if(data.code+'' === '0'){
+
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          Toast('网络错误...')
+        })
+      },
+      delAddress({id}){
+        console.log(id);
+        const me = this;
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: {
+              customer_id,
+              address_id: id,
+              route: 'mapi/address/delete',
+              format: 'jsonp'
+            }
+          }
+        ).then( res => {
+          let data = res.body;
+          console.log(data);
+          if(data.code+'' === '0'){
+            location.reload();
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          Toast('网络错误...')
+        })
+      }
+    },
+    mounted() {
+
+    },
+    watch: {
+
     }
-
-  },
-  mounted() {
-
-  },
-  watch: {
-
   }
-}
 </script>

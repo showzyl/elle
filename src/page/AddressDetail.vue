@@ -17,7 +17,7 @@
 
           <label class="mint-checklist-label">
             <span class="mint-checkbox">
-              <input type="radio" class="mint-checkbox-input" name="name" value="boy" v-model="sex">
+              <input type="radio" class="mint-checkbox-input" value="1" v-model="sex">
               <span class="mint-checkbox-core"></span>
             </span>
             <span class="mint-checkbox-label">男士</span>
@@ -25,7 +25,7 @@
 
           <label class="mint-checklist-label">
             <span class="mint-checkbox">
-              <input type="radio" class="mint-checkbox-input" name="name" value="girl" v-model="sex">
+              <input type="radio" class="mint-checkbox-input" value="2" v-model="sex">
               <span class="mint-checkbox-core"></span>
             </span>
             <span class="mint-checkbox-label">女士</span>
@@ -57,7 +57,7 @@
       <li class="addItem">
         <span class="addItemTxt">详细地址</span>
         <div class="addItemInputBox">
-          <input type="text" name="unitname" placeholder="请输入详细地址" class="addItemInput">
+          <input type="text" v-model="detailAddress" placeholder="请输入详细地址" class="addItemInput">
         </div>
       </li>
     </ul>
@@ -108,6 +108,7 @@
   <!--<footBar pageName="classify" />-->
 </div>
 </template>
+
 <style media="screen" scoped>
 
   .regionNav{
@@ -227,7 +228,7 @@
           name: null,
           id: null
         },
-        sex: 'boy',
+        sex: '1',
         usernName: null,
         phone: null,
         region: null,
@@ -236,8 +237,38 @@
     },
     created(){
       const me = this;
-      const query = me.$route.query;
-      
+      const {
+        name,
+        phone,
+        sex,
+        detailAddress,
+        country,
+        country_id,
+        zone,
+        zone_id,
+        city
+      } = me.$route.query;
+
+      // edit
+      if(phone){
+        me.usernName = name;
+        me.sex = sex;
+        me.phone = phone;
+        me.detailAddress = detailAddress;
+        me.provinceInfo = {
+          id: country_id,
+          name: country
+        };
+        me.cityInfo = {
+          id: zone_id,
+          name: zone
+        };
+        me.countryInfo = {
+          name: city
+        };
+        return;
+      }
+
       me.fetchProvinceData({}, res => {
         me.province = res;
       })
@@ -250,7 +281,6 @@
 
     },
     methods: {
-      // 没有缓存
       fetchProvinceData(data, cb){
         const me = this;
         data.route = 'mapi/register/country';
@@ -345,7 +375,7 @@
       },
       postAddress(data, cb){
         const me = this;
-        data.route = 'mapi/register/zone';
+        data.route = 'mapi/address/add';
         data.format = 'jsonp';
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?',
@@ -354,9 +384,8 @@
           }
         ).then( res => {
           let data = res.body;
-          console.log(data);
           if(data.code+'' === '0'){
-            cb && cb(data.data);
+            cb && cb(data);
           }else{
             Toast({
               message: '暂无数据...',
@@ -426,19 +455,35 @@
           Toast('请输入手机号');
           return;
         }
-        if(!provinceInfo.id || !cityInfo.id || !countryInfo.id){
+        if(!me.provinceInfo.id || !me.cityInfo.id ){
           Toast('请选择地区');
           return;
         }
-        if(!detailAddress){
+        if(!me.detailAddress){
           Toast('请填写详细地址');
           return;
         }
 
+        const customer_id = store.get('customer_id');
+        const mobile_token = store.get('mobile_token');
+
         me.postAddress({
-
+          customer_id,
+          mobile_token,
+          firstname: me.usernName,
+          sex: me.sex,
+          tel: me.phone,
+          country_id: me.provinceInfo.id,
+          zone_id: me.cityInfo.id,
+          city_id: me.countryInfo.id,
+          city: me.countryInfo.name,
+          address_1: me.detailAddress,
+          default: 1,
+          ts: Math.random()
         }, res => {
-
+          console.log(res);
+          // 添加成功
+          Toast('添加成功');
         });
 
       }

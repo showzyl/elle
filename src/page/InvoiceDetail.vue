@@ -1,8 +1,7 @@
 <template>
   <div class="invoiceDetail">
-    <form action="/test" >
-      <commonNav title="新建发票" iconRight="" />
-      <div class="addBottom">
+    <commonNav title="新建发票" iconRight="" />
+    <div class="addBottom">
 
         <label class="mint-checklist-label">
           <span class="mint-checkbox">
@@ -32,14 +31,16 @@
         </div>
 
       </div>
-    </form>
-    <!--<footBar pageName="classify" />-->
   </div>
 </template>
 
 <style media="screen" scoped>
   .invoiceDetail{
 
+  }
+
+  .addBottom{
+    margin-top: 1.5rem;
   }
 
   .addBottom .mint-checklist-label{
@@ -62,12 +63,13 @@
   .unitBox{
     display: inline-block;
     border-bottom: 1px solid;
-    width: 75%;
+    width: 70%;
     margin-left: 3%;
 
   }
 
   .unitInput{
+    width: 100%;
     padding: .2rem 0;
     font-size: .4rem;
   }
@@ -99,7 +101,6 @@
     },
     components: {
       commonNav,
-      Checklist
     },
     computed: {
       // 有缓存
