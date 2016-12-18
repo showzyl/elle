@@ -160,7 +160,6 @@
     </ul>
   </div>
 
-
   <footBar pageName="classify" />
 </div>
 </template>

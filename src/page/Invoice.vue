@@ -110,7 +110,7 @@
           let data = res.body;
           console.log(data);
           if(data.code+'' === '0'){
-            location.reload();
+//            location.reload();
           }else{
             Toast({
               message: '暂无数据...',

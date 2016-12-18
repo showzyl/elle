@@ -5,7 +5,7 @@
 
         <label class="mint-checklist-label">
           <span class="mint-checkbox">
-            <input type="radio" class="mint-checkbox-input" name="name" value="unit" v-model="checkname"> 
+            <input type="radio" class="mint-checkbox-input" name="name" value="1" v-model="checkType"> 
             <span class="mint-checkbox-core"></span>
           </span>
           <span class="mint-checkbox-label">单位</span>
@@ -13,20 +13,20 @@
 
         <label class="mint-checklist-label">
           <span class="mint-checkbox">
-            <input type="radio" class="mint-checkbox-input" name="name" value="person" v-model="checkname"> 
+            <input type="radio" class="mint-checkbox-input" name="name" value="2" v-model="checkType"> 
             <span class="mint-checkbox-core"></span>
           </span> 
           <span class="mint-checkbox-label">个人</span>
         </label>
 
-        <div v-if="checkname === 'unit'" class="unitDetail">
+        <div v-if="checkType === '1'" class="unitDetail">
           <span class="unitName">单位名称</span>
           <div class="unitBox">
-            <input type="text" name="unitname" class="unitInput" placeholder="请输入单位名称">
+            <input type="text" v-model="unitTitle" class="unitInput" placeholder="请输入单位名称">
           </div>
         </div>
 
-        <div class="btn btnSaveInvoice">
+        <div class="btn btnSaveInvoice" @click="handleClick">
           保存
         </div>
 
@@ -92,12 +92,13 @@
   export default {
     data(){
       return {
-        checkname: 'person'
+        checkType: '1',
+        unitTitle: null
       }
     },
     created(){ 
       var me = this
-      console.log(me.checkname)
+      console.log(me.checkType)
     },
     components: {
       commonNav,
@@ -108,13 +109,32 @@
       
     },
     methods: {
-      // 没有缓存
-      asyncData(id, cb){
-        var me = this
-        
+      addInvoice(data, cb){
+        const me = this;
+        data.route = 'mapi/category/getallcategory';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+            window.q.interfaceHost +'index.php?',
+          {params: data})
+          .then(res => {
+          //console.log(res)
+          let data = res.body;
+          console.log(data.data);
+
+          if(data.data.list){
+            cb && cb(data.data);
+          }else{
+            Toast('暂无数据...')
+          }
+        }, err => {
+          console.log(err)
+          Toast('网络错误...')
+        })
+
       },
-      addAds(){
-        console.log('add')
+      handleClick(){
+        console.log('handleClick')
+
       }
 
     },

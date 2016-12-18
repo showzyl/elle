@@ -1,19 +1,15 @@
 <template>
+  <div class="profile">
 
-    <div class="profile">
-      <!--<commonNav title="梨子" />-->
-      <div class="header">
-
-      </div>
-      <!-- 背景图做高斯模糊 -->
-      <!--<div class="profileTopBg" style="background-image: url('http://p5.qhimg.com/t01272aeeb0365c41dd.png')"></div>-->
-
-      <div class="profileTop ">
+    <div class="main" v-if="tab === 'content'">
+      <div class="profileTop">
+        <!-- 背景图做高斯模糊 -->
+        <div class="profileTopBg" :style="'background-image: url('+info.headimgurl+')'"></div>
         <div class="headImg">
-          <router-link to="/personal">
+          <a @click.prevent="tab = 'personal'">
             <img alt="headImg" :src="info.headimgurl" v-if="info.headimgurl">
             <img alt="headImg" src="../assets/img/profile/touxiang.png" v-else>
-          </router-link>
+          </a>
         </div>
 
         <h3 class="userName">{{info.firstname}}</h3>
@@ -25,7 +21,7 @@
             蓝色会员
           </div>
         </div>
-        
+
       </div>
 
       <div class="collectBox ">
@@ -52,7 +48,7 @@
         </span>
       </div>
 
-      <ul class="hotBox none">
+      <ul class="hotBox ">
         <li class="hotItem">
           <i class="hotIcon obligationIcon"></i>
           <h3 class="txt">待付款</h3>
@@ -89,7 +85,7 @@
             <span class="num" v-if="info.remaining_total">￥{{info.remaining_total}}</span>
             <span class="num" v-else>暂无数据</span>
           </div>
-          
+
           <div class="accountRight">
             <ul class="cheapList">
               <li class="cheapItem">
@@ -107,7 +103,7 @@
             </ul>
           </div>
         </div>
-        
+
       </div>
 
       <div class="bgGray"></div>
@@ -137,27 +133,54 @@
       </ul>
 
       <footBar pageName="profile" />
-
-
-
     </div>
+
+    <div class="personal" v-if="tab === 'personal'">
+      <!--<commonNav title="个人资料" iconRight="" />-->
+
+      <div class="personalNav">
+        <i class="iconBack" @click="tab = 'content'"></i>
+        <h2 class="title">个人资料</h2>
+      </div>
+
+      <div class="personalHead">
+        <div class="headImg">
+          <img :src="info.headimgurl" v-if="info.headimgurl" class="iconImg">
+          <img src="../assets/img/profile/touxiang.png" v-else class="iconImg">
+          <i class="iconRedPen"></i>
+        </div>
+      </div>
+
+      <ul class="personalList">
+        <li class="personItem">
+          <a href="">
+            <i class="iconUserName"></i>
+            <span class="name">{{info.firstname}}</span>
+          </a>
+        </li>
+        <li class="personItem">
+          <a href="">
+            <i class="iconTel"></i>
+            <span class="name">{{info.telephone}}</span>
+          </a>
+        </li>
+        <li class="personItem">
+          <a href="">
+            <i class="iconMail"></i>
+            <span class="name">{{info.email}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
 </template>
 
 <style media="screen" scoped>
 
   .profile{
 
-  }
-
-  .header{
-
-  }
-
-  .fl{
-    float: left;
-  }
-  .fr{
-    float: right;
   }
 
   .blueMember{
@@ -170,6 +193,7 @@
     left: 0;
     width: 100%;
     height: 5.5rem;
+    z-index: -1;
     /*background: #fff;
     opacity: .2;*/
     -webkit-filter: blur(10px); /* Chrome, Opera */
@@ -179,7 +203,7 @@
     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
   }
   .profileTop{
-    background-image: url('../assets/img/profileBg1.jpg');
+    /*background-image: url('../assets/img/profileBg1.jpg');*/
     height: 5.5rem;
     background-size: cover;
     overflow: hidden;
@@ -464,27 +488,116 @@
     position: absolute;
   }
 
+  .personal .personalHead{
+    /*margin-top: 1.5rem;*/
+    position: relative;
+    height: 4rem;
+    border-top: 1px solid;
+  }
+
+  .personalHead .headImg{
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    margin: .4rem 0 .4rem -1.3rem;
+  }
+
+  .personalHead .iconImg{
+    border-radius: 50%;
+  }
+
+  .iconRedPen{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    background-image: url(../assets/img/profile/headpen@3x.png);
+    background-size: cover;
+    width: .3rem;
+    height: .3rem;
+  }
+
+  .personalList{
+    border-bottom: 1px solid #d7d7d5;
+  }
+
+  .personItem{
+    padding: .3rem .8rem;
+    font-size: .4rem;
+  }
+
+  .iconUserName, .iconTel, .iconMail{
+    display: inline-block;
+    width: .6rem;
+    height: .6rem;
+    background-size: cover;
+    vertical-align: middle;
+  }
+
+  .iconUserName{
+    background-image: url(../assets/img/profile/name@3x.png);
+  }
+
+  .iconTel{
+    background-image: url(../assets/img/profile/phone@3x.png);
+  }
+
+  .iconMail{
+    background-image: url(../assets/img/profile/email@3x.png);
+  }
+
+  .personItem .name{
+    margin-left: .8rem;
+  }
+
+  .personalNav{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    border: 1px solid #d7d7d5;
+    border-right: 0 none;
+    border-left: 0 none;
+    position: relative;
+  }
+
+  .iconBack{
+    position: absolute;
+    display: block;
+    background-image: url(../assets/img/backbtn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 0.6rem;
+    width: 0.8rem;
+    top: 33%;
+    left: 3%;
+  }
+
+  .personItem a{
+    display: block;
+  }
+
 </style>
 
 <script>
-  import { mapState } from 'vuex'
+//  import { mapState } from 'vuex'
   import commonNav from '../components/commonNav.vue'
   import recommend from '../components/recommend.vue'
   import footBar from '../components/footBar.vue'
-  
-
-
   import { Toast, Indicator } from 'mint-ui'
+  import store from '../assets/lib/q.store.js'
+
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
   export default {
-    props: {
-
-    },
     created(){
       const me = this;
 
       me.fetchData({
-        customer_id: 280944
+        customer_id
       }, res => {
         console.log(res);
         let info = res.info;
@@ -500,7 +613,7 @@
     },
     data () {
       return {
-        msg: 'profile',
+        tab: 'personal',
         myform: {},
         info: {
 

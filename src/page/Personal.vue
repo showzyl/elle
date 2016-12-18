@@ -30,9 +30,6 @@
       </li>
     </ul>
 
-
-  
-
   </div>
 </template>
 
@@ -73,8 +70,6 @@
     bottom: 0;
     right: 0;
     display: inline-block;
-    width: .8rem;
-    height: .8rem;
     background-image: url(../assets/img/profile/headpen@3x.png);
     background-size: cover;
     width: .3rem;

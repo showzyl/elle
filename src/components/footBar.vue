@@ -24,11 +24,12 @@
       </router-link>
     </li>
 
-    <li class="footBarItem " :class="[pageName == 'shopcar' ? 'on' : '']">
+    <li class="footBarItem shopcart" :class="[pageName == 'shopcar' ? 'on' : '']">
       <router-link to="/shopcar">
         <i class="iconShopinglist"/></i>
         <h3 class="footBarTxt">购物车</h3>
       </router-link>
+      <span class="shopcartNumber" v-show="shopcartNumber">{{shopcartNumber}}</span>
     </li>
 
     <li class="footBarItem " :class="[pageName == 'profile' ? 'on' : '']">
@@ -138,6 +139,23 @@
      background-image: url(../assets/img/footer/tabbar_mine_selected@3x.png);
   }
 
+  .shopcart{
+    position: relative;
+
+  }
+
+  .shopcartNumber{
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    width: .5rem;
+    height: .5rem;
+    line-height: .5rem;
+    background-color: red;
+    color: #ffffff;
+    border-radius: 50%;
+  }
+
 </style>
 
 <script lang="babel">
@@ -151,9 +169,18 @@ export default {
       default: 'index'
     }
   },
+  data(){
+    return {
+      shopcartNumber: null
+    }
+  },
   created(){
-    //console.log(core);
-    //core.string.get_url_param('l')
+    const me = this;
+
+    setTimeout(() => {
+      me.shopcartNumber = store.get('shopcartNumber');
+    }, 1000)
+
   },
   components: {
 

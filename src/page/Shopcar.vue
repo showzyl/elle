@@ -1,5 +1,12 @@
 <template>
   <div class="shopcar">
+    <div class="shopNav" v-show="products.length">
+      <div class="left" @click="toggleAll">
+        <i class="iconBack"></i>
+        ALL
+      </div>
+      <div class="right" @click="delAll">Clear 清除</div>
+    </div>
     <ul class="shopcarList" v-if="products.length" >
       <li class="shopcarItem" v-for="(item,i) in products">
         <a href="/#">
@@ -18,7 +25,7 @@
               <div class="addBottom">
                 <label class="mint-checklist-label">
                   <span class="mint-checkbox">
-                    <input type="checkbox" class="mint-checkbox-input" checked @change="calMoney({quantity: item.quantity,cart_id: item.cart_id, index: i, checked: item.checked, total: item.total})">
+                    <input type="checkbox" class="mint-checkbox-input" v-model="item.checked" @change="calMoney({quantity: item.quantity,cart_id: item.cart_id, index: i, checked: item.checked, total: item.total})">
                     <span class="mint-checkbox-core"></span>
                   </span>
                 </label>
@@ -50,7 +57,6 @@
       </li>
     </ul>
 
-
     <div class="shopcarTop" v-else>
         <img src="../assets/img/shopcart.png" alt="" class="shopcarImg"/>
         <h3 class="emptyTxt">
@@ -68,8 +74,8 @@
   </div>
 </template>
 
-
 <style media="screen" scoped>
+
   .shopcar{
     background-color: #e5e5e5;
     min-height: 100%;
@@ -150,7 +156,7 @@
 
   .shopcarItemM .numBox{
     float: left;
-
+    width: 90%;
   }
 
   .shopcarItemM p{
@@ -211,7 +217,6 @@
   .settlement .settlementBtn{
     position: absolute;
     right: 0;
-    top: 0;
     width: 1.8rem;
     height: .6rem;
     line-height: .6rem;
@@ -223,6 +228,34 @@
     border-radius: 5px;
   }
 
+  .shopNav{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    border: 1px solid #d7d7d5;
+    border-right: 0 none;
+    border-left: 0 none;
+    position: relative;
+    background-color: #ffffff;
+  }
+
+  .shopNav .left, .shopNav .right{
+    position: absolute;
+    top: 0;
+
+
+  }
+
+  .shopNav .left{
+    left: 0;
+    padding-left: .4rem;
+  }
+
+  .shopNav .right{
+    right: 0;
+    padding-right: .4rem;
+  }
+
 
 </style>
 
@@ -232,6 +265,9 @@
   import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
+
+  const mobile_token = store.get('mobile_token');
+  const customer_id = store.get('customer_id');
 
   export default {
     data() {
@@ -251,23 +287,22 @@
         spinnerType: 'fading-circle'
       });
 
-      const mobile_token = store.get('mobile_token');
-      const customer_id = store.get('customer_id');
-
       me.fetchCartData({
-        customer_id: customer_id,
-        mobile_token: mobile_token
+        customer_id,
+        mobile_token
       }, res => {
 //        console.log(res.products);
-        me.products = res.products;
 //        me.totals = res.totals;
 //        me.total = res.totals[0].text;
-        me.products.forEach(item => {
+        res.products.forEach(item => {
           item.checked = true;
-          me.quantity += parseInt(item.quantity);
-          me.total += parseInt(item.total);
+          me.quantity += Number(item.quantity);
+          me.total += Number(item.total);
         })
 
+        me.products = res.products;
+
+        store.set('shopcartNumber', me.quantity)
       })
 
     },
@@ -331,16 +366,9 @@
       confirmDel({cart_id}){
         const me = this;
         console.log(cart_id);
-//        MessageBox({
-//          title: '提示',
-//          message: '确定删除?',
-//          showCancelButton: true
-//        });
+
         MessageBox.confirm('确定删除此商品?').then(action => {
-//          console.log(action);
           if(action == 'confirm'){
-            const mobile_token = store.get('mobile_token');
-            const customer_id = store.get('customer_id');
             me.deleteCartItem({
               cart_id,
               mobile_token,
@@ -352,9 +380,7 @@
         })
       },
       checkout(){
-        const bChecked = this.products.find(item => {
-          return item.checked;
-        });
+        const bChecked = this.products.find(item => item.checked);
 
         if(!bChecked){
           return Toast('您还未选中要结算的商品!')
@@ -365,6 +391,48 @@
         console.log('进行结算');
 
       },
+      toggleAll(){
+        console.log('in')
+        const me = this;
+
+        let bCheck = me.products.every(item => item.checked);
+        console.log(bCheck);
+        me.products.forEach(item => {
+          item.checked = !bCheck;
+          console.log(item.checked);
+        })
+
+        if(bCheck){
+          me.quantity = 0;
+          me.total = 0;
+        }else{
+          me.quantity = 0;
+          me.total = 0;
+          me.products.forEach(item => {
+            me.quantity += parseInt(item.quantity);
+            me.total += parseInt(item.total);
+          })
+        }
+
+      },
+      delAll(){
+        const me = this;
+        MessageBox.confirm('确定清除所有商品?').then(action => {
+          store.set('shopcartNumber', 0);
+          if(action == 'confirm'){
+            me.products.forEach(item => {
+              me.deleteCartItem({
+                cart_id: item.cart_id,
+                mobile_token,
+                customer_id
+              }, ()=>{
+
+              })
+            })
+            location.reload();
+          }
+        })
+      },
       calMoney({
         checked,
         quantity,
@@ -374,7 +442,7 @@
       }){
         const me = this;
         console.log(checked, quantity, index, cart_id, total);
-        if(checked){
+        if(!checked){
           console.log(me.total)
           me.quantity -= parseInt(quantity);
           me.total -= parseInt(total);
@@ -383,7 +451,7 @@
           me.quantity += parseInt(quantity);
           me.total += parseInt(total);
         }
-        me.products[index].checked = !checked;
+//        me.products[index].checked = !checked;
         console.log(me.quantity, me.products[index].checked);
 
       },
