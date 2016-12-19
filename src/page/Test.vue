@@ -1,11 +1,21 @@
 
 <template>
 <div class="test">
-  test page
+  <h2>
+    test page
+  </h2>
 </div>
 </template>
-<style media="screen">
-  
+<style media="screen" lang="scss">
+  .test{
+    width: 100px;
+    height: 100px;
+    border: 1px solid;
+    h2{
+      line-height: 100px;
+      color: red;
+    }
+  }
 </style>
 <script lang="babel">
   import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
@@ -28,9 +38,9 @@
       
     },
     methods: {
-      // 没有缓存
-      asyncData(id, cb){
-        var me = this
+      fetchData(id, cb){
+        const me = this;
+
         
       },
       addAds(){

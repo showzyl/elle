@@ -54,6 +54,7 @@
     width: 100%;
     background: #fff;
     border-top: 1px solid #d7d7d5;
+    z-index: 3;
     /*line-height: 1rem;*/
   }
 

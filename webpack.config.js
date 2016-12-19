@@ -1,5 +1,5 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -15,6 +15,9 @@ module.exports = {
         loader: 'vue',
         options: {
           // vue-loader options go here
+          loaders: {
+            scss: 'style!css!sass'
+          }
         }
       },
       {
@@ -25,6 +28,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css'
+      },
+      {
+        test: /\.s[a|c]ss$/,
+        loader: 'style!css!sass'
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,

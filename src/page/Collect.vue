@@ -2,26 +2,46 @@
 <div class="collect">
   <commonNav title="收藏" iconRight="" />
   <div class="collectTab">
-    <a href="javascript:;" class="tab on">商品</a>
-    <a href="javascript:;" class="tab">品牌</a>
+    <a href="javascript:;" @click.prevent="tab = 'tab0'" class="tab" :class="[tab == 'tab0' ? 'on' : '']">商品</a>
+    <a href="javascript:;" @click.prevent="tab = 'tab1'" class="tab" :class="[tab == 'tab1' ? 'on' : '']">品牌</a>
     <div class="tabborder"></div>
   </div>
 
-  <ul class="collList">
-    <li class="collItem">
+  <ul class="collList" v-if="tab === 'tab0'">
+    <li class="collItem" v-for="product in products">
       <div class="imgBox">
-        <img src="http://static.elleshop.com.cn/catalog/Operation/tokidoki/1_1-2.jpg?iopcmd=thumbnail&type=8&width=300&height=383|iopcmd=convert&q=60&dst=jpg" alt="">
+        <img :src="product.thumb">
       </div>
       <div class="content">
-        <p class="price">138</p>
-        <p class="name">NAMAS MIYO</p>
+        <p class="price">{{product.price}}</p>
+        <p class="name">{{product.name}}</p>
       </div>
     </li>
+  </ul>
+
+  <ul class="brandList" v-if="tab === 'tab1'">
+    <ul class="brandList">
+      <li v-for="item in brands" class="brandItem">
+        <a :href="'/#/brand/' + item.manufacturer_id">
+          <div class="brandContent">
+            <img :src="item.app_image" alt="">
+            <h3 class="title">{{item.name}}</h3>
+            <div class="desiger">{{item.desiger}}</div>
+            <div class="collectTime" :class="{ on: item.iswish }">
+              <span class="loveIcon"></span>
+              <span class="count">{{item.wishcount}}</span>
+            </div>
+          </div>
+          <div class="brandItemBg"></div>
+        </a>
+      </li>
+    </ul>
   </ul>
 
   <!--<footBar pageName="classify" />-->
 </div>
 </template>
+
 <style media="screen" scoped>
 
   .collect{
@@ -38,6 +58,7 @@
   .collectTab .on{
     border-bottom: 2px solid;
   }
+
   .tabborder {
     border-right: 1px solid #d7d7d5;
     margin-left: 1px;
@@ -57,7 +78,6 @@
   }
 
   .collItem{
-    /*width: 50%;*/
     float: left;
     margin: .4rem;
   }
@@ -70,6 +90,7 @@
   .content{
     float: left;
     margin-left: .3rem;
+    width: 55%;
   }
 
   .content p{
@@ -78,51 +99,174 @@
 
 
 
-</style>
-<script lang="babel">
+  .brandItem{
+    position: relative;
+    /*height: 200px;*/
+    color: #fff;
+  }
 
-import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-// //import commonNav from '../components/commonNav.vue'
-// import core from '../assets/lib/q.core.js'
-import commonNav from '../components/commonNav.vue'
-// import footBar from '../components/footBar.vue'
+  .brandContent .title, .brandContent .desiger{
+    color: #fff;
+  }
 
+  .brandItem img{
+    height: 196px;
+  }
 
-export default {
-  data(){
-    return {
+  .brandItemBg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: .8;
+  }
 
-    }
-  },
-  created(){ 
-    var me = this
-
-  },
-  components: {
-    commonNav,
-    Checklist
-  },
-  computed: {
-    // 有缓存
-    
-    
-  },
-  methods: {
-    // 没有缓存
-    asyncData(id, cb){
-      var me = this
-      
-    },
-    addAds(){
-      console.log('add')
-    }
-
-  },
-  mounted() {
-
-  },
-  watch: {
+  .brandItem .title, .brandItem .desiger{
+    position: absolute;
+    left: 10%;
+    z-index: 2;
 
   }
-}
+
+  .brandItem .title{
+    top: 40%;
+    font-size: .45rem;
+  }
+
+  .brandItem .desiger{
+    top: 55%;
+    font-size: .35rem;
+  }
+
+  .brandItem .collectTime{
+    position: absolute;
+    right: 10%;
+    top: 45%;
+    z-index: 2;
+    color: #fff;
+    font-size: .45rem;
+  }
+
+
+  .collectTime .count{
+
+  }
+
+  .collectTime .loveIcon{
+    background-image: url(../assets/img/profile/icon_fucus@3x.png);
+    background-size: cover;
+    width: 18px;
+    height: 16px;
+    display: inline-block;
+  }
+
+  .on .loveIcon{
+    background-image: url('../assets/img/recomend/collection_h@3x.png');
+  }
+
+  .on .count{
+    color: #ca4848;
+  }
+
+
+</style>
+
+<script lang="babel">
+
+  import { Toast, Indicator } from 'mint-ui'
+  import commonNav from '../components/commonNav.vue'
+  import store from '../assets/lib/q.store.js'
+
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
+
+  export default {
+    data(){
+      return {
+        tab: 'tab0',
+        products: [],
+        brands: []
+      }
+    },
+    components: {
+      commonNav
+    },
+    computed: {
+      // 有缓存
+
+
+    },
+    created(){
+      const me = this;
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
+
+      me.fetchData({
+        customer_id,
+        mobile_token,
+        type_id: 1
+      }, res => {
+  //      console.log(res);
+        me.products = res.products;
+
+      })
+
+      me.fetchData({
+        customer_id,
+        mobile_token,
+        type_id: 2
+      }, res => {
+  //      console.log(res);
+        me.brands = res.manufacturers;
+      })
+
+
+
+    },
+    methods: {
+      // 没有缓存
+      fetchData(data, cb){
+        const me = this;
+        data.route = 'mapi/wishlist';
+        data.format = 'jsonp';
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          Toast('网络错误...')
+        })
+
+      },
+      addAds(){
+        console.log('add')
+      }
+
+    },
+    mounted() {
+
+    },
+    watch: {
+
+    }
+  }
 </script>

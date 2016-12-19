@@ -56,6 +56,10 @@
   margin: 0 auto;
   text-align: center;
   font-size: .5rem;
+  overflow: hidden;
+  word-break:keep-all;/* 不换行 */
+  white-space:nowrap;/* 不换行 */
+  text-overflow:ellipsis;
 }
 
 </style>

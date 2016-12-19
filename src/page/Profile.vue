@@ -589,15 +589,21 @@
   import { Toast, Indicator } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
 
-  const customer_id = store.get('customer_id');
-  const mobile_token = store.get('mobile_token');
+  const customer_id = store.get('customer_id')
+  const mobile_token = store.get('mobile_token')
 
   export default {
     created(){
       const me = this;
 
+      if (!customer_id && !mobile_token){
+        location.href = '/#/login';
+        return;
+      }
+
       me.fetchData({
-        customer_id
+        customer_id,
+        mobile_token
       }, res => {
         console.log(res);
         let info = res.info;

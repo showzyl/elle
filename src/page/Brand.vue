@@ -5,7 +5,7 @@
     <div class="content0" v-if="tab === 'tab0'">
       <div class="brandBox">
         <div class="brandBg"></div>
-        <img :src="info.app_image" alt="">
+        <img :src="info.app_image">
         <div class="wishBox" :class="{on: info.iswish}">
           <h3 class="tit">{{info.title}}</h3>
           <span class="collectIconGray"></span>
@@ -79,7 +79,9 @@
 
   .wishBox .tit{
     font-size: .45rem;
-    margin: .6rem 0;
+    margin: .6rem 0 .6rem -2.5rem;
+    width: 5rem;
+    text-align: center;
   }
 
   .wishBox .collectIconGray{

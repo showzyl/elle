@@ -3,30 +3,36 @@
 import store from './q.store'
 
 export default {
-	collect(data, cb) {
-		var me = this;
-		data.route = 'mapi/wishlist/add';
+	
+	toggleCollect(data, cb) {
+		// product_id
+		const me = this;
+		if(data.is_wish){
+			data.route = 'mapi/wishlist/delete';
+		}else{
+			data.route = 'mapi/wishlist/add';
+		}
 		data.format = 'jsonp';
 		this.$http.jsonp(
-				window.q.interfaceHost + 'index.php?',
-			{params: data})
-			.then(res => {
-				Indicator.close()
-				//console.log(res)
-				let data = res.body;
-				if (data.code + '' === '0') {
-					cb && cb(data);
-				} else {
-					// 无数据
-					cb && cb('no data');
-				}
-			}, err => {
-				cb && cb('err');
-			})
+			window.q.interfaceHost + 'index.php?',
+		{
+			params: data
+		}).then(res => {
+			//console.log(res)
+			let data = res.body;
+			if (data.code + '' === '0') {
+				cb && cb(data);
+			} else {
+				// 无数据
+				cb && cb('no data');
+			}
+		}, err => {
+			cb && cb('err');
+		})
 	},
 
 	isLogin(){
-		if (store.get('customer_id')) {
+		if (store.get('customer_id') && store.get('mobile_token')) {
 			return true;
 		} else {
 			return false;

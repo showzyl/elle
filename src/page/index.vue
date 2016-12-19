@@ -171,7 +171,7 @@
       })
 
       // 下拉加载更多
-      window.onscroll = function(e){
+      window.onscroll = (e) => {
         if(me.$route.path !== '/') return;
         //console.log(e)
         //console.log(util.getEl('.tab-bg0').style)
@@ -205,7 +205,7 @@
         document.querySelector('.mask').className = 'mask'
       },
       fetchData(data, cb){
-        var me = this;
+        const me = this;
 
         data.route = 'mapi/home_waterfall';
         data.format = 'jsonp';

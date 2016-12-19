@@ -1,7 +1,9 @@
 <template>
   <div class="order">
     <commonNav title="订单" iconRight="" />
-    <ul class="orderList">
+
+    <div class="orderContent">
+      <ul class="orderList">
       <li class="orderItem">
         <div class="titleBox">
           <span class="orderNum">订单号: 5005788</span>
@@ -29,30 +31,38 @@
         
       </li>
     </ul>
+    </div>
   </div>
 </template>
-<style media="screen" scoped>
+
+<style media="screen" lang="scss" scoped>
+
+  .commonNav{
+    position: absolute;
+  }
+
   .order{
     background-color: #e5e5e5;
     min-height: 100%;
   }
 
+  .orderContent{
+    margin-top: 1.5rem;
+  }
+
   .orderList{
     background-color: #fff;
-    margin: .3rem .2rem;
+    /*margin: 1.8rem .2rem;*/
     min-height: 100%;
-    padding-top: 1.5rem;
+    /*padding-top: 1.5rem;*/
+    .checkBox{
+      position: relative;
+      padding: .3rem 0;
+    }
   }
 
   .orderItem{
     padding: .2rem;
-  }
-
-  
-
-  .orderList .checkBox{
-    position: relative;
-    padding: .3rem 0;
   }
 
   .checkBox .price{
@@ -78,25 +88,88 @@
   }
 
 
+
+
 </style>
+
 <script lang="babel">
-import commonNav from '../components/commonNav.vue'
 
-export default {
-  components: {
-    commonNav
-  },
-  computed: {
+  import commonNav from '../components/commonNav.vue'
+  import { Toast, Indicator } from 'mint-ui'
+  import store from '../assets/lib/q.store.js'
 
-  },
-  methods: {
+  const customer_id = store.get('customer_id')
+  const mobile_token = store.get('mobile_token')
 
-  },
-  mounted() {
+  export default {
+    data() {
+      return {
 
-  },
-  watch: {
+      }
+    },
+    created(){
+      const me = this;
 
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
+
+      // type 空 为全部订单
+      // 1 unpaid 待付款 2 unshipped 待发货 3 shipped 待收货
+
+      me.fetchData({
+        customer_id,
+        mobile_token
+      }, res => {
+//        console.log(res);
+
+      })
+
+    },
+    components: {
+      commonNav
+    },
+    computed: {
+
+    },
+    methods: {
+      fetchData(data, cb){
+        const me = this;
+        data.route = 'mapi/order';
+        data.format = 'jsonp';
+
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          console.log(data);
+          if(data.code+'' === '0'){
+            cb && cb(data.data);
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          Toast('网络错误...')
+        })
+      },
+
+
+    },
+    mounted() {
+
+    },
+    watch: {
+
+    }
   }
-}
 </script>
