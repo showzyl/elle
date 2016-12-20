@@ -30,12 +30,12 @@
           我的收藏
         </router-link>
 
-        <a href="">
+        <router-link to="/history">
           <span class="txt" v-if="info.cart_count">{{info.cart_count}}</span>
           <span class="txt" v-else>0</span>
           <br>
           浏览记录
-        </a>
+        </router-link>
       </div>
 
       <div class="orderBox ">
@@ -50,17 +50,23 @@
 
       <ul class="hotBox ">
         <li class="hotItem">
-          <i class="hotIcon obligationIcon"></i>
-          <h3 class="txt">待付款</h3>
-          <span class="num">12</span>
+          <router-link to="/order?tab=1">
+            <i class="hotIcon obligationIcon"></i>
+            <h3 class="txt">待付款</h3>
+            <span class="num">12</span>
+          </router-link>
         </li>
         <li class="hotItem">
-          <i class="hotIcon orderIcon"></i>
-          <h3 class="txt">待发货</h3>
+          <router-link to="/order?tab=2">
+            <i class="hotIcon orderIcon"></i>
+            <h3 class="txt">待发货</h3>
+          </router-link>
         </li>
         <li class="hotItem">
-          <i class="hotIcon receivedIcon"></i>
-          <h3 class="txt">待发货</h3>
+          <router-link to="/order?tab=3">
+            <i class="hotIcon receivedIcon"></i>
+            <h3 class="txt">待收货</h3>
+          </router-link>
         </li>
         <li class="hotItem">
           <i class="hotIcon evaluationIcon"></i>
@@ -172,7 +178,6 @@
         </li>
       </ul>
     </div>
-
 
   </div>
 </template>

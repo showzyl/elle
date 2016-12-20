@@ -64,56 +64,42 @@
 
   </div>
 </template>
-<style media="screen" scoped>
-  .orderdetail{
+<style media="screen" lang="scss" scoped>
 
-  }
+  .orderdetail {
+    .section{
+      margin: .4rem .4rem 0;
+      padding: .2rem;
+    }
+    .userName{
+      font-size: .45rem;
+    }
+    .address{
+      font-size: .35rem;
+    }
+    .statusBox{
+      font-size: .35rem;
+      li{
+        border-bottom: 1px solid;
+      }
+      li.dispatch{
+        border-bottom: 1px solid #d7d7d5;
+      }
+      .status{
+        padding: 0 0 .5rem 0;
+      }
+      .dispatch{
+        padding: .5rem 0;
+      }
+      .detail{
+        padding: .3rem 0;
+        p{
+          padding: .1rem 0;
+        }
+      }
 
-  
-  .orderdetail .section{
-    margin: .4rem .4rem 0;
-    padding: .2rem;
-    
-  }
+    }
 
-  .orderdetail .userName{
-    font-size: .45rem;
-  }
-
-  .orderdetail .address{
-    font-size: .35rem;
-  }
-
-  .orderdetail .statusBox{
-    font-size: .35rem;
-  }
-
-  .statusBox li{
-    border-bottom: 1px solid;
-  }
-
-  .statusBox li.dispatch{
-    border-bottom: 1px solid #d7d7d5;
-  }
-
-  .statusBox .status{
-    padding: 0 0 .5rem 0;
-  }
-
-  .statusBox .dispatch{
-    padding: .5rem 0;
-  }
-
-  .statusBox .detail{
-    padding: .3rem 0;
-  }
-
-  .statusBox .detail p{
-    padding: .1rem 0;
-  }
-
-  .statusBox .dispatch p{
-    padding: .1rem 0;
   }
 
   .orderTit{
@@ -129,15 +115,11 @@
   .orderDetailItem{
     padding: .1rem 0;
     font-size: .35rem;
+    .price{
+      width: 30%;
+    }
   }
 
-  .orderDetailItem .name{
-
-  }
-
-  .orderDetailItem .price{
-    width: 30%;
-  }
 
   .orderdetail .allPrice{
     text-align: right;

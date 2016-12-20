@@ -31,7 +31,7 @@
           </label>
 
           <div class="iconList">
-            <router-link to="/">
+            <router-link :to=" '/invdetail?edit=1&invoice_id='+item.invoice_id+'&invoice_type='+item.invoice_type+'&title='+item.title ">
               <i class="iconPen"></i>
             </router-link>
 
@@ -49,6 +49,10 @@
 </template>
 
 <style media="screen" scoped>
+  .commonNav{
+    position: absolute;
+  }
+
   .invoice{
 
   }
@@ -63,7 +67,7 @@
 
 <script lang="babel">
 
-  import { Toast, Checklist, Indicator } from 'mint-ui'
+  import { Toast, Checklist, Indicator, MessageBox } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
   import commonNav from '../components/commonNav.vue'
 
@@ -149,7 +153,37 @@
         })
       },
       delInvoice({invoice_id}){
-        console.log(invoice_id);
+        MessageBox.confirm('确定删除此发票?').then(action => {
+          if(action == 'confirm'){
+            this.$http.jsonp(
+              window.q.interfaceHost +'index.php?',
+              {
+                params: {
+                  customer_id,
+                  invoice_id,
+                  route: 'mapi/invoice/delete',
+                  format: 'jsonp'
+                }
+              }
+            ).then( res => {
+              let data = res.body;
+              console.log(data);
+              if(data.code+'' === '0'){
+
+              }else{
+                Toast({
+                  message: '暂无数据...',
+                  position: 'bottom',
+                  duration: 3000
+                })
+              }
+            }, err => {
+  //          Toast('网络错误...')
+            })
+          }
+        })
+
+
       },
 
     },

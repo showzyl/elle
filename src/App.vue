@@ -176,6 +176,7 @@ export default {
 
   .orderMain .contentBox{
     float: left;
+    width: 68%;
     margin: 0 0 0 .3rem;
   }
 

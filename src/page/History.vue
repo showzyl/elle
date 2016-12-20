@@ -5,7 +5,7 @@
   <ul class="hisoryList" >
     <li class="item" v-for="product in products">
       <div class="imgBox">
-        <img :src="product.thumb">
+        <img :src="product.image">
       </div>
       <div class="content">
         <p class="price">{{product.price}}</p>
@@ -19,7 +19,11 @@
 
 <script lang="babel">
   import commonNav from '../components/commonNav.vue'
-  import { Toast, Indicator } from 'mint-ui';
+  import { Toast, Indicator } from 'mint-ui'
+  import store from '../assets/lib/q.store.js'
+
+  const customer_id = store.get('customer_id')
+  const mobile_token = store.get('mobile_token')
 
   export default {
     data () {
@@ -38,18 +42,14 @@
         spinnerType: 'fading-circle'
       })
 
-      me.products = [{
-        name: 'lizi1',
-        price: 1234
-      }, {
-        name: 'lizi2',
-        price: 1
-      }]
-      console.log(123)
-      me.fetchData({}, res => {
-        console.log(res);
-        // me.products =
+      me.fetchData({
+        customer_id,
+        mobile_token
+      }, res => {
+//        console.log(res.history.product_list);
+        me.products = res.history.product_list
       })
+
     },
     computed: {
 
@@ -57,7 +57,7 @@
     methods: {
       fetchData(data, cb){
         const me = this;
-        data.route = 'mapi/order';
+        data.route = 'mapi/account/history';
         data.format = 'jsonp';
 
         this.$http.jsonp(

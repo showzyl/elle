@@ -61,7 +61,7 @@
         </div>
       </li>
     </ul>
-    <div class="btn btnAddAds" @click="addAds">添加地址</div>
+    <div class="btn btnAddAds" @click="handleClick">添加地址</div>
   </div>
 
   <div class="region" v-if="tab === 'province'">
@@ -484,7 +484,56 @@
           console.log(res);
           // 添加成功
           Toast('添加成功');
-        });
+        })
+
+      },
+      editAds(data, cb){
+        const me = this;
+        data.route = 'mapi/address/edit';
+        data.format = 'jsonp';
+        this.$http.jsonp(
+          window.q.interfaceHost +'index.php?',
+          {
+            params: data
+          }
+        ).then( res => {
+          let data = res.body;
+          if(data.code+'' === '0'){
+            cb && cb(data);
+          }else{
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            })
+          }
+          me.loading = false;
+          Indicator.close();
+        }, err => {
+          Indicator.close();
+          me.loading = false;
+          //console.log(res)
+          Toast('网络错误...')
+        })
+      },
+      handleClick(){
+        if(me.$route.query.phone){
+          editAds({
+            customer_id,
+            mobile_token,
+            firstname: me.usernName,
+            sex: me.sex,
+            tel: me.phone,
+            country_id: me.provinceInfo.id,
+            zone_id: me.cityInfo.id,
+            city_id: me.countryInfo.id,
+            city: me.countryInfo.name,
+            address_1: me.detailAddress,
+            ts: Math.random()
+          })
+        }else{
+          addAds()
+        }
 
       }
 

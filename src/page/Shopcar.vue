@@ -9,7 +9,7 @@
     </div>
     <ul class="shopcarList" v-if="products.length" >
       <li class="shopcarItem" v-for="(item,i) in products">
-        <a href="/#">
+        <router-link :to="'/product/' + item.product_id">
           <h3 class="tit">
             {{item.mname}}
           </h3>
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-        </a>
+        </router-link>
       </li>
     </ul>
 
@@ -336,7 +336,7 @@
         })
 
       },
-      deleteCartItem(data, cb){
+      delCartItem(data, cb){
         // cart_id: xxxx
         var me = this;
         data.route = 'mapi/cart/delete';
@@ -369,7 +369,7 @@
 
         MessageBox.confirm('确定删除此商品?').then(action => {
           if(action == 'confirm'){
-            me.deleteCartItem({
+            me.delCartItem({
               cart_id,
               mobile_token,
               customer_id
@@ -421,7 +421,7 @@
           store.set('shopcartNumber', 0);
           if(action == 'confirm'){
             me.products.forEach(item => {
-              me.deleteCartItem({
+              me.delCartItem({
                 cart_id: item.cart_id,
                 mobile_token,
                 customer_id

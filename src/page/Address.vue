@@ -121,7 +121,7 @@
 </style>
 <script lang="babel">
 
-  import { Toast, Checklist, Indicator } from 'mint-ui'
+  import { Toast, Checklist, Indicator, MessageBox } from 'mint-ui'
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
   import commonNav from '../components/commonNav.vue'
@@ -212,35 +212,41 @@
         })
       },
       delAddress({id}){
-        console.log(id);
+//        console.log(id);
         const me = this;
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: {
-              customer_id,
-              address_id: id,
-              route: 'mapi/address/delete',
-              format: 'jsonp'
-            }
-          }
-        ).then( res => {
-          let data = res.body;
-          console.log(data);
-          if(data.code+'' === '0'){
-            location.reload();
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
+
+        MessageBox.confirm('确定删除此地址?').then(action => {
+          if(action == 'confirm'){
+            this.$http.jsonp(
+              window.q.interfaceHost +'index.php?',
+              {
+                params: {
+                  customer_id,
+                  address_id: id,
+                  route: 'mapi/address/delete',
+                  format: 'jsonp'
+                }
+              }
+            ).then( res => {
+              let data = res.body;
+              console.log(data);
+              if(data.code+'' === '0'){
+                location.reload();
+              }else{
+                Toast({
+                  message: '暂无数据...',
+                  position: 'bottom',
+                  duration: 3000
+                })
+              }
+              Indicator.close();
+            }, err => {
+              Indicator.close();
+              Toast('网络错误...')
             })
           }
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          Toast('网络错误...')
         })
+
       }
     },
     mounted() {
