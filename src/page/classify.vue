@@ -224,8 +224,9 @@
   }
 
   .btnMoreCategary{
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
+    padding: .3rem;
   }
 
   .header, .subBar{

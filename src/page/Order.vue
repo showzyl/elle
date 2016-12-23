@@ -1,5 +1,85 @@
 <template>
   <div class="order">
+
+    <div class="orderdetail" v-if="content === 'detail'">
+      <div class="detailNav">
+        <i class="iconBack" @click="content = 'main'"></i>
+        <h2 class="title">
+          订单详情
+        </h2>
+      </div>
+      <div class="section bbgray">
+        <h3 class="userName">
+          {{datailData.shipping_firstname}} &nbsp
+          {{datailData.shipping_telephone}}
+        </h3>
+        <div class="address">
+          <i class="iconAdd"></i> &nbsp
+          {{datailData.shipping_address}}
+        </div>
+      </div>
+      <ul class="section statusBox">
+        <li class="status" v-if="datailData.order_status === 'unpaid'">
+          订单状态: 待支付
+        </li>
+        <li class="status" v-if="datailData.order_status === 'canceled'">
+          订单状态: 已取消
+        </li>
+        <li class="status" v-if="datailData.order_status === 'unshipped'">
+          订单状态: 待发货
+        </li>
+        <li class="detail">
+          <p>订单编号: {{datailData.order_id}}</p>
+          <p>订单创建时间: {{datailData.date_added}}</p>
+        </li>
+        <li class="dispatch">
+          <p>配送方式: {{datailData.shipping_method}}</p>
+          <p>配送时间: 工作日</p>
+          <p>发票名称: 个人</p>
+        </li>
+      </ul>
+
+      <div class="section">
+        <div class="titleBox">
+          <span class="orderTit">订单商品</span>
+          <span class="orderNum">共 1 件</span>
+        </div>
+        <ul class="orderMain">
+          <li class="orderMainLi" v-for="product in datailData.products">
+            <div class="imgBox">
+              <img :src="product.image">
+            </div>
+            <div class="contentBox">
+              <p class="price">¥{{product.total}}</p>
+              <p class="spec">{{product.name}}</p>
+              <p class="desc">颜色[{{product.color}}] 尺码[{{product.option.value}}]</p>
+              <p class="number">数量 {{product.quantity}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="section">
+        <li class="orderDetailItem">
+          <span class="name">商品合计</span>
+          <span class="price">￥{{datailData.shipping_totle_price}}</span>
+        </li>
+        <li class="orderDetailItem">
+          <span class="name">商品运费</span>
+          <span class="price">￥{{datailData.shipping_price}}</span>
+        </li>
+        <!--<li class="orderDetailItem">-->
+        <!--<span class="name">优惠券</span>-->
+        <!--<span class="price">￥10</span>-->
+        <!--</li>-->
+      </ul>
+
+      <div class="section allPrice">￥{{datailData.shipping_totle_price}}</div>
+
+
+    </div>
+
+
     <div class="" v-if="content === 'main' ">
       <commonNav title="全部订单" iconRight="" />
       <ul class="orderTab">
@@ -8,9 +88,8 @@
         </li>
       </ul>
       <div class="orderContent">
-
         <ul class="orderList" v-if="tabIndex === 0">
-          <li class="orderItem" v-for="(item,i) in list0" @click="content='detail'">
+          <li class="orderItem" v-for="(item,i) in list0">
             <div class="titleBox">
               <span class="orderNum">订单号: {{item.order_id}}</span>
               <h3 class="orderStatus" v-if="item.order_status === 'unpaid'">待支付</h3>
@@ -34,7 +113,7 @@
             <div class="checkBox">
               <p class="price">{{item.total}}</p>
               <p class="number">共 {{item.products}} 件</p>
-              <div class="btnCheckDetail">
+              <div class="btnCheckDetail" @click="checkDetail(item)">
                 查看详情
               </div>
             </div>
@@ -144,70 +223,6 @@
       </div>
     </div>
 
-    <div class="orderdetail" v-if="content === 'detail'">
-      <commonNav title="订单详情" iconRight="" />
-      <div class="section bbgray">
-        <h3 class="userName">
-          梨子 &nbsp
-          18512299394
-        </h3>
-        <div class="address">
-          <i class="iconAdd"></i> &nbsp
-          北京市西城区前门西大街
-        </div>
-      </div>
-      <ul class="section statusBox">
-        <li class="status">
-          订单状态: 已取消
-        </li>
-        <li class="detail">
-          <p>订单编号: 21111111111</p>
-          <p>订单创建时间: 21111111111</p>
-        </li>
-        <li class="dispatch">
-          <p>配送方式: 21111111111</p>
-          <p>配送时间: 21111111111</p>
-          <p>发票名称: 个人</p>
-        </li>
-      </ul>
-
-      <div class="section">
-        <div class="titleBox">
-          <span class="orderTit">订单商品</span>
-          <span class="orderNum">共 1 件</span>
-        </div>
-        <div class="orderMain">
-          <div class="imgBox">
-            <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
-          </div>
-          <div class="contentBox">
-            <p class="price">129</p>
-            <p class="spec">heheh</p>
-            <p class="desc">我是描述我是描述</p>
-            <p class="number">数量 1</p>
-          </div>
-        </div>
-      </div>
-
-      <ul class="section">
-        <li class="orderDetailItem">
-          <span class="name">商品合计</span>
-          <span class="price">￥128</span>
-        </li>
-        <li class="orderDetailItem">
-          <span class="name">商品运费</span>
-          <span class="price">￥1</span>
-        </li>
-        <li class="orderDetailItem">
-          <span class="name">优惠券</span>
-          <span class="price">￥10</span>
-        </li>
-      </ul>
-
-      <div class="section allPrice">￥105</div>
-
-
-    </div>
 
   </div>
 </template>
@@ -216,6 +231,30 @@
 
   .commonNav{
     position: absolute;
+  }
+
+  .orderdetail{
+    background-color: #ffffff;
+  }
+
+  .detailNav{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    border: 1px solid #d7d7d5;
+    border-right: 0 none;
+    border-left: 0 none;
+    position: relative;
+    .iconBack{
+      position: absolute;
+      display: block;
+      background-image: url(../assets/img/backbtn.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 25px;
+      width: 28px;
+      margin: .4rem;
+    }
   }
 
   .orderTab{
@@ -240,6 +279,10 @@
 
   .orderMain{
     padding: 0;
+  }
+
+  .orderMainLi{
+    padding: .3rem 0;
   }
 
   .order{
@@ -389,8 +432,8 @@
         list0: [],
         list1: [],
         list2: [],
-        list3: []
-
+        list3: [],
+        datailData: {}
       }
     },
     created(){
@@ -483,6 +526,12 @@
       checkTab(index){
         console.log(index);
         this.tabIndex = index;
+      },
+      checkDetail(info){
+        const me = this;
+        document.body.scrollTop = 0;
+        me.content = 'detail';
+        me.datailData = info.infos;
       }
 
     },

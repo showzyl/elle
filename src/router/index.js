@@ -24,6 +24,7 @@ import TelReg from '../page/TelReg.vue'
 import Findpwd from '../page/Findpwd.vue'
 import Changepwd from '../page/Changepwd.vue'
 import History from '../page/History.vue'
+import Coupon from '../page/Coupon.vue'
 import Test from '../page/Test.vue'
 
 
@@ -48,6 +49,7 @@ import Test from '../page/Test.vue'
 // const Findpwd = () => System.import('../page/Findpwd.vue')
 // const Changepwd = () => System.import('../page/Changepwd.vue')
 // const History = () => System.import('../page/History.vue')
+// const Coupon = () => System.import('../page/Coupon.vue')
 // const Test = () => System.import('../page/Test.vue')
 
 
@@ -74,6 +76,7 @@ const routes = [
   { name: '发票新增', path: '/invoice', component: Invoice },
   { name: '发票详情', path: '/invdetail', component: InvoiceDetail },
   { name: '历史记录', path: '/history', component: History },
+  { name: '优惠券', path: '/coupon', component: Coupon },
   { name: '测试', path: '/test', component: Test },
 ]
 

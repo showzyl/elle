@@ -9,7 +9,7 @@
 </template>
 <style media="screen" scoped>
   .imgList{
-    margin-top: 1.5rem;
+    /*margin-top: 1.5rem;*/
   }
 
   .inspireNav{

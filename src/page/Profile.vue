@@ -95,7 +95,7 @@
           <div class="accountRight">
             <ul class="cheapList">
               <li class="cheapItem">
-                <router-link to="/">
+                <router-link to="/coupon">
                   <i class="cheapicon couponsIcon"></i>
                   <span class="txt">优惠券</span>
                 </router-link>
@@ -149,7 +149,7 @@
         <h2 class="title">个人资料</h2>
       </div>
 
-      <div class="personalHead">
+      <div class="personalHead" @click="clickHeaderImg">
         <div class="headImg">
           <img :src="info.headimgurl" v-if="info.headimgurl" class="iconImg">
           <img src="../assets/img/profile/touxiang.png" v-else class="iconImg">
@@ -177,12 +177,62 @@
           </a>
         </li>
       </ul>
+
+      <div class="birthBox">
+        <h3 class="tit">Date of birth</h3>
+        <p class="subTit">生日</p>
+        <div class="birth" @click="openPicker">
+          <span class="year">1990</span>
+          <span class="month">05</span>
+          <span class="date">05</span>
+        </div>
+        <p class="attention">
+          注意: 出生日期填写后将不可修改,请注意填写,谢谢!
+        </p>
+      </div>
+
+      <div class="genderBox">
+        <h3 class="tit">Gender</h3>
+        <p class="subTit">性别</p>
+        <div class="gender">
+          <span class="girl" :class="{on: gender==='girl'}" @click="gender = 'girl'">
+            <i class="iconHook"></i>
+            GIRL 女士
+          </span>
+          <span class="guy" :class="{on: gender==='guy'}" @click="gender = 'guy'">
+            <i class="iconHook"></i>
+            GUY 男士
+          </span>
+        </div>
+      </div>
+
+      <div class="btn btnCheckData" @click="checkData">
+        √
+      </div>
+
+      <mt-actionsheet
+        :actions="actions"
+        v-model="sheetVisible">
+      </mt-actionsheet>
+
+      <mt-datetime-picker
+        :startDate="startDate"
+        :endDate="endDate"
+        v-model="pickerVisible"
+        type="date"
+        ref="picker"
+        year-format="{value} 年"
+        month-format="{value} 月"
+        date-format="{value} 日"
+        @confirm="handleConfirm">
+      </mt-datetime-picker>
+
     </div>
 
   </div>
 </template>
 
-<style media="screen" scoped>
+<style media="screen" lang="scss" scoped>
 
   .profile{
 
@@ -494,10 +544,9 @@
   }
 
   .personal .personalHead{
-    /*margin-top: 1.5rem;*/
     position: relative;
     height: 4rem;
-    border-top: 1px solid;
+    /*border-top: 1px solid;*/
   }
 
   .personalHead .headImg{
@@ -584,15 +633,90 @@
     display: block;
   }
 
+  .personItem:last-child{
+    padding-bottom: .5rem;
+  }
+
+  .genderBox{
+    padding: .4rem;
+    .subTit{
+      margin: .2rem 0 0 0;
+    }
+
+    .gender{
+      display: -webkit-box;
+      span{
+        padding: .4rem;
+        margin: .3rem .3rem .3rem 0;
+        display: block;
+        color: #000000;
+        -webkit-box-flex: 1;
+        text-align: center;
+        font-size: .4rem;
+        border: 1px solid #d7d7d5;
+        color: gray;
+      }
+      span.on{
+        color: #000000;
+        border: 1px solid #000000;
+        .iconHook{
+          display: inline-block;
+          width: 20px;
+          height: 15px;
+          background-image: url(../assets/img/recomend/headtick@3x.png);
+          background-size: cover;
+        }
+      }
+    }
+
+  }
+
+  .birthBox{
+    padding: .4rem;
+    .tit{
+
+    }
+    .subTit{
+      margin: .2rem 0 0 0;
+    }
+
+    .attention{
+      color: gray;
+    }
+
+    .birth{
+      display: -webkit-box;
+      span{
+        padding: .4rem;
+        margin: .3rem .3rem .3rem 0;
+        display: block;
+        color: #000000;
+        -webkit-box-flex: 1;
+        text-align: center;
+        font-size: .4rem;
+        border: 1px solid #d7d7d5;
+      }
+    }
+  }
+
+  .btnCheckData{
+    position: fixed;
+    bottom: 0;
+  }
+
 </style>
 
 <script>
 //  import { mapState } from 'vuex'
+  import Vue from 'vue'
   import commonNav from '../components/commonNav.vue'
   import recommend from '../components/recommend.vue'
   import footBar from '../components/footBar.vue'
-  import { Toast, Indicator } from 'mint-ui'
+  import { Toast, Indicator, DatetimePicker, Actionsheet } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
+
+  Vue.component(DatetimePicker.name, DatetimePicker)
+  Vue.component(Actionsheet.name, Actionsheet)
 
   const customer_id = store.get('customer_id')
   const mobile_token = store.get('mobile_token')
@@ -628,15 +752,16 @@
         myform: {},
         info: {
 
-        }
+        },
+        pickerVisible: false,
+        startDate: new Date((new Date).getTime() - 365 * 50 * 84600000),
+        endDate: (new Date),
+        gender: 'guy',
+        sheetVisible: false,
+        actions: []
       }
     },
     methods: {
-      onSubmit: function() {
-//        console.log(this.myform.$valid);
-//        if(this.myform.$valid==true)
-//            alert("提交成功");
-      },
       fetchData(data, cb){
         const me = this;
         data.route = 'mapi/account';
@@ -667,7 +792,36 @@
           //console.log(res)
           Toast('网络错误...')
         })
+      },
+      openPicker() {
+        this.$refs.picker.open();
+      },
+      handleConfirm(){
+        console.log(this.pickerVisible);
+      },
+      checkData(){
+
+      },
+      clickHeaderImg(){
+        this.sheetVisible = true
+      },
+      takePhoto() {
+        console.log('taking photo');
+      },
+
+      openAlbum() {
+        console.log('opening album');
       }
+    },
+    mounted(){
+      this.actions = [{
+        name: '拍照',
+        method: this.takePhoto
+        }, {
+          name: '打开相册',
+          method: this.openAlbum
+      }];
+
     }
   }
 </script>

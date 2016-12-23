@@ -239,7 +239,7 @@
         setTimeout( () => {
           window.scrollTo(0, me['scrollTop' + tabNum]);
         }, 200)
-       
+
       },
       tabBgTaggle(n){
         if(document.body.scrollTop >= 400){
@@ -353,7 +353,7 @@
   }
 
   .item-mask0, .item-mask1, .item-mask2{
-    height: 12rem;;
+    height: 14rem;;
   }
 
   .tab-bg0, .tab-bg1, .tab-bg2{
@@ -382,7 +382,7 @@
   .content1{
     position: absolute;
     color: #fff;
-    top: 160px;
+    top: 200px;
     width: 100%;
     text-align: center;
     z-index: 5;
