@@ -9,22 +9,21 @@
       </div>
     </div>
     <div class="page-tab-container ">
-      <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
-        <mt-tab-container-item id="tab-container0">
+      <div class="page-tabbar-tab-container">
+        <div id="tab-container0" v-if="active == 'tab-container0'">
           <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
-              <a :href="item.clickUrl" style="display: inline-block;">
-                <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
-                <div class="item-mask0"></div>
-                <div class="content1">
-                  <p>{{ item.object_title }}</p>
-                  <p>{{ item.object_description }}</p>
-                </div>
-                <img :src="item.object_image" alt="object_image">
-              </a>
+            <a :href="item.clickUrl" style="display: inline-block;">
+              <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
+              <div class="item-mask0"></div>
+              <div class="content1">
+                <p>{{ item.object_title }}</p>
+                <p>{{ item.object_description }}</p>
+              </div>
+              <img :src="item.object_image" alt="object_image">
+            </a>
             <!--</router-link>-->
           </div>
-
           <div class="tab-container" v-else>
             <a :href="item.clickUrl">
               <div class="imgBox">
@@ -38,9 +37,8 @@
               </div>
             </a>
           </div>
-
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container1">
+        </div>
+        <div id="tab-container1" v-if="active == 'tab-container1'">
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
               <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
@@ -66,8 +64,8 @@
               </div>
             </a>
           </div>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container2">
+        </div>
+        <div class="tab-container2" v-if="active == 'tab-container2'">
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
               <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
@@ -76,8 +74,8 @@
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
               </div>
-              <img :src="item.object_image" alt="object_image"> 
-            </a>           
+              <img :src="item.object_image" alt="object_image">
+            </a>
           </div>
 
           <div class="tab-container" v-else>
@@ -93,8 +91,94 @@
               </div>
             </a>
           </div>
-        </mt-tab-container-item>
-      </mt-tab-container>
+        </div>
+      </div>
+      <!--<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>-->
+        <!--<mt-tab-container-item id="tab-container0">-->
+          <!--<div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">-->
+            <!--&lt;!&ndash;<router-link to=" 'item.clickUrl' ">&ndash;&gt;-->
+              <!--<a :href="item.clickUrl" style="display: inline-block;">-->
+                <!--<div class="tab-bg0" id="tab-bg0" style="display:none;"></div>-->
+                <!--<div class="item-mask0"></div>-->
+                <!--<div class="content1">-->
+                  <!--<p>{{ item.object_title }}</p>-->
+                  <!--<p>{{ item.object_description }}</p>-->
+                <!--</div>-->
+                <!--<img :src="item.object_image" alt="object_image">-->
+              <!--</a>-->
+            <!--&lt;!&ndash;</router-link>&ndash;&gt;-->
+          <!--</div>-->
+
+          <!--<div class="tab-container" v-else>-->
+            <!--<a :href="item.clickUrl">-->
+              <!--<div class="imgBox">-->
+                <!--<img :src="item.object_image" alt="object_image">-->
+              <!--</div>-->
+              <!--<div class="maincontent">-->
+                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
+                <!--<p class="desc">-->
+                  <!--{{ item.object_description }}-->
+                <!--</p>-->
+              <!--</div>-->
+            <!--</a>-->
+          <!--</div>-->
+
+        <!--</mt-tab-container-item>-->
+        <!--<mt-tab-container-item id="tab-container1">-->
+          <!--<div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">-->
+            <!--<a :href="item.clickUrl">-->
+              <!--<div class="tab-bg1" id="tab-bg1" style="display:none;"></div>-->
+              <!--<div class="item-mask1"></div>-->
+              <!--<div class="content1">-->
+                <!--<p>{{ item.object_title }}</p>-->
+                <!--<p>{{ item.object_description }}</p>-->
+              <!--</div>-->
+              <!--<img :src="item.object_image" alt="object_image">-->
+            <!--</a>-->
+          <!--</div>-->
+
+          <!--<div class="tab-container" v-else>-->
+            <!--<a :href="item.clickUrl">-->
+              <!--<div class="imgBox">-->
+                <!--<img :src="item.object_image" alt="object_image">-->
+              <!--</div>-->
+              <!--<div class="maincontent">-->
+                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
+                <!--<p class="desc">-->
+                  <!--{{ item.object_description }}-->
+                <!--</p>-->
+              <!--</div>-->
+            <!--</a>-->
+          <!--</div>-->
+        <!--</mt-tab-container-item>-->
+        <!--<mt-tab-container-item id="tab-container2">-->
+          <!--<div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">-->
+            <!--<a :href="item.clickUrl">-->
+              <!--<div class="tab-bg2" id="tab-bg2" style="display:none;"></div>-->
+              <!--<div class="item-mask2"></div>-->
+              <!--<div class="content1">-->
+                <!--<p>{{ item.object_title }}</p>-->
+                <!--<p>{{ item.object_description }}</p>-->
+              <!--</div>-->
+              <!--<img :src="item.object_image" alt="object_image"> -->
+            <!--</a>           -->
+          <!--</div>-->
+
+          <!--<div class="tab-container" v-else>-->
+            <!--<a :href="item.clickUrl">-->
+              <!--<div class="imgBox">-->
+                <!--<img :src="item.object_image" alt="object_image">-->
+              <!--</div>-->
+              <!--<div class="maincontent">-->
+                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
+                <!--<p class="desc">-->
+                  <!--{{ item.object_description }}-->
+                <!--</p>-->
+              <!--</div>-->
+            <!--</a>-->
+          <!--</div>-->
+        <!--</mt-tab-container-item>-->
+      <!--</mt-tab-container>-->
     </div>
     
     <sideBar :clickTab="clickTab" />

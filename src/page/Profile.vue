@@ -15,11 +15,13 @@
         <h3 class="userName">{{info.firstname}}</h3>
 
         <div class="member">
-          <span class="memberIcon blueMemberIcon"></span>
-          <div class="memberTxt blueMember">
-            BlueMember <br>
-            蓝色会员
-          </div>
+          <router-link to="/vip">
+            <span class="memberIcon blueMemberIcon"></span>
+            <div class="memberTxt blueMember">
+              BlueMember <br>
+              蓝色会员
+            </div>
+          </router-link>
         </div>
 
       </div>
@@ -655,14 +657,16 @@
         font-size: .4rem;
         border: 1px solid #d7d7d5;
         color: gray;
+        .iconHook{
+          display: inline-block;
+          width: 20px;
+          height: 15px;
+        }
       }
       span.on{
         color: #000000;
         border: 1px solid #000000;
         .iconHook{
-          display: inline-block;
-          width: 20px;
-          height: 15px;
           background-image: url(../assets/img/recomend/headtick@3x.png);
           background-size: cover;
         }

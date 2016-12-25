@@ -25,6 +25,8 @@ import Findpwd from '../page/Findpwd.vue'
 import Changepwd from '../page/Changepwd.vue'
 import History from '../page/History.vue'
 import Coupon from '../page/Coupon.vue'
+import Vip from '../page/Vip.vue'
+import Qa from '../page/Qa.vue'
 import Test from '../page/Test.vue'
 
 
@@ -50,6 +52,8 @@ import Test from '../page/Test.vue'
 // const Changepwd = () => System.import('../page/Changepwd.vue')
 // const History = () => System.import('../page/History.vue')
 // const Coupon = () => System.import('../page/Coupon.vue')
+// const Qa = () => System.import('../page/Qa.vue')
+// const Vip = () => System.import('../page/Vip.vue')
 // const Test = () => System.import('../page/Test.vue')
 
 
@@ -77,6 +81,8 @@ const routes = [
   { name: '发票详情', path: '/invdetail', component: InvoiceDetail },
   { name: '历史记录', path: '/history', component: History },
   { name: '优惠券', path: '/coupon', component: Coupon },
+  { name: 'Vip', path: '/vip', component: Vip },
+  { name: 'QA', path: '/qa', component: Qa },
   { name: '测试', path: '/test', component: Test },
 ]
 
