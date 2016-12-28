@@ -67,6 +67,9 @@
 <style media="screen" lang="scss" scoped>
 
   .orderdetail {
+    .commonNav{
+      position: relative;
+    }
     .section{
       margin: .4rem .4rem 0;
       padding: .2rem;

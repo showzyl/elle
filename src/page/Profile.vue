@@ -379,14 +379,6 @@
     color: #9c9c9b;
   }
 
-  .iconRight{
-    display: inline-block;
-    width: .3rem;
-    height: .3rem;
-    background-size: cover;
-    background-image: url('../assets/img/profile/mine_right@3x.png');
-  }
-
   .hotBox{
     display: -webkit-box;
     margin: .3rem;

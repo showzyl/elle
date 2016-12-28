@@ -4,7 +4,7 @@
   优惠券
 </div>
 </template>
-<style media="screen" lang="scss">
+<style media="screen" lang="scss" scoped>
   .coupon{
     color: red;
   }

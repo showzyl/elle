@@ -130,6 +130,14 @@ export default {
     background-image: url('./assets/img/profile/icon_fucus@3x.png');
   }
 
+  .iconRight{
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    background-size: cover;
+    background-image: url('./assets/img/profile/mine_right@3x.png');
+  }
+
   .closebtnBlack{
     position: absolute;
     margin: .3rem 0 0 .5rem;
