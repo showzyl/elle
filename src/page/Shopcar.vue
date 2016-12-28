@@ -13,15 +13,18 @@
           <h3 class="tit">
             {{item.mname}}
           </h3>
+        </router-link>
           <div class="shopcarItemMain">
             <div class="shopcarItemT">
-              <div class="imgBox">
-                <img :src="item.thumb">
-              </div>
-              <div class="moneyBox">
-                <p class="money">¥{{item.price}}</p>
-                <p class="des">{{item.mname}} {{item.name}}</p>
-              </div>
+              <router-link :to="'/product/' + item.product_id">
+                <div class="imgBox">
+                  <img :src="item.thumb">
+                </div>
+                <div class="moneyBox">
+                  <p class="money">¥{{item.price}}</p>
+                  <p class="des">{{item.mname}} {{item.name}}</p>
+                </div>
+              </router-link>
               <div class="addBottom">
                 <label class="mint-checklist-label">
                   <span class="mint-checkbox">
@@ -40,20 +43,22 @@
                   数量 {{item.quantity}}
                 </p>
               </div>
-
-              <a :href="'/#/product/'+item.product_id+'?sizeName='+item.option[0].value+'&colorName='+item.color+'&quantity='+item.quantity+'&cart_id='+item.cart_id" class="change">
+              <router-link :to="'/product/'+item.product_id+'?sizeName='+item.option[0].value+'&colorName='+item.color+'&quantity='+item.quantity+'&cart_id='+item.cart_id" class="change">
                 修改
-              </a>
+              </router-link>
+              <!--<a :href="'/#/product/'+item.product_id+'?sizeName='+item.option[0].value+'&colorName='+item.color+'&quantity='+item.quantity+'&cart_id='+item.cart_id" class="change">-->
+                <!--修改-->
+              <!--</a>-->
             </div>
             <div class="shopcarItemB">
               <h3 class="price">¥{{item.total}}</h3>
               <div class="iconList">
                 <i class="iconLove" :class="{iconRed: item.is_wished}"></i>
-                <i class="iconGarbage" @click.prevent="confirmDel({cart_id: item.cart_id})"></i>
+                <i class="iconGarbage" @click.prevent="confirmDel({cart_id: item.cart_id, quantity: item.quantity})"></i>
               </div>
             </div>
           </div>
-        </router-link>
+
       </li>
     </ul>
 
@@ -64,13 +69,15 @@
         </h3>
     </div>
 
-
     <div class="settlement">
       总计: ￥{{ total }}（{{quantity}} 件）
       <div class="settlementBtn" @click="checkout">结算</div>
     </div>
 
+    <recommend title="为您优选" :products="recommends"></recommend>
+
     <footBar pageName="shopcar"/>
+
   </div>
 </template>
 
@@ -237,13 +244,12 @@
     border-left: 0 none;
     position: relative;
     background-color: #ffffff;
+    font-size: .4rem;
   }
 
   .shopNav .left, .shopNav .right{
     position: absolute;
     top: 0;
-
-
   }
 
   .shopNav .left{
@@ -262,6 +268,7 @@
 <script>
   import { mapState } from 'vuex'
   import footBar from '../components/footBar.vue'
+  import recommend from '../components/recommend.vue'
   import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
@@ -273,10 +280,12 @@
     data() {
       return {
         loading: false,
+        cartIds: [],
         products: [],
         totals: [],
         total: 0,
-        quantity: 0
+        quantity: 0,
+        recommends: []
       }
     },
     created(){
@@ -287,95 +296,83 @@
         spinnerType: 'fading-circle'
       });
 
-      me.fetchCartData({
+      util.fetchInterface(me, 0, {
         customer_id,
-        mobile_token
+        mobile_token,
+        route: 'mapi/cart'
       }, res => {
-//        console.log(res.products);
-//        me.totals = res.totals;
-//        me.total = res.totals[0].text;
+        Indicator.close();
+        me.loading = false;
+        console.log(res);
+        if(res === 'notMatch'){
+          Toast('暂无数据...')
+          return;
+        }
+
+        if(res === 'error'){
+          Toast('网络错误...')
+          return;
+        }
+
         res.products.forEach(item => {
           item.checked = true;
+          me.cartIds.push(item.cart_id);
           me.quantity += Number(item.quantity);
           me.total += Number(item.total);
         })
 
         me.products = res.products;
 
+        util.fetchInterface(me, 0, {
+          mobile_token,
+          customer_id,
+          route: 'mapi/cart/select',
+          selected: me.cartIds.join(',')
+        }, res => {
+
+        })
+
         store.set('shopcartNumber', me.quantity)
+      })
+
+
+      // 为你优选
+      util.fetchInterface(me, 0, {
+        customer_id,
+        mobile_token,
+        page_id: 1,
+        category_id: 20, // 写死
+        route: 'mapi/product_category'
+      }, res => {
+        console.log(res);
+        me.recommends = res.results;
       })
 
     },
     components: {
-      footBar
+      footBar,
+      recommend
     },
     methods: {
-      fetchCartData(data, cb){
-        var me = this;
-        data.route = 'mapi/cart';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-          if(data.code === 0){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...');
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-
-      },
-      delCartItem(data, cb){
-        // cart_id: xxxx
-        var me = this;
-        data.route = 'mapi/cart/delete';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-//          console.log(data);
-          if(data.code === 0){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...');
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-      },
-      confirmDel({cart_id}){
+      confirmDel({cart_id, quantity}){
         const me = this;
         console.log(cart_id);
-
         MessageBox.confirm('确定删除此商品?').then(action => {
           if(action == 'confirm'){
-            me.delCartItem({
+            me.cartIds.splice(me.cartIds.indexOf(cart_id), 1);
+            let shopcartNumber = store.get('shopcartNumber');
+            shopcartNumber -= quantity;
+            store.set('shopcartNumber', shopcartNumber);
+
+            util.fetchInterface(me, 0,{
               cart_id,
               mobile_token,
-              customer_id
-            }, ()=>{
-              //location.reload();
+              customer_id,
+              route: 'mapi/cart/delete'
+            },res => {
+
             })
+
           }
         })
       },
@@ -386,15 +383,15 @@
           return Toast('您还未选中要结算的商品!')
         }
 
-        // 结算
+        // 确认订单
+        console.log('确认订单去了');
+        location.href = '/#/confirmorder';
 
-        console.log('进行结算');
 
       },
       toggleAll(){
         console.log('in')
         const me = this;
-
         let bCheck = me.products.every(item => item.checked);
         console.log(bCheck);
         me.products.forEach(item => {
@@ -405,12 +402,36 @@
         if(bCheck){
           me.quantity = 0;
           me.total = 0;
+          me.cartIds = [];
+
+          me.products.forEach(item => {
+            util.fetchInterface(me, 0, {
+              mobile_token,
+              customer_id,
+              route: 'mapi/cart/unselect',
+              selected: item.cart_id
+            }, res => {
+
+            })
+          })
+
         }else{
           me.quantity = 0;
           me.total = 0;
+          me.cartIds = [];
           me.products.forEach(item => {
+            me.cartIds.push(item.cart_id)
             me.quantity += parseInt(item.quantity);
             me.total += parseInt(item.total);
+          })
+
+          util.fetchInterface(me, 0, {
+            mobile_token,
+            customer_id,
+            route: 'mapi/cart/select',
+            selected: me.cartIds.join(',')
+          }, res=>{
+
           })
         }
 
@@ -418,19 +439,26 @@
       delAll(){
         const me = this;
         MessageBox.confirm('确定清除所有商品?').then(action => {
-          store.set('shopcartNumber', 0);
-          if(action == 'confirm'){
+
+          if(action === 'confirm'){
+            store.set('shopcartNumber', 0);
+
             me.products.forEach(item => {
-              me.delCartItem({
+
+              util.fetchInterface(me, 0, {
                 cart_id: item.cart_id,
                 mobile_token,
-                customer_id
-              }, ()=>{
+                customer_id,
+                route: 'mapi/cart/delete'
+              }, res => {
 
               })
+
             })
             location.reload();
+
           }
+
         })
       },
       calMoney({
@@ -446,15 +474,35 @@
           console.log(me.total)
           me.quantity -= parseInt(quantity);
           me.total -= parseInt(total);
-          console.log(me.total)
+          me.cartIds.splice(me.cartIds.indexOf(cart_id), 1);
+
+          util.fetchInterface(me, 0, {
+            mobile_token,
+            customer_id,
+            route: 'mapi/cart/unselect',
+            selected: cart_id
+          }, res => {
+
+          })
+
         }else{
           me.quantity += parseInt(quantity);
           me.total += parseInt(total);
+          me.cartIds.push(cart_id);
+          util.fetchInterface(me, 0, {
+            mobile_token,
+            customer_id,
+            route: 'mapi/cart/select',
+            selected: me.cartIds.join(',')
+          },res => {
+
+          })
+
         }
-//        me.products[index].checked = !checked;
         console.log(me.quantity, me.products[index].checked);
 
       },
+
     }
   }
 </script>

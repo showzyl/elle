@@ -25,6 +25,7 @@
 <style media="screen" scoped>
   .recommend {
     overflow: auto;
+    background: #ffffff;
   }
   
   .title{

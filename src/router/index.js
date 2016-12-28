@@ -4,6 +4,7 @@ import Index from '../page/Index.vue'
 
 
 import Shopcar from '../page/Shopcar.vue'
+import ConfirmOrder from '../page/ConfirmOrder.vue'
 import Profile from '../page/Profile.vue'
 import Personal from '../page/Personal.vue'
 import Classify from '../page/Classify.vue'
@@ -31,6 +32,7 @@ import Test from '../page/Test.vue'
 
 
 // const Shopcar = () => System.import('../page/Shopcar.vue')
+// const ConfirmOrder = () => System.import('../page/ConfirmOrder.vue')
 // const Profile = () => System.import('../page/Profile.vue')
 // const Personal = () => System.import('../page/Personal.vue')
 // const Classify = () => System.import('../page/Classify.vue')
@@ -66,6 +68,7 @@ const routes = [
   { name: '个人中心', path: '/profile', component: Profile },
   { name: '个人资料', path: '/personal', component: Personal },
   { name: '购物车', path: '/shopcar', component: Shopcar },
+  { name: '确认订单', path: '/confirmorder', component: ConfirmOrder },
   { name: '分类', path: '/classify', component: Classify },
   { name: '灵感', path: '/inspire', component: Inspire },
   { name: '灵感详情', path: '/inspire/:id', component: InspireDetail },

@@ -146,6 +146,26 @@ export default {
 			}
 			beforeScrollTop = afterScrollTop;
 		}
+	},
+
+	// 请求接口 统一封装
+	fetchInterface(me, code, data, cb){
+		data.format = 'jsonp';
+		me.$http.jsonp(
+			window.q.interfaceHost +'index.php',
+			{
+				params: data
+			}
+		).then( res => {
+			let data = res.body;
+			if( (code === 0) && (data.code+'' === '0') ){
+				cb && cb(data.data);
+			} else {
+				cb && cb('notMatch');
+			}
+		}, err => {
+			cb && cb('error');
+		})
 	}
 
 

@@ -1,6 +1,11 @@
 <template>
   <div class="confirmOrder">
-
+    <ul>
+      <li v-for="item in confirmData.products" style="font-size: 22px;">
+        {{item.name}}
+        <span style="color: red;">{{item.quantity}}</span>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -23,64 +28,23 @@
   export default {
     data() {
       return {
-        content: 'main',
-        aTab: ['全部订单','待付款','待发货','待收货'],
-        tabIndex: 0,
-        list0: [],
-        list1: [],
-        list2: [],
-        list3: [],
-        datailData: {}
+        confirmData: {}
       }
     },
     created(){
       const me = this;
-      if(me.$route.query.tab){
-        me.tabIndex = Number(me.$route.query.tab);
-      }
 
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
       });
 
-      // type 空 为全部订单
-      // 1 unpaid 待付款 2 unshipped 待发货 3 shipped 待收货
-
-      me.fetchData({
-        customer_id,
-        mobile_token
+      me.confirm({
+        mobile_token,
+        customer_id
       }, res => {
-        me.list0 = res.orders;
+        me.confirmData = res;
       })
-
-      setTimeout( ()=> {
-        [1,2,3].forEach(item => {
-          let type = '';
-
-          switch (item){
-            case 1:
-              type = 'unpaid';
-              break;
-            case 2:
-              type = 'unshipped';
-              break;
-            case 3:
-              type = 'shipped';
-              break;
-          }
-
-          me.fetchData({
-            customer_id,
-            mobile_token,
-            type
-          }, res => {
-            console.log(res);
-            me['list' + item] = res.orders;
-          })
-
-        })
-      }, 200)
 
 
 
@@ -92,9 +56,9 @@
 
     },
     methods: {
-      fetchData(data, cb){
+      confirm(data, cb){
         const me = this;
-        data.route = 'mapi/order';
+        data.route = 'mapi/cart/confirm';
         data.format = 'jsonp';
 
         this.$http.jsonp(
@@ -104,7 +68,7 @@
           }
         ).then( res => {
           let data = res.body;
-//          console.log(data);
+          console.log(data);
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{
