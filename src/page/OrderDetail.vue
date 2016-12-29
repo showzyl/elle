@@ -1,6 +1,7 @@
 <template>
   <div class="orderdetail">
     <commonNav title="订单详情" iconRight="" />
+
     <div class="section bbgray">
       <h3 class="userName">
         梨子 &nbsp
@@ -31,17 +32,32 @@
         <span class="orderTit">订单商品</span>
         <span class="orderNum">共 1 件</span>
       </div>
-      <div class="orderMain">
-        <div class="imgBox">
-          <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
-        </div>
-        <div class="contentBox">
-          <p class="price">129</p>
-          <p class="spec">heheh</p>
-          <p class="desc">我是描述我是描述</p>
-          <p class="number">数量 1</p>
-        </div>
-      </div>
+      <ul class="list">
+        <li class="orderMain">
+          <div class="imgBox">
+            <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+          </div>
+          <div class="contentBox">
+            <p class="price">129</p>
+            <p class="spec">heheh</p>
+            <p class="desc">我是描述我是描述</p>
+            <p class="number">数量 1</p>
+          </div>
+        </li>
+
+        <li class="orderMain">
+          <div class="imgBox">
+            <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+          </div>
+          <div class="contentBox">
+            <p class="price">129</p>
+            <p class="spec">heheh</p>
+            <p class="desc">我是描述我是描述</p>
+            <p class="number">数量 1</p>
+          </div>
+        </li>
+
+      </ul>
     </div>
 
     <ul class="section">
@@ -60,7 +76,6 @@
     </ul>
 
     <div class="section allPrice">￥105</div>
-
 
   </div>
 </template>
@@ -134,6 +149,11 @@
   .orderDetailItem span{
     display: inline-block;
   }
+
+  .orderMain:last-child{
+    border-top: 0 none;
+  }
+
 
 
   

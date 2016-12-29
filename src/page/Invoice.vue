@@ -49,8 +49,13 @@
 </template>
 
 <style media="screen" scoped>
+
+  .addressItems{
+    margin: 0 .4rem;
+  }
+
   .commonNav{
-    position: absolute;
+    position: relative;
   }
 
   .invoice{
@@ -69,6 +74,7 @@
 
   import { Toast, Checklist, Indicator, MessageBox } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
+  import util from '../assets/lib/q.util.js'
   import commonNav from '../components/commonNav.vue'
 
   const customer_id = store.get('customer_id');
@@ -81,10 +87,12 @@
       }
     },
     created(){ 
-      var me = this;
-      me.fetchInvData({
+      const me = this;
+
+      util.fetchInterface(me, 0, {
         customer_id,
-        mobile_token
+        mobile_token,
+        route: 'mapi/invoice'
       }, res => {
         me.invoiceData = res;
       })
@@ -100,86 +108,31 @@
     },
     methods: {
       setDefaultInv({invoice_id}){
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: {
-              customer_id,
-              invoice_id,
-              route: 'mapi/invoice/setdefault',
-              format: 'jsonp'
-            }
-          }
-        ).then( res => {
-          let data = res.body;
-          console.log(data);
-          if(data.code+'' === '0'){
-//            location.reload();
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-        }, err => {
-//          Toast('网络错误...')
-        })
-      },
-      fetchInvData(data, cb){
         const me = this;
-        data.route = 'mapi/invoice';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
+        util.fetchInterface(me, 0, {
+          customer_id,
+          mobile_token,
+          invoice_id,
+          route: 'mapi/invoice/setdefault',
+        }, (res, code) => {
+          if(code+'' === '0'){
+            // 设置成功
+
           }
-        ).then( res => {
-          let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          Toast('网络错误...')
         })
+
       },
       delInvoice({invoice_id}){
         MessageBox.confirm('确定删除此发票?').then(action => {
           if(action == 'confirm'){
-            this.$http.jsonp(
-              window.q.interfaceHost +'index.php?',
-              {
-                params: {
-                  customer_id,
-                  invoice_id,
-                  route: 'mapi/invoice/delete',
-                  format: 'jsonp'
-                }
-              }
-            ).then( res => {
-              let data = res.body;
-              console.log(data);
-              if(data.code+'' === '0'){
+            util.fetchInterface(me, 0, {
+              customer_id,
+              invoice_id,
+              route: 'mapi/invoice/delete',
+            }, res => {
 
-              }else{
-                Toast({
-                  message: '暂无数据...',
-                  position: 'bottom',
-                  duration: 3000
-                })
-              }
-            }, err => {
-  //          Toast('网络错误...')
             })
+
           }
         })
 

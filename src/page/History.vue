@@ -21,6 +21,7 @@
   import commonNav from '../components/commonNav.vue'
   import { Toast, Indicator } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
+  import util from '../assets/lib/q.util.js'
 
   const customer_id = store.get('customer_id')
   const mobile_token = store.get('mobile_token')
@@ -40,14 +41,30 @@
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
-      })
+      });
 
-      me.fetchData({
+      util.fetchInterface(me, 0, {
         customer_id,
-        mobile_token
+        mobile_token,
+        route: 'mapi/account/history'
       }, res => {
-//        console.log(res.history.product_list);
-        me.products = res.history.product_list
+        Indicator.close();
+        if(res === 'notMatch'){
+          Toast({
+            message: '暂无数据...',
+            position: 'bottom',
+            duration: 3000
+          });
+          return;
+        }
+
+        if(res === 'notMatch'){
+          Toast('网络错误...');
+          return;
+        }
+
+        me.products = res.history.product_list;
+
       })
 
     },
@@ -55,34 +72,7 @@
 
     },
     methods: {
-      fetchData(data, cb){
-        const me = this;
-        data.route = 'mapi/account/history';
-        data.format = 'jsonp';
 
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-          console.log(data);
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          Toast('网络错误...')
-        })
-      }
     },
     mounted() {
 
@@ -94,6 +84,12 @@
 </script>
 
 <style media="screen" lang="scss" scoped>
+
+  .history{
+    .commonNav{
+      position: relative;
+    }
+  }
 
   .item{
     float: left;

@@ -159,7 +159,7 @@ export default {
 		).then( res => {
 			let data = res.body;
 			if( (code === 0) && (data.code+'' === '0') ){
-				cb && cb(data.data);
+				cb && cb(data.data, data.code);
 			} else {
 				cb && cb('notMatch');
 			}

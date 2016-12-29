@@ -3,42 +3,39 @@
     <commonNav title="确认订单" iconRight="" />
 
     <ul class="confirmList">
-      <li class="confirmItem address">
-        <h3>
-          梨子 18544444444
-        </h3>
-        <p>
-          <i class="iconAdd"></i>
-          四川省成都市雁江区 xxxx
-        </p>
+
+      <li class="confirmItem address" >
+        <div v-if="address">
+          <h3>
+            {{address.firstname}} {{address.custom_field[1]}}
+          </h3>
+          <p>
+            <i class="iconAdd"></i>&nbsp;
+            {{address.country}} {{address.zone}} {{address.city}}
+          </p>
+        </div>
+
+        <div v-else>
+          请选择您的收货地址
+        </div>
+
         <i class="iconRight"></i>
       </li>
+
 
       <li class="confirmItem productImg">
         <ul class="productImgL">
-          <li class="imgBox">
-            <img src="http://img.elleshop.com.cn/catalog/Operation/fenmojidai/1-12.jpg?imageView2/1/w/307/h/390/format/jpg/interlace/1/q/80/" alt="">
-          </li>
-          <li class="imgBox">
-            <img src="http://img.elleshop.com.cn/catalog/Operation/fenmojidai/1-12.jpg?imageView2/1/w/307/h/390/format/jpg/interlace/1/q/80/" alt="">
-          </li>
-          <li class="imgBox">
-            <img src="http://img.elleshop.com.cn/catalog/Operation/fenmojidai/1-12.jpg?imageView2/1/w/307/h/390/format/jpg/interlace/1/q/80/" alt="">
-          </li>
-          <li class="imgBox">
-            <img src="http://img.elleshop.com.cn/catalog/Operation/fenmojidai/1-12.jpg?imageView2/1/w/307/h/390/format/jpg/interlace/1/q/80/" alt="">
-          </li>
-          <li class="imgBox">
-            <img src="http://img.elleshop.com.cn/catalog/Operation/fenmojidai/1-12.jpg?imageView2/1/w/307/h/390/format/jpg/interlace/1/q/80/" alt="">
+          <li class="imgBox" v-for="item in products">
+            <img :src="item.thumb">
           </li>
         </ul>
         <p class="productImgR">
-          共8件
+          共{{products.length}}件
         </p>
         <i class="iconRight"></i>
       </li>
 
-      <li class="confirmItem coupon">
+      <li class="confirmItem coupon none">
         <h3 class="confirmItemL">优惠券</h3>
         <p class="confirmItemR">选择优惠券</p>
         <i class="iconRight"></i>
@@ -46,7 +43,7 @@
 
       <li class="confirmItem balance">
         <h3 class="confirmItemL">账户余额</h3>
-        <p class="confirmItemR">¥ 0.00</p>
+        <p class="confirmItemR">¥ {{info.remaining_total}}</p>
       </li>
 
       <li class="confirmItem dispatchWay">
@@ -56,16 +53,17 @@
         </div>
         <div class="dispatchWayB">
           <h3 class="dispatchWayL">配送时间</h3>
-          <select class="dispatchWayR selectBox">
-            <option value="1">工作日</option>
-            <option value="2">周六周日</option>
+          <select class="dispatchWayR selectBox" v-model="selected">
+            <option :value="item.value" v-for="item in delivery">{{item.name}}</option>
           </select>
         </div>
       </li>
 
-      <li class="confirmItem invoice">
+      <li class="confirmItem invoice" @click="handleInvoice">
         <h3 class="confirmItemL">发票信息</h3>
-        <p class="confirmItemR">无发票</p>
+        <p class="confirmItemR" v-if="invoice.invoice_type === '2' ">{{invoice.title}}</p>
+        <p class="confirmItemR" v-if="invoice.invoice_type === '1' ">无发票</p>
+        <p class="confirmItemR" v-if="!invoice">无发票</p>
         <i class="iconRight"></i>
       </li>
 
@@ -76,36 +74,15 @@
         </div>
         <div class="conclusionBox">
           <h3 class="conclusionL">合计</h3>
-          <p class="confirmItemR">¥ 1111</p>
+          <p class="confirmItemR">¥ {{info.shipping_totle_price}}</p>
         </div>
       </li>
       
     </ul>
     
-    <div class="btn btnConfirmOrder">
-      <router-link to="/ordertail">
+    <div class="btn btnConfirmOrder" @click="handleConfirm">
         确认
-      </router-link>
     </div>
-    <!--<div class="address">-->
-      <!--<h3>-->
-        <!--梨子 18544444444-->
-      <!--</h3>-->
-      <!--<p>-->
-        <!--<i class="iconAdd"></i>-->
-        <!--四川省成都市雁江区 xxxx-->
-      <!--</p>-->
-      <!--<i data-v-ec05f8e2="" class="iconRight"></i>-->
-    <!--</div>-->
-
-
-
-    <!--<ul>-->
-      <!--<li v-for="item in products" style="font-size: 22px;">-->
-        <!--{{item.name}}-->
-        <!--<span style="color: red;">{{item.quantity}}</span>-->
-      <!--</li>-->
-    <!--</ul>-->
 
   </div>
 </template>
@@ -176,7 +153,7 @@
       position: absolute;
       right: .65rem;
       top: 0;
-      line-height: 4rem;
+      line-height: 4.4rem;
       font-size: .4rem;
     }
   }
@@ -232,15 +209,28 @@
   import store from '../assets/lib/q.store.js'
   import util from '../assets/lib/q.util.js'
 
-  const customer_id = store.get('customer_id')
-  const mobile_token = store.get('mobile_token')
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
   export default {
     data() {
       return {
         products: [],
         address: {},
-        invoice: {}
+        invoice: {},
+        info: {},
+        delivery: [{
+          name: '工作日',
+          value: 0
+        }, {
+          name: '周末',
+          value: 1
+        }, {
+          name: '工作日/周末',
+          value: 2
+        }],
+        selected: 0,
+        choseAddress: null
       }
     },
     created(){
@@ -256,7 +246,9 @@
         mobile_token,
         customer_id
       }, res => {
+
         Indicator.close();
+
         if(res === 'notMatch'){
           Toast({
             message: '暂无数据...',
@@ -274,6 +266,11 @@
         me.products = res.products;
         me.address = res.address;
         me.invoice = res.invoice;
+        me.info = {
+          remaining_total: res.remaining_total,
+          shipping_totle_price: res.shipping_totle_price
+        };
+        me.choseAddress = res.address.address_id;
 
       })
 
@@ -298,8 +295,17 @@
         me.datailData = info.infos;
       },
       handleConfirm(){
+        const me = this;
+        if(!me.choseAddress){
+          //Toast('请选择收货地址');
+          location.href = '/#/adddetail?source=confirmorder';
+          return;
+        }
 
-        // location.href = '/#/ordertail';
+        location.href = '/#/ordertail';
+      },
+      handleInvoice(){
+
       }
 
     },
@@ -307,7 +313,9 @@
 
     },
     watch: {
-
+      selected(val, old){
+        console.log(val, old)
+      },
     }
   }
 </script>

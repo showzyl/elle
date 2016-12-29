@@ -206,8 +206,11 @@
 
  import { Toast, Indicator } from 'mint-ui'
  import commonNav from '../components/commonNav.vue'
-// import core from '../assets/lib/q.core.js'
+ import util from '../assets/lib/q.util.js'
  import store from '../assets/lib/q.store.js'
+
+ const customer_id = store.get('customer_id');
+ const mobile_token = store.get('mobile_token');
 
  export default {
     data(){
@@ -269,9 +272,28 @@
         return;
       }
 
-      me.fetchProvinceData({}, res => {
+      util.fetchInterface(me, 0, {
+        route: 'mapi/register/country'
+      }, res => {
+        Indicator.close();
+
+        if(res === 'notMatch'){
+          Toast({
+            message: '暂无数据...',
+            position: 'bottom',
+            duration: 3000
+          });
+          return;
+        }
+
+        if(res === 'notMatch'){
+          Toast('网络错误...');
+          return;
+        }
+
         me.province = res;
       })
+
     },
     components: {
       commonNav
@@ -281,127 +303,6 @@
 
     },
     methods: {
-      fetchProvinceData(data, cb){
-        const me = this;
-        data.route = 'mapi/register/country';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-//          console.log(data);
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-
-      },
-      fetchCityData(data, cb){
-        // country_id
-        const me = this;
-        data.route = 'mapi/register/countrylist';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-        console.log(data);
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-      },
-      fetchCountryData(data, cb){
-        // zone_id
-        const me = this;
-        data.route = 'mapi/register/zone';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-            window.q.interfaceHost +'index.php?',
-            {
-              params: data
-            }
-          ).then( res => {
-            let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-      },
-      postAddress(data, cb){
-        const me = this;
-        data.route = 'mapi/address/add';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-      },
       choseRegion(){
         const me = this;
         me.tab = 'province';
@@ -413,12 +314,15 @@
           id,
           name
         };
-        me.fetchCityData({
+
+        util.fetchInterface(me, 0, {
+          route: 'mapi/register/countrylist',
           country_id: id
-        },res => {
+        }, res => {
           me.tab = 'city';
           me.city = res.zone;
         })
+
       },
       renderCountry({id, name}){
         const me = this;
@@ -427,9 +331,11 @@
           id,
           name
         };
-        me.fetchCountryData({
+
+        util.fetchInterface(me, 0, {
+          route: 'mapi/register/zone',
           zone_id: id
-        },res => {
+        }, res => {
           me.tab = 'country';
           me.country = res.city;
         })
@@ -464,15 +370,13 @@
           return;
         }
 
-        const customer_id = store.get('customer_id');
-        const mobile_token = store.get('mobile_token');
-
-        me.postAddress({
+        util.fetchInterface(me, 0, {
           customer_id,
           mobile_token,
           firstname: me.usernName,
           sex: me.sex,
           tel: me.phone,
+          route: 'mapi/address/add',
           country_id: me.provinceInfo.id,
           zone_id: me.cityInfo.id,
           city_id: me.countryInfo.id,
@@ -481,10 +385,34 @@
           default: 1,
           ts: Math.random()
         }, res => {
-          console.log(res);
           // 添加成功
           Toast('添加成功');
+          if(me.$route.source === 'confirmorder'){
+            location.href = '/#/confirmorder';
+          }else{
+
+          }
+
         })
+
+//        me.postAddress({
+//          customer_id,
+//          mobile_token,
+//          firstname: me.usernName,
+//          sex: me.sex,
+//          tel: me.phone,
+//          country_id: me.provinceInfo.id,
+//          zone_id: me.cityInfo.id,
+//          city_id: me.countryInfo.id,
+//          city: me.countryInfo.name,
+//          address_1: me.detailAddress,
+//          default: 1,
+//          ts: Math.random()
+//        }, res => {
+//          console.log(res);
+//          // 添加成功
+//          Toast('添加成功');
+//        })
 
       },
       editAds(data, cb){
@@ -517,10 +445,12 @@
         })
       },
       handleClick(){
+        const me = this;
         if(me.$route.query.phone){
-          editAds({
+          util.fetchInterface(me, 0, {
             customer_id,
             mobile_token,
+            route: 'mapi/address/edit',
             firstname: me.usernName,
             sex: me.sex,
             tel: me.phone,
@@ -530,9 +460,25 @@
             city: me.countryInfo.name,
             address_1: me.detailAddress,
             ts: Math.random()
+          }, res => {
+
           })
+
+//          me.editAds({
+//            customer_id,
+//            mobile_token,
+//            firstname: me.usernName,
+//            sex: me.sex,
+//            tel: me.phone,
+//            country_id: me.provinceInfo.id,
+//            zone_id: me.cityInfo.id,
+//            city_id: me.countryInfo.id,
+//            city: me.countryInfo.name,
+//            address_1: me.detailAddress,
+//            ts: Math.random()
+//          })
         }else{
-          addAds()
+          me.addAds()
         }
 
       }
