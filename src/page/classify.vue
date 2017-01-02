@@ -166,6 +166,10 @@
 
 <style media="screen" scoped>
 
+  .content{
+    margin-bottom: 1rem;
+  }
+
   .categoryNav{
     height: 1.2rem;
     line-height: 1.2rem;

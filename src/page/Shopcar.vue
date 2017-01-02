@@ -306,6 +306,7 @@
         console.log(res);
         if(res === 'notMatch'){
           Toast('暂无数据...')
+          store.remove('shopcartNumber');
           return;
         }
 

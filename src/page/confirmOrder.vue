@@ -5,7 +5,12 @@
     <ul class="confirmList">
 
       <li class="confirmItem address" >
-        <div v-if="address">
+
+        <div v-if="!address">
+          请选择您的收货地址
+        </div>
+
+        <div v-if="address && address.firstname">
           <h3>
             {{address.firstname}} {{address.custom_field[1]}}
           </h3>
@@ -13,10 +18,6 @@
             <i class="iconAdd"></i>&nbsp;
             {{address.country}} {{address.zone}} {{address.city}}
           </p>
-        </div>
-
-        <div v-else>
-          请选择您的收货地址
         </div>
 
         <i class="iconRight"></i>
@@ -61,9 +62,9 @@
 
       <li class="confirmItem invoice" @click="handleInvoice">
         <h3 class="confirmItemL">发票信息</h3>
-        <p class="confirmItemR" v-if="invoice.invoice_type === '2' ">{{invoice.title}}</p>
-        <p class="confirmItemR" v-if="invoice.invoice_type === '1' ">无发票</p>
         <p class="confirmItemR" v-if="!invoice">无发票</p>
+        <p class="confirmItemR" v-if="invoice && invoice.invoice_type === '2' ">{{invoice.title}}</p>
+        <p class="confirmItemR" v-if="invoice && invoice.invoice_type === '1' ">无发票</p>
         <i class="iconRight"></i>
       </li>
 
@@ -270,7 +271,9 @@
           remaining_total: res.remaining_total,
           shipping_totle_price: res.shipping_totle_price
         };
-        me.choseAddress = res.address.address_id;
+        if(res.address && res.address.address_id){
+          me.choseAddress = res.address.address_id;
+        }
 
       })
 

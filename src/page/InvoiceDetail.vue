@@ -83,13 +83,12 @@
 </style>
 
 <script lang="babel">
-
   import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
   import commonNav from '../components/commonNav.vue'
   import store from '../assets/lib/q.store.js'
 
-  const customer_id = store.get('customer_id')
-  const mobile_token = store.get('mobile_token')
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
   export default {
     data(){
@@ -102,14 +101,9 @@
     created(){
       const me = this;
       const {invoice_id, invoice_type, title} = me.$route.query;
-
       me.checkType = invoice_type;
       me.unitTitle = title;
       me.invoice_id = invoice_id;
-
-      console.log()
-
-
     },
     components: {
       commonNav,
@@ -159,6 +153,7 @@
         })
 
       },
+
 
       handleClick(){
         const me = this;
