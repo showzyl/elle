@@ -193,12 +193,14 @@
   import Vue from 'vue'
   import footBar from '../components/footBar.vue'
   import loadMore from '../components/loadmore.vue'
-  import { Toast, TabContainer, TabContainerItem, Indicator } from 'mint-ui'
+  import { Toast, Indicator } from 'mint-ui'
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
 
-  Vue.component(TabContainer.name, TabContainer);
-  Vue.component(TabContainerItem.name, TabContainerItem);
+//  TabContainer, TabContainerItem,
+
+//  Vue.component(TabContainer.name, TabContainer);
+//  Vue.component(TabContainerItem.name, TabContainerItem);
 
   export default {
     data() {

@@ -128,7 +128,9 @@ export default {
         console.log(res);
         store.set('customer_id', res.id);
         store.set('mobile_token', res.mobile_token);
-        location.href = '/#/profile';
+        setTimeout( ()=>{
+          location.href = '/#/profile';
+        }, 500)
       })
     }
   },

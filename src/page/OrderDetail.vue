@@ -163,23 +163,23 @@
 
 </style>
 <script lang="babel">
-import commonNav from '../components/commonNav.vue'
+  import commonNav from '../components/commonNav.vue'
 
-export default {
-  components: {
-    commonNav
-  },
-  computed: {
+  export default {
+    components: {
+      commonNav
+    },
+    computed: {
 
-  },
-  methods: {
+    },
+    methods: {
 
-  },
-  mounted() {
+    },
+    mounted() {
 
-  },
-  watch: {
+    },
+    watch: {
 
+    }
   }
-}
 </script>

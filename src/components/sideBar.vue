@@ -2,7 +2,6 @@
   <div class="sidebar" >
     <div class="logo">
       <div class="logoImg"></div>
-      <!--<img src="../assets/img/bg_side_elleshop.png" alt="" class="logoImg" />-->
     </div>
 
     <ul class="tabUl">
@@ -14,12 +13,12 @@
       <li class="tab" @click.prevent="clickTab(1)" @click="clickMask">
         <span class="manIcon"></span>
         <span class="tabEng">MAN</span>
-        <span class="tabTxt">男士</span> 
+        <span class="tabTxt">男士</span>
       </li>
       <li class="tab bbnone" @click.prevent="clickTab(2)" @click="clickMask">
         <span class="lifeIcon"></span>
         <span class="tabEng">LIFE STYLE</span>
-        <span class="tabTxt">生活</span> 
+        <span class="tabTxt">生活</span>
       </li>
     </ul>
 
@@ -30,15 +29,15 @@
         <router-link to="/classify?tab=1">
           <span class="brandIcon"></span>
           <span class="tabEng">BRAND</span>
-          <span class="tabTxt">品牌</span>   
-        </router-link>     
+          <span class="tabTxt">品牌</span>
+        </router-link>
       </li>
       <li class="tab">
         <router-link to="/inspire">
           <span class="eventIcon"></span>
           <span class="tabEng">EVENT</span>
-          <span class="tabTxt">活动</span>  
-        </router-link>      
+          <span class="tabTxt">活动</span>
+        </router-link>
       </li>
     </ul>
     

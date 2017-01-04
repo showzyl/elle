@@ -721,10 +721,12 @@
     created(){
       const me = this;
 
-      if (!customer_id && !mobile_token){
-        location.href = '/#/login';
-        return;
-      }
+      setTimeout( () => {
+        if (!customer_id && !mobile_token){
+          location.href = '/#/login';
+          return;
+        }
+      }, 1000)
 
       me.fetchData({
         customer_id,

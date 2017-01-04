@@ -79,7 +79,7 @@
 
     </div>
 
-    <div class="" v-if="content === 'main' ">
+    <div class="" v-if="content === 'main'">
       <commonNav title="全部订单" iconRight="" />
       <ul class="orderTab">
         <li class="orderTabLi" :class="{on: tabIndex === i}" v-for="(item,i) in aTab" @click="checkTab(i)">
@@ -221,7 +221,6 @@
 
       </div>
     </div>
-
 
   </div>
 </template>
