@@ -17,7 +17,6 @@ import Invoice from '../page/Invoice.vue'
 import InvoiceDetail from '../page/InvoiceDetail.vue'
 import Collect from '../page/Collect.vue'
 import Order from '../page/Order.vue'
-import OrderDetail from '../page/OrderDetail.vue'
 import Product from '../page/Product.vue'
 import Filter from '../page/Filter.vue'
 import Brand from '../page/Brand.vue'
@@ -46,7 +45,6 @@ import Test from '../page/Test.vue'
 // const InvoiceDetail = () => System.import('../page/InvoiceDetail.vue')
 // const Collect = () => System.import('../page/Collect.vue')
 // const Order = () => System.import('../page/Order.vue')
-// const OrderDetail = () => System.import('../page/OrderDetail.vue')
 // const Product = () => System.import('../page/Product.vue')
 // const Filter = () => System.import('../page/Filter.vue')
 // const Brand = () => System.import('../page/Brand.vue')
@@ -80,7 +78,6 @@ const routes = [
   { name: '品牌详情', path: '/brand/:id', component: Brand },
   { name: '收藏', path: '/collect', component: Collect },
   { name: '订单', path: '/order', component: Order },
-  { name: '订单详情', path: '/ordertail', component: OrderDetail },
   { name: '地址', path: '/address', component: Address },
   { name: '地址新增和修改', path: '/adddetail', component: AddressDetail },
   { name: '发票新增', path: '/invoice', component: Invoice },

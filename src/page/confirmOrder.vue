@@ -103,44 +103,33 @@
         <li class="status">
           订单状态: 等待付款
         </li>
-        <li class="detail">
-          <p>订单编号: 21111111111</p>
-          <p>订单创建时间: 21111111111</p>
-        </li>
+        <!--<li class="detail">-->
+          <!--<p>订单编号: 21111111111</p>-->
+          <!--<p>订单创建时间: 21111111111</p>-->
+        <!--</li>-->
         <li class="dispatch">
-          <p>配送方式: 21111111111</p>
-          <p>配送时间: 21111111111</p>
-          <p>发票名称: 个人</p>
+          <p>配送方式: <span>顺丰快递</span></p>
+          <p>配送时间: <span>工作日</span></p>
+          <p>发票名称: <span>个人</span></p>
         </li>
       </ul>
 
       <div class="section">
         <div class="titleBox">
           <span class="orderTit">订单商品</span>
-          <span class="orderNum">共 1 件</span>
+          <span class="orderNum">共 {{products.length}} 件</span>
         </div>
         <ul class="list">
-          <li class="orderMain">
-            <div class="imgBox">
-              <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
-            </div>
-            <div class="contentBox">
-              <p class="price">129</p>
-              <p class="spec">heheh</p>
-              <p class="desc">我是描述我是描述</p>
-              <p class="number">数量 1</p>
-            </div>
-          </li>
 
-          <li class="orderMain">
+          <li class="orderMain" v-for="item in products">
             <div class="imgBox">
-              <img src="http://p5.qhimg.com/t01272aeeb0365c41dd.png" alt="">
+              <img :src="item.thumb">
             </div>
             <div class="contentBox">
-              <p class="price">129</p>
-              <p class="spec">heheh</p>
-              <p class="desc">我是描述我是描述</p>
-              <p class="number">数量 1</p>
+              <p class="price">{{item.total}}</p>
+              <p class="spec">{{item.name}}</p>
+              <!--<p class="desc">我是描述我是描述</p>-->
+              <p class="number">数量 {{item.quantity}}</p>
             </div>
           </li>
 
@@ -150,24 +139,32 @@
       <ul class="section">
         <li class="orderDetailItem">
           <span class="name">商品合计</span>
-          <span class="price">￥128</span>
+          <span class="price">￥{{totals[0].text}}</span>
         </li>
         <li class="orderDetailItem">
-          <span class="name">商品运费</span>
-          <span class="price">￥1</span>
+          <span class="name">运费</span>
+          <span class="price">￥{{totals[1].text}}</span>
         </li>
-        <li class="orderDetailItem">
-          <span class="name">优惠券</span>
-          <span class="price">￥10</span>
-        </li>
+        <!--<li class="orderDetailItem">-->
+          <!--<span class="name">优惠券</span>-->
+          <!--<span class="price">￥10</span>-->
+        <!--</li>-->
       </ul>
 
-      <div class="section allPrice">￥105</div>
+      <div class="section allPrice">￥{{totals[2].text}}</div>
+
+      <div class="btn btnSubmitOrder" @click="submitOrder">提交订单</div>
     </div>
   </div>
 </template>
 
 <style media="screen" lang="scss" scoped>
+
+  .btnSubmitOrder{
+    position: fixed;
+    bottom: 0;
+
+  }
 
   .confirmOrder {
     .commonNav{
@@ -304,6 +301,9 @@
       }
       .dispatch{
         padding: .5rem 0;
+        span{
+          font-weight: bold;
+        }
       }
       .detail{
         padding: .3rem 0;
@@ -369,6 +369,7 @@
       return {
         tab: 'confirmOrder',
         products: [],
+        totals: [],
         address: {},
         invoice: {},
         info: {},
@@ -419,18 +420,16 @@
         me.products = res.products;
         me.address = res.address;
         me.invoice = res.invoice;
+        me.totals = res.totals;
         me.info = {
           remaining_total: res.remaining_total,
           shipping_totle_price: res.shipping_totle_price
         };
         if(res.address && res.address.address_id){
-          console.log('ininin')
           me.choseAddress = res.address.address_id;
         }
 
       })
-
-      me.fetchOrderInfo();
 
 
 
@@ -459,34 +458,35 @@
           location.href = '/#/adddetail?source=confirmorder';
           return;
         }
-
-        me.fetchConfirmOrder();
-        //me.tab = 'orderdetail';
-//        location.href = '/#/ordertail';
+        me.tab = 'orderdetail';
       },
       handleInvoice(){
 
       },
-      fetchOrderInfo(){
+      submitOrder(){
         const me = this;
         util.fetchInterface(me, 0, {
-          route: 'mapi/order/orderInfo',
+          route: 'mapi/checkoutconfirm',
           mobile_token,
           customer_id
         }, res =>{
+          if(res === 'notMatch'){
+            Toast({
+              message: '暂无数据...',
+              position: 'bottom',
+              duration: 3000
+            });
+            return;
+          }
 
+          if(res === 'notMatch'){
+            Toast('网络错误...');
+            return;
+          }
+          location.href = '/#/pay?orderid=';
+          console.log(res);
         })
       },
-      fetchConfirmOrder(){
-        const me = this;
-        util.fetchInterface(me, 0, {
-          route: 'mapi/cart/confirm',
-          mobile_token,
-          customer_id
-        }, res =>{
-
-        })
-      }
 
     },
     mounted() {
