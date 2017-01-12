@@ -331,7 +331,7 @@
   import Vue from 'vue'
   import commonNav from '../components/commonNav.vue'
   import recommendItem from '../components/recommendItem.vue'
-  import { Swipe, SwipeItem, Toast } from 'mint-ui'
+  import { Swipe, SwipeItem, Toast, Indicator } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
@@ -340,6 +340,9 @@
 
   Vue.component(Swipe.name, Swipe);
   Vue.component(SwipeItem.name, SwipeItem);
+
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
   export default {
     data() {
@@ -366,6 +369,11 @@
       const route = me.$route;
       const query = route.query;
 
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
+
       if(query.sizeName && query.colorName && query.quantity){
         // url param
         me.sizes = [{ovdname: query.sizeName}];
@@ -379,16 +387,31 @@
           //console.log(res);
           me.sizes = res.Size;
           me.colors = res.color;
-          me.cartInfo.size = this.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
-          me.cartInfo.color = this.colors[0].product_id+','+this.colors[0].color;
+          me.cartInfo.size = me.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
+          me.cartInfo.color = me.colors[0].product_id+','+this.colors[0].color;
         })
       }
 
-
-      me.fetchData({
+      util.fetchInterface(me, 0, {
+        route: 'mapi/product',
         product_id: me.$route.params.id, // 商品ID
         customer_id: '' // 用户ID
-      }, function(res){
+      }, function (res) {
+        Indicator.close();
+
+        if(res === 'notMatch'){
+          Toast({
+            message: '暂无数据...',
+            duration: 3000
+          });
+          return;
+        }
+
+        if(res === 'notMatch'){
+          Toast('网络错误...');
+          return;
+        }
+
         me.images = res.images;
         me.description = res.description;
         me.is_wish = res.is_wish;
@@ -403,9 +426,7 @@
         };
 
         me.options = res.options;
-
       });
-
 
       util.scrollToggleCommonNav(function(){
         return ( /\/product\//.test(me.$route.path) && me.content === 'productDetail' )
@@ -413,8 +434,6 @@
 
     },
     components: {
-      Swipe,
-      SwipeItem,
       commonNav,
       recommendItem
     },
@@ -422,25 +441,6 @@
 
     },
     methods: {
-      fetchData(data, cb){
-        var me = this;
-        data.route = 'mapi/product';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {params: data})
-        .then(res => {
-          //console.log(res)
-          let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...')
-          }
-        }, err => {
-          Toast('网络错误...')
-        })
-      },
       fetchOption(data, cb){
         var me = this;
         data.route = 'mapi/product/getoption';
@@ -448,14 +448,14 @@
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?',
           {params: data})
-        .then(res => {
+        .then(function(res){
           let data = res.body;
           if(data.code+'' === '0'){
             cb && cb(data.data);
           }else{
             Toast('暂无数据...')
           }
-        }, err => {
+        }, function(err) {
           console.log(err)
           Toast('网络错误...')
         })
@@ -471,8 +471,6 @@
         }
 
         const aTmp = me.cartInfo.color.split(',');
-        const customer_id = store.get('customer_id');
-        const mobile_token = store.get('mobile_token');
 
         let item = {
           customer_id: customer_id,
@@ -483,13 +481,13 @@
           quantity: me.number
         };
 
-        console.log(item);
+        // console.log(item);
         // this.$store.commit('ADD_TO_CART', {item})
 
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?route=mapi/cart/add',
           {params: item})
-          .then(res => {
+          .then(function(res){
           //let data = res.body;
           console.log(res)
           if(data.code+'' === '0'){
@@ -497,7 +495,7 @@
           }else{
             Toast('暂无数据...')
           }
-        }, err => {
+        }, function(err){
             Toast('网络错误...')
         })
       },
@@ -517,18 +515,16 @@
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?route=mapi/cart/edit',
           {params: params})
-          .then(res => {
+          .then(function(res){
           //let data = res.body;
           if(data.code+'' === '0'){
             location.href = '/#/shopcar';
           }else{
             Toast('暂无数据...')
           }
-        }, err => {
+        }, function(err) {
           Toast('网络错误...')
         })
-
-
 
       },
       add(){

@@ -1,20 +1,49 @@
 
 <template>
 <div class="test">
-  <h2>
-    test page
-  </h2>
+
+  <ul>
+    <li>
+      <a href="https://www.baidu.com">
+        <div class="img" style=""></div>
+        <p>我是下面的内容</p>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.baidu.com">
+        <div class="img" style=""></div>
+        <p>我是下面的内容</p>
+      </a>
+    </li>
+  </ul>
+  <div class="btn">我是按钮</div>
 </div>
 </template>
-<style media="screen" lang="scss">
-  .test{
-    width: 100px;
-    height: 100px;
-    border: 1px solid;
-    h2{
-      line-height: 100px;
-      color: red;
-    }
+
+
+<style media="screen" lang="scss" scoped>
+
+  ul{
+    overflow: hidden;
+  }
+
+  ul li {
+    width: 50%;
+    height: 100%;
+    float: left;
+    /*background-size: cover;*/
+  }
+
+  ul li .img{
+    padding-top: 100%;
+    width: 100%;
+    background-size: cover;
+    /*background-image: url("http://img.elleshop.com.cn/catalog/app/app分类页用图/new2/nv/美妆.jpg?imageView2/1/w/320/h/320/format/jpg/interlace/1/q/80/");*/
+  }
+
+  ul li p{
+    text-align: center;
+    margin: .3rem 0;
   }
 </style>
 <script lang="babel">

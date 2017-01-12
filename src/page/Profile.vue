@@ -732,7 +732,7 @@
         customer_id,
         mobile_token
       }, res => {
-        console.log(res);
+        //console.log(res);
         let info = res.info;
         info.cart_count = res.cart_count;
         info.remaining_total = res.remaining_total;

@@ -136,7 +136,7 @@
       }
     },
     created(){
-      var me = this;
+      const me = this;
 
       me.fetchAddressData({
         customer_id,

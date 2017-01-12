@@ -25,14 +25,17 @@
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems0">
               <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
-                <div class="shopImg">
-                  <img :src="item.app_image" alt="">
-                </div>
+                <!--<div class="shopImg">-->
+                  <!--<img :src="item.app_image" alt="">-->
+                <!--</div>-->
+
+                <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
+
                 <h3 class="tit">{{item.category_name}}</h3>
               </a>
             </li>
           </ul>
-          <div class="btn btnMoreCategary" @click="changeCategaryTab(0)">更多分类</div>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(0)" v-show="btnShow">更多分类</div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
@@ -45,7 +48,7 @@
               </a>
             </li>
           </ul>
-          <div class="btn btnMoreCategary" @click="changeCategaryTab(1)">更多分类</div>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(1)" v-show="btnShow">更多分类</div>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
@@ -58,7 +61,7 @@
               </a>
             </li>
           </ul>
-          <div class="btn btnMoreCategary" @click="changeCategaryTab(2)">更多分类</div>
+          <div class="btn btnMoreCategary" @click="changeCategaryTab(2)" v-show="btnShow">更多分类</div>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -281,12 +284,16 @@
   .shopItem{
     float: left;
     width: 50%;
-    box-sizing: border-box;
+    height: 100%;
+    /*box-sizing: border-box;*/
   }
 
   .shopImg{
     margin: .2rem;
-    height: 4.5rem;
+    /*height: 4.5rem;*/
+    width: 92%;
+    padding-top: 92%;
+    background-size: cover;
   }
 
   .tit{
@@ -382,9 +389,14 @@
 </style>
 
 <script lang="babel">
-  import { Toast, Indicator } from 'mint-ui'
+  import Vue from 'vue'
+  import { Toast, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
   import footBar from '../components/footBar.vue'
   import util from '../assets/lib/q.util.js'
+
+  Vue.component(TabContainer.name, TabContainer)
+  Vue.component(TabContainerItem.name, TabContainerItem)
+
 
   export default {
     data(){
@@ -392,6 +404,7 @@
         active1: 'tab-container0',
         active2: 'tab-container0',      
         tab: 'category',
+        btnShow: false,
         prevTab: '',
         brandItems0: [],
         brandItems1: [],
@@ -416,6 +429,9 @@
           type_id: item
         }, res => {
           me['brandItems'+i] = me['brandItems'+i].concat(res);
+          setTimeout(() => {
+            me.btnShow = true;
+          }, 500)
         })
       })
       
