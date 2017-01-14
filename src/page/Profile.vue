@@ -144,7 +144,6 @@
     </div>
 
     <div class="personal" v-if="tab === 'personal'">
-      <!--<commonNav title="个人资料" iconRight="" />-->
 
       <div class="personalNav">
         <i class="iconBack" @click="tab = 'content'"></i>
@@ -152,11 +151,14 @@
       </div>
 
       <div class="personalHead" @click="clickHeaderImg">
-        <div class="headImg">
-          <img :src="info.headimgurl" v-if="info.headimgurl" class="iconImg">
-          <img src="../assets/img/profile/touxiang.png" v-else class="iconImg">
-          <i class="iconRedPen"></i>
-        </div>
+        <input type="file" id="single" style="display: none;"/>
+        <label for="single">
+          <div class="headImg">
+            <img :src="info.headimgurl" v-if="info.headimgurl" class="iconImg">
+            <img src="../assets/img/profile/touxiang.png" v-else class="iconImg">
+            <i class="iconRedPen"></i>
+          </div>
+        </label>
       </div>
 
       <ul class="personalList">
@@ -184,9 +186,9 @@
         <h3 class="tit">Date of birth</h3>
         <p class="subTit">生日</p>
         <div class="birth" @click="openPicker">
-          <span class="year">1990</span>
-          <span class="month">05</span>
-          <span class="date">05</span>
+          <span class="year">{{birthday | formatBirth(0)}}</span>
+          <span class="month">{{birthday | formatBirth(1)}}</span>
+          <span class="day">{{birthday | formatBirth(2)}}</span>
         </div>
         <p class="attention">
           注意: 出生日期填写后将不可修改,请注意填写,谢谢!
@@ -711,14 +713,34 @@
   import { Toast, Indicator, DatetimePicker, Actionsheet } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
   import util from '../assets/lib/q.util.js'
+  import html5ImgCompress from '../assets/lib/q.file.js'
 
-  Vue.component(DatetimePicker.name, DatetimePicker)
-  Vue.component(Actionsheet.name, Actionsheet)
+  Vue.component(DatetimePicker.name, DatetimePicker);
+  Vue.component(Actionsheet.name, Actionsheet);
 
-  const customer_id = store.get('customer_id')
-  const mobile_token = store.get('mobile_token')
+  const customer_id = store.get('customer_id');
+  const mobile_token = store.get('mobile_token');
 
   export default {
+    components: {
+      commonNav,
+      recommend,
+      footBar
+    },
+    data () {
+      return {
+        tab: 'personal',
+        myform: {},
+        info: {},
+        pickerVisible: false,
+        startDate: new Date((new Date).getTime() - 365 * 50 * 84600000),
+        endDate: (new Date),
+        gender: 'guy',
+        sheetVisible: false,
+        actions: [],
+        birthday: null
+      }
+    },
     created(){
       const me = this;
 
@@ -727,7 +749,7 @@
           location.href = '/#/login';
           return;
         }
-      }, 2500)
+      }, 2500);
 
 
       util.fetchInterface(me, 0, {
@@ -754,39 +776,75 @@
         me.info = info;
       })
 
-    },
-    components: {
-      commonNav,
-      recommend,
-      footBar
-    },
-    data () {
-      return {
-        tab: 'personal',
-        myform: {},
-        info: {
+      me.birthday = me.startDate.getFullYear() + '-'
+        + (me.startDate.getMonth() + 1) + '-'
+        + me.startDate.getDate();
 
-        },
-        pickerVisible: false,
-        startDate: new Date((new Date).getTime() - 365 * 50 * 84600000),
-        endDate: (new Date),
-        gender: 'guy',
-        sheetVisible: false,
-        actions: []
-      }
+
+//      console.log(me.birthday)
+//      console.log(me.startDate.getFullYear());
+//      console.log(me.startDate.getMonth() + 1);
+//      console.log(me.startDate.getDate());
+
     },
     methods: {
       openPicker() {
         this.$refs.picker.open();
       },
       handleConfirm(){
-        console.log(this.pickerVisible);
+        let oDate = new Date(this.pickerVisible);
+        let year = oDate.getFullYear();
+        let month = oDate.getMonth() + 1;
+        let day = oDate.getDate();
+
+        this.birthday = year + '-' + month + '-' + day;
+
+        //console.log(this.birthday)
+
+//        console.log(oDate.getFullYear());
+//        console.log(oDate.getMonth() + 1 );
+//        console.log(oDate.getDate());
+
       },
       checkData(){
+        console.log(123)
 
       },
       clickHeaderImg(){
-        this.sheetVisible = true
+        const me = this;
+        //this.sheetVisible = true
+
+        util.getEl('#single').addEventListener('change', function(e){
+          new html5ImgCompress(e.target.files[0], {
+            before: function(file) {
+              console.log('单张: 压缩前...');
+            },
+            done: function (file, base64) {
+              console.log('单张: 压缩成功...');
+              console.log(file, base64);
+
+              util.fetchInterface(me, 0, {
+                route: 'mapi/account/edit',
+                headimgurl: JSON.stringify(file),
+                customer_id,
+                mobile_token
+              }, function (res) {
+                console.log(res)
+              })
+              
+            },
+            fail: function(file) {
+              console.log('单张: 压缩失败...');
+            },
+            complate: function(file) {
+              console.log('单张: 压缩完成...');
+            },
+            notSupport: function(file) {
+              alert('浏览器不支持！');
+            }
+          });
+        });
+
       },
       takePhoto() {
         console.log('taking photo');
@@ -804,6 +862,11 @@
           method: this.openAlbum
       }];
 
+    },
+    filters: {
+      formatBirth(old, val){
+        return old.split('-')[val];
+      }
     }
   }
 </script>
