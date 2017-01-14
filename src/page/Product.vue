@@ -381,14 +381,28 @@
         me.number = query.quantity;
         me.content = 'detailOption';
       }else{
-        me.fetchOption({
+
+        util.fetchInterface(me, 0, {
+          route: 'mapi/product/getoption',
           product_id: route.params.id, // 商品ID
-        }, res => {
-          //console.log(res);
+        }, function (res) {
+          if(res === 'notMatch'){
+            Toast({
+              message: '暂无数据...',
+              duration: 3000
+            });
+            return;
+          }
+
+          if(res === 'notMatch'){
+            Toast('网络错误...');
+            return;
+          }
+
           me.sizes = res.Size;
           me.colors = res.color;
-          me.cartInfo.size = me.sizes[0].product_option_id + ',' + this.sizes[0].product_option_value_id;
-          me.cartInfo.color = me.colors[0].product_id+','+this.colors[0].color;
+          me.cartInfo.size = me.sizes[0].product_option_id + ',' + me.sizes[0].product_option_value_id;
+          me.cartInfo.color = me.colors[0].product_id+','+me.colors[0].color;
         })
       }
 
@@ -441,25 +455,6 @@
 
     },
     methods: {
-      fetchOption(data, cb){
-        var me = this;
-        data.route = 'mapi/product/getoption';
-        data.format = 'jsonp';
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {params: data})
-        .then(function(res){
-          let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...')
-          }
-        }, function(err) {
-          console.log(err)
-          Toast('网络错误...')
-        })
-      },
       addToCart(e){
         const me = this;
         const route = me.$route;

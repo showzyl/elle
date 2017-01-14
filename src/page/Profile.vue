@@ -710,6 +710,7 @@
   import footBar from '../components/footBar.vue'
   import { Toast, Indicator, DatetimePicker, Actionsheet } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
+  import util from '../assets/lib/q.util.js'
 
   Vue.component(DatetimePicker.name, DatetimePicker)
   Vue.component(Actionsheet.name, Actionsheet)
@@ -721,23 +722,38 @@
     created(){
       const me = this;
 
-      setTimeout( () => {
+      setTimeout(function(){
         if (!customer_id && !mobile_token){
           location.href = '/#/login';
           return;
         }
-      }, 1000)
+      }, 2500)
 
-      me.fetchData({
+
+      util.fetchInterface(me, 0, {
+        route: 'mapi/account',
         customer_id,
         mobile_token
-      }, res => {
-        //console.log(res);
+      }, function (res) {
+        if(res === 'notMatch'){
+          Toast({
+            message: '暂无数据...',
+            duration: 3000
+          });
+          return;
+        }
+
+        if(res === 'notMatch'){
+          Toast('网络错误...');
+          return;
+        }
+
         let info = res.info;
         info.cart_count = res.cart_count;
         info.remaining_total = res.remaining_total;
         me.info = info;
       })
+
     },
     components: {
       commonNav,
@@ -760,37 +776,6 @@
       }
     },
     methods: {
-      fetchData(data, cb){
-        const me = this;
-        data.route = 'mapi/account';
-        data.format = 'jsonp';
-
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-//          console.log(data);
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast({
-              message: '暂无数据...',
-              position: 'bottom',
-              duration: 3000
-            })
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
-          Indicator.close();
-          me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
-      },
       openPicker() {
         this.$refs.picker.open();
       },
@@ -806,7 +791,6 @@
       takePhoto() {
         console.log('taking photo');
       },
-
       openAlbum() {
         console.log('opening album');
       }
