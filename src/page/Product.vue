@@ -473,7 +473,8 @@
           product_id: aTmp[0],
           size: me.cartInfo.size,
           color: aTmp[1],
-          quantity: me.number
+          quantity: me.number,
+          format: 'jsonp'
         };
 
         // console.log(item);

@@ -825,7 +825,7 @@
 
               util.fetchInterface(me, 0, {
                 route: 'mapi/account/edit',
-                headimgurl: JSON.stringify(file),
+                headimgurl: base64,
                 customer_id,
                 mobile_token
               }, function (res) {
