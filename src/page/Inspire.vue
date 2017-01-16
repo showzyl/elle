@@ -15,9 +15,9 @@
       <mt-tab-container-item id="tab-container0" v-for="tab in tabs">
         <ul>
           <li v-for="item in items0" :key="item.id" v-if="items0">
-            <a :href="'/#/inspire/'+item.event_id">
-            <img :src="item.app_image" alt="">
-            </a>
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
@@ -86,9 +86,6 @@
 </div>
 </template>
 <style media="screen" scoped>
-  .inspire{
-
-  }
 
   .inspireNav{
     display: -webkit-box;
@@ -101,7 +98,6 @@
     text-align: center;
     font-size: 0.35rem;
     line-height: 1rem;
-    /*margin: 0 .4rem;*/
   }
 
    .inspireNav a.on{
@@ -117,7 +113,6 @@
 <script lang="babel">
 
 import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-//import commonNav from '../components/commonNav.vue'
 import core from '../assets/lib/q.core.js'
 import store from '../assets/lib/q.store.js'
 import footBar from '../components/footBar.vue'
@@ -139,24 +134,27 @@ export default {
     }
   },
   created(){ 
-    var me = this;
+    const me = this;
+
     Indicator.open({
       text: '加载中...',
       spinnerType: 'fading-circle'
     });
 
-    me.tabs.forEach( (item, i) => {
-      me.fetchData({
-        event_type_id: item
-      }, res => {
+    me.tabs.forEach(function(item) {
+
+      util.fetchInterface(me, 0, {
+        event_type_id: item,
+        route: 'mapi/eventlist'
+      }, function (res) {
+        Indicator.close();
         me['items'+item] = me['items'+item].concat(res);
       })
+
     });
     
   },
   components: {
-    TabContainer,
-    TabContainerItem,
     footBar
   },
   computed: {
@@ -165,28 +163,6 @@ export default {
   },
   methods: {
     // 没有缓存
-    fetchData(data, cb){
-      var me = this;
-      data.route = 'mapi/eventlist';
-      data.format = 'jsonp';
-      this.$http.jsonp(
-        window.q.interfaceHost +'index.php?',
-        {params: data})
-      .then(res => {
-        Indicator.close();
-        //console.log(res)
-        let data = res.body;
-        if(data.code+'' === '0'){
-          cb && cb(data.data);
-        }else{
-          Toast('暂无数据...')
-        }
-      }, err => {
-        console.log(err);        
-        Indicator.close();
-        Toast('网络错误...');
-      })
-    }
 
   },
   mounted() {

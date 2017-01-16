@@ -1,22 +1,22 @@
 <template>
   <ul class="recommendList">
     <li class="recommendItem" v-for="product in products">
-      <a :href="'/#/product/'+product.product_id">
+      <router-link :to=" '/product/'+ product.product_id ">
         <div class="imgBox">
           <img :src="product.image" alt="">
         </div>
         <div class="priceBox">
           <div class="priceBoxLeft">
-            <p class="newprice" v-if="product.price">¥{{product.price}}</p>
-            <p class="oldprice" v-if="product.spcial">¥{{product.price}}</p>
-            <p class="newprice" :class="{ colorRed: product.is_wish }" v-if="product.spcial">¥{{product.spcial}}</p>
+            <p class="oldprice" v-if="product.special">¥{{product.price}}</p>
+            <p class="newprice" v-else="product.price">¥{{product.price}}</p>
+            <p class="newprice" :class="{ colorRed: product.special }" v-if="product.special">¥{{product.special}}</p>
           </div>
           <span class="iconCarShop" :class="{ colorRed: product.is_wish }"></span>
         </div>
         <div class="recommendName">
           {{product.name}}
         </div>
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>

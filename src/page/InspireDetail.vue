@@ -8,8 +8,9 @@
 </div>
 </template>
 <style media="screen" scoped>
-  .imgList{
-    /*margin-top: 1.5rem;*/
+
+  .commonNav{
+    position: relative;
   }
 
   .inspireNav{
@@ -30,7 +31,6 @@
      border-bottom: 1px solid black;
    }
 
-
 </style>
 <script lang="babel">
 
@@ -38,6 +38,7 @@ import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } fro
 import commonNav from '../components/commonNav.vue'
 import core from '../assets/lib/q.core.js'
 import store from '../assets/lib/q.store.js'
+import util from '../assets/lib/q.util.js'
 import recommend from '../components/recommend.vue'
 
 export default {
@@ -49,16 +50,44 @@ export default {
     }
   },
   created(){ 
-    var me = this;
+    const me = this;
 
     Indicator.open({
       text: '加载中...',
       spinnerType: 'fading-circle'
+    });
+
+    util.fetchInterface(me, 0, {
+      event_id: me.$route.params.id,
+      route: 'mapi/event'
+    }, function (res) {
+      Indicator.close();
+
+      if(res === 'notMatch'){
+        Toast({
+          message: '暂无数据...',
+          duration: 3000
+        });
+        return;
+      }
+
+      if(res === 'notMatch'){
+        Toast('网络错误...');
+        return;
+      }
+
+      if(res.app.length){
+        me.items = res.app;
+        me.name = res.name;
+        if(res.products){
+          res.products.forEach(function(item) {
+            item.isRed = false
+          });
+          me.products = res.products
+        }
+      }
     })
 
-    this.fetchData({
-      event_id: me.$route.params.id
-    });
   },
   components: {
     commonNav,
@@ -70,71 +99,7 @@ export default {
   },
   methods: {
     // 没有缓存
-    fetchData(data, cb){
-      var me = this;
-      data.route = 'mapi/event';
-      data.format = 'jsonp';
-      this.$http.jsonp(
-        window.q.interfaceHost +'index.php?',
-        {params: data})
-      .then(res => {
-        Indicator.close()
-        //console.log(res)
-        let data = res.body;
 
-        if(data.code+'' === '0' && data.data.app.length){
-          me.items = data.data.app;
-          me.items.forEach(item => {
-            item.image = item.image + '?iopcmd=thumbnail&type=4&width=640|iopcmd=convert&dst=jpg&Q=60'
-          })
-          me.name = data.data.name;
-          if(data.data.products){
-            data.data.products.forEach(item => {
-              item.isRed = false
-            })
-            me.products = data.data.products
-          }
-        }else{
-          // 无数据
-          Toast('暂无数据...')
-        }
-        cb && cb(data.data);
-
-      }, err => {
-        Toast('网络错误...');
-      })
-
-      // $.ajax({
-      //   url: 'http://106.75.17.211:6603/index.php?route=mapi/event&format=jsonp',
-      //   data: {
-      //     event_id: me.$route.params.id
-      //   },
-      //   dataType: 'jsonp',
-      //   jsonp: 'callback',
-      //   crossDomain: true
-      // }).done(function(res){
-      //   //console.log(res)
-      //   Indicator.close()
-      //   if(res.code+'' === '0' && res.data.app.length){
-      //     me.items = res.data.app
-      //     me.items.forEach(item => {
-      //       item.image = item.image + '?iopcmd=thumbnail&type=4&width=640|iopcmd=convert&dst=jpg&Q=60'
-      //     })
-      //     if(res.data.products){
-      //       res.data.products.forEach(item => {
-      //         item.isRed = false
-      //       })
-      //       me.products = res.data.products
-      //     }
-      //   }else{
-      //     // 无数据
-      //     Toast('暂无数据...')
-      //   }
-      // }).fail(function(err){
-      //   console.log(err)
-      //   Toast('网络错误...')
-      // })
-    }
   },
   mounted() {
 
