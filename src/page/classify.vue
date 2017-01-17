@@ -24,15 +24,10 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems0">
-              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
-                <!--<div class="shopImg">-->
-                  <!--<img :src="item.app_image" alt="">-->
-                <!--</div>-->
-
+              <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
                 <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
-
                 <h3 class="tit">{{item.category_name}}</h3>
-              </a>
+              </router-link>
             </li>
           </ul>
           <div class="btn btnMoreCategary" @click="changeCategaryTab(0)" v-show="btnShow">更多分类</div>
@@ -40,12 +35,10 @@
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems1">
-              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
-                <div class="shopImg">
-                  <img :src="item.app_image" alt="">
-                </div>
+              <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
+                <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
                 <h3 class="tit">{{item.category_name}}</h3>
-              </a>
+              </router-link>
             </li>
           </ul>
           <div class="btn btnMoreCategary" @click="changeCategaryTab(1)" v-show="btnShow">更多分类</div>
@@ -53,12 +46,10 @@
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
             <li class="shopItem" v-for="item in categoryItems2">
-              <a :href="'/#/filter?name=' + item.category_name + '&id=' + item.category_id ">
-                <div class="shopImg">
-                  <img :src="item.app_image" alt="">
-                </div>
+              <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
+                <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
                 <h3 class="tit">{{item.category_name}}</h3>
-              </a>
+              </router-link>
             </li>
           </ul>
           <div class="btn btnMoreCategary" @click="changeCategaryTab(2)" v-show="btnShow">更多分类</div>
@@ -80,7 +71,7 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
-              <a :href="'/#/brand/' + item.manufacturer_id">
+              <router-link :to=" '/brand/' + item.manufacturer_id ">
                 <div class="brandContent">
                   <img :src="item.app_image" alt="">
                   <h3 class="title">{{item.name}}</h3>
@@ -91,14 +82,14 @@
                   </div>
                 </div>
                 <div class="brandItemBg"></div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="brandList">
             <li v-for="item in brandItems1" class="brandItem">
-              <a :href="'/#/brand/' + item.manufacturer_id">
+              <router-link :to=" '/brand/' + item.manufacturer_id ">
                 <div class="brandContent">
                   <img :src="item.app_image" alt="">
                   <h3 class="title">{{item.name}}</h3>
@@ -109,14 +100,14 @@
                   </div>
                 </div>
                 <div class="brandItemBg"></div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="brandList">
             <li v-for="item in brandItems2" class="brandItem">
-              <a :href="'/#/brand/' + item.manufacturer_id">
+              <router-link :to=" '/brand/' + item.manufacturer_id ">
                 <div class="brandContent">
                   <img :src="item.app_image" alt="">
                   <h3 class="title">{{item.name}}</h3>
@@ -127,7 +118,7 @@
                   </div>
                 </div>
                 <div class="brandItemBg"></div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </mt-tab-container-item>
@@ -154,9 +145,9 @@
         <h3 class="name">{{items.category_name}}</h3>
         <ul class="subUl">
           <li v-for="item in items.subcategories" class="subLi">
-            <a :href="'/#/filter?id='+item.category_id+'&name='+item.category_name">
+            <router-link :to=" '/filter?id='+item.category_id+'&name='+item.category_name ">
               {{item.category_name}}
-            </a>
+            </router-link>
           </li>
         </ul>
       </li>
@@ -177,9 +168,6 @@
     height: 1.2rem;
     line-height: 1.2rem;
     text-align: center;
-    /*border: 1px solid #d7d7d5;*/
-    /*border-right: 0 none;*/
-    /*border-left: 0 none;*/
     position: relative;
   }
 
@@ -237,8 +225,6 @@
   }
 
   .header, .subBar{
-    /*height: 1rem;
-    line-height: 1rem;*/
     display: -webkit-box;
   }
 
@@ -247,13 +233,11 @@
     -webkit-box-flex: 1;
     text-align: center;
     padding: .4rem;
-    /*margin: .5rem;*/
   }
 
   .header li{
     font-size: 0.5rem;
     border-bottom: 1px solid #d7d7d5;
-    /*border-right: 1px solid;*/
   }
 
   .header li.on{
@@ -285,12 +269,10 @@
     float: left;
     width: 50%;
     height: 100%;
-    /*box-sizing: border-box;*/
   }
 
   .shopImg{
     margin: .2rem;
-    /*height: 4.5rem;*/
     width: 92%;
     padding-top: 92%;
     background-size: cover;
@@ -316,7 +298,6 @@
 
   .brandItem{
     position: relative;
-    /*height: 200px;*/
     color: #fff;
   }
 
@@ -471,7 +452,7 @@
           }
           Indicator.close();
         }, err => {
-          console.log(err)
+          //console.log(err)
           Toast('网络错误...')
           Indicator.close();
         })
@@ -489,7 +470,7 @@
         .then(res => {
           //console.log(res)
           let data = res.body;
-          console.log(data.data)
+//          console.log(data.data)
           if(data.data.list){
             cb && cb(data.data);
           }else{
@@ -509,8 +490,8 @@
         this.$http.jsonp(
             window.q.interfaceHost +'index.php?',
           {params: data})
-          .then(res => {
-          console.log(res);
+          .then(function(res) {
+//          console.log(res);
           let data = res.body;
           if(data.data.list.length){
             cb && cb(data.data.list);
@@ -518,7 +499,7 @@
             Toast('暂无数据...')
           }
           Indicator.close();
-        }, err => {
+        }, function(err) {
           console.log(err);
           Toast('网络错误...');
           Indicator.close();
@@ -526,7 +507,6 @@
       },
       changeCategaryTab(index){
         const me = this;
-        console.log(index);
         me.prevTab = me.tab;
         me.tab = 'moreCategory';
         me.renderList = me.allList[index]['subcategories'];

@@ -229,13 +229,13 @@
         spinnerType: 'fading-circle'
       });
 
-      [1,2,3].forEach((item, i)=> {
+      [1,2,3].forEach(function(item, i) {
         me.fetchData({
           category_id: item,
           page_id: 1
         }, function(data){
           
-          data.forEach(item => {
+          data.forEach(function(item){
             switch(item.object_type){
               case '1': // Product
                 item.clickUrl = '/#/product/'+item.object_id;
@@ -257,7 +257,7 @@
       })
 
       // 下拉加载更多
-      window.onscroll = (e) => {
+      window.onscroll = function(e) {
         if(me.$route.path !== '/') return;
         //console.log(e)
         //console.log(util.getEl('.tab-bg0').style)
@@ -292,37 +292,19 @@
       },
       fetchData(data, cb){
         const me = this;
-
         data.route = 'mapi/home_waterfall';
-        data.format = 'jsonp';
-
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php',
-          {
-            params: data
-          }
-        ).then( res => {
-          let data = res.body;
-          if(data.code === 0){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...');
-          }
-          me.loading = false;
-          Indicator.close();
-        }, err => {
+        util.fetchInterface(me, 0, data, function (res) {
           Indicator.close();
           me.loading = false;
-          //console.log(res)
-          Toast('网络错误...')
-        })
+          cb(res)
+        });
 
       },
       clickTab(tabNum){
         const me = this;
         me.active = 'tab-container' + tabNum;
 
-        setTimeout( () => {
+        setTimeout(function(){
           window.scrollTo(0, me['scrollTop' + tabNum]);
         }, 200)
 
@@ -339,7 +321,7 @@
         const me = this;
         //console.log(n)
         
-        setTimeout( () => {
+        setTimeout(function() {
           if (util.getScrollHeight() <= (util.getWindowHeight() + util.getDocumentTop() + 300)) {
             if (util.scrollFunc() == 'down' && me['bLoadData'+n]) {
               //console.log(13)
@@ -376,7 +358,6 @@
   .main {
     height: 100%;
     position: relative;
-    /*background: red;*/
   }
 
   .menu {

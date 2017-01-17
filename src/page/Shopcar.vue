@@ -300,7 +300,7 @@
         customer_id,
         mobile_token,
         route: 'mapi/cart'
-      }, res => {
+      }, function(res){
         Indicator.close();
         me.loading = false;
         console.log(res);
@@ -329,7 +329,7 @@
           customer_id,
           route: 'mapi/cart/select',
           selected: me.cartIds.join(',')
-        }, res => {
+        }, function(res){
 
         })
 
@@ -344,7 +344,7 @@
         page_id: 1,
         category_id: 20, // 写死
         route: 'mapi/product_category'
-      }, res => {
+      }, function(res){
         console.log(res);
         me.recommends = res.results;
       })
@@ -472,7 +472,7 @@
         const me = this;
         console.log(checked, quantity, index, cart_id, total);
         if(!checked){
-          console.log(me.total)
+          console.log(me.total);
           me.quantity -= parseInt(quantity);
           me.total -= parseInt(total);
           me.cartIds.splice(me.cartIds.indexOf(cart_id), 1);
@@ -482,7 +482,7 @@
             customer_id,
             route: 'mapi/cart/unselect',
             selected: cart_id
-          }, res => {
+          }, function(res) {
 
           })
 
@@ -495,7 +495,7 @@
             customer_id,
             route: 'mapi/cart/select',
             selected: me.cartIds.join(',')
-          },res => {
+          },function(res){
 
           })
 
