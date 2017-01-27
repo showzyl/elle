@@ -1,6 +1,6 @@
 <template>
   <div class="buyer-head clearfloat" >
-    <div class="fl">
+    <div class="fl" @click="rmDownload">
       <img class="buyer-close" id="buyer_close" src="//www.elleshop.com.cn/catalog/view/theme/mobile/image/buyer-close.jpg">
     </div>
     <div class="fl buyer-head-main">
@@ -16,8 +16,8 @@
         </div>
       </div>
     </div>
-    <div class="fr" @click="download">
-      <p class="head-xs" id="iphoneBtn"><a href="#">下载APP</a></p>
+    <div class="fr">
+      <p class="head-xs" id="iphoneBtn" @click="download"><a href="javascript:;">下载APP</a></p>
     </div>
   </div>
 </template>
@@ -102,6 +102,9 @@ export default {
   methods: {
     download(){
       util.download();
+    },
+    rmDownload(){
+      util.getEl('.buyer-head').style.display = 'none';
     }
   },
   mounted() {

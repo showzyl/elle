@@ -157,9 +157,18 @@
 </template>
 
 <style media="screen" scoped>
+  
+  .commonNav{
+    position: relative;
+  }
 
   .content{
-    margin-top: 3.2rem;
+    /*margin-top: 3.2rem;*/
+
+  }
+
+  .commonNav{
+    top: 0;
   }
 
   .filterBrandList, .filterColorList{
@@ -255,7 +264,7 @@
     border: 1px solid #d7d7d5;
     border-left: 0 none;
     border-right: 0 none;
-    margin-top: 1.5rem;
+    /*margin-top: 1.5rem;*/
   }
 
   .tab li{

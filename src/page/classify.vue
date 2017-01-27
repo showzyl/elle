@@ -11,7 +11,7 @@
       <a href="javascript:;" >品牌</a>
     </li>
 
-    <div class="tabborder"></div>
+    <!--<div class="tabborder"></div>-->
   </ul>
 
   <div class="content" v-if="tab === 'category'">
