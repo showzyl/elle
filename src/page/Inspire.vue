@@ -1,5 +1,6 @@
 <template>
 <div class="inspire">
+  <download />
   <div class="inspireNav">
     <a @click.prevent="active = 'tab-container0'" :class="[active == 'tab-container0' ? 'on' : '']">ALL</a>
     <a @click.prevent="active = 'tab-container1'" :class="[active == 'tab-container1' ? 'on' : '']">独家</a>
@@ -117,6 +118,7 @@ import core from '../assets/lib/q.core.js'
 import store from '../assets/lib/q.store.js'
 import footBar from '../components/footBar.vue'
 import util from '../assets/lib/q.util.js'
+import download from '../components/download.vue'
 
 export default {
   data(){
@@ -155,7 +157,8 @@ export default {
     
   },
   components: {
-    footBar
+    footBar,
+    download
   },
   computed: {
     // 有缓存

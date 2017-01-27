@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+    <download />
     <div class="productDetail" v-if="content === 'productDetail'">
       <commonNav :title="productInfo.manufacturer" iconRight="" />
       <!--{{$route.params.id}}-->
@@ -37,8 +38,12 @@
         </li>
       </ul>
 
-      <div class="btn btnBuy" @click="content = 'detailOption'">
-          加入购物车
+      <!--<div class="btn btnBuy" @click="content = 'detailOption'">-->
+          <!--加入购物车-->
+      <!--</div>-->
+
+      <div class="btn btnBuy" @click="download">
+        加入购物车
       </div>
 
       <div class="" style="margin-bottom:.8rem;">
@@ -105,6 +110,10 @@
 </template>
 
 <style media="screen" scoped>
+
+  .productDetail{
+    margin-top: 2rem;
+  }
 
   .numberBox{
     height: 1.2rem;
@@ -334,6 +343,7 @@
   import { Swipe, SwipeItem, Toast, Indicator } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
+  import download from '../components/download.vue'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
   // mutations 必须是同步 commit
   // actions 异步处理 dispatch
@@ -449,7 +459,8 @@
     },
     components: {
       commonNav,
-      recommendItem
+      recommendItem,
+      download
     },
     computed: {
 
@@ -532,6 +543,9 @@
         if(this.number >= 2){
           this.number--
         }
+      },
+      download(){
+        util.download();
       }
 
     },

@@ -1,5 +1,7 @@
 <template>
 <div class="classify">
+  <download />
+
   <ul class="header" v-show="tab === 'category' || tab === 'brand'">
    
     <li @click.prevent="tab = 'category'" :class="[tab == 'category' ? 'on' : '']">
@@ -374,6 +376,7 @@
   import { Toast, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
   import footBar from '../components/footBar.vue'
   import util from '../assets/lib/q.util.js'
+  import download from '../components/download.vue'
 
   Vue.component(TabContainer.name, TabContainer)
   Vue.component(TabContainerItem.name, TabContainerItem)
@@ -424,10 +427,11 @@
 
       me.fetchMoreCategary({}, res => {
         me.allList = res;
-      });
+      })
     },
     components: {
-      footBar
+      footBar,
+      download
     },
     computed: {
 

@@ -42,7 +42,7 @@
 
 .commonNav{
   position: fixed;
-  top: 0;
+  top: 2rem;
   height: 1.5rem;
   line-height: 1.5rem;
   background-color: #ffffff;

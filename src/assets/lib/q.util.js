@@ -132,17 +132,23 @@ export default {
 		var beforeScrollTop = document.body.scrollTop;
 		window.onscroll = () => {
 			let bGoon = beforeFn();
-			// console.log(bGoon);
 			if (!bGoon) return;
 			var afterScrollTop = document.body.scrollTop,
 				delta = afterScrollTop - beforeScrollTop;
-			if (delta === 0) return false;
+			if (delta === 0) {
+				return false;
+			}
 			let el = el || this.getEl('.commonNav');
 			if (delta > 0) {
 				// 向上
 				el.style.display = "none";
+				el.style.top = '2rem';
 			} else {
 				el.style.display = "block";
+				el.style.top = 0;
+			}
+			if(afterScrollTop === 0){
+				el.style.top = '2rem';
 			}
 			beforeScrollTop = afterScrollTop;
 		}
@@ -166,6 +172,38 @@ export default {
 		}, err => {
 			cb && cb('error');
 		})
+	},
+
+	//判断是否为ipad平台
+	isIpad(){
+		return /ipad/i.test(navigator.userAgent);
+	},
+
+	//判断是否为iphone平台
+	isIphone(){
+		return /iphone/i.test(navigator.userAgent);
+	},
+
+	//判断是否为微信平台
+	isWeixin(){
+		return /MicroMessenger/i.test(navigator.userAgent);
+	},
+
+	//判断是否为微信平台
+	isWeiBo(){
+		return /WeiBo/i.test(navigator.userAgent);
+	},
+
+	download(){
+		if (this.isIphone()||this.isIpad()){
+			location.href = 'https://itunes.apple.com/us/app/elleshop-zhong-guo/id1125301005';
+		}else{
+			location.href = 'http://www.elleshop.com.cn/app/download.php';
+		}
+		if (this.isWeixin() || this.isWeiBo()){
+			//显示在浏览器打开
+			this.getEl('#iphoneTip').style.display = 'block';
+		}
 	}
 
 

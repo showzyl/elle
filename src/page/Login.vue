@@ -1,5 +1,6 @@
 <template>
 <div class="login">
+  <download />
   <commonNav title="登录" iconRight="" />
   <ul class="inputGroup">
     <li class="inputBox">
@@ -60,6 +61,8 @@
 import commonNav from '../components/commonNav.vue'
 import util from '../assets/lib/q.util.js'
 import store from '../assets/lib/q.store.js'
+import download from '../components/download.vue'
+
 import { Toast, Indicator } from 'mint-ui'
 
 
@@ -71,7 +74,8 @@ export default {
     }
   },
   components: {
-    commonNav
+    commonNav,
+    download
   },
   created(){
     // login

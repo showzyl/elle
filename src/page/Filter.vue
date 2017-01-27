@@ -1,5 +1,8 @@
 <template>
 <div class="filter">
+
+  <download />
+
   <div class="content" v-show="content === 'content'">
     <commonNav :title="$route.query.name" iconRight="" />
     <ul class="tab">
@@ -154,6 +157,10 @@
 </template>
 
 <style media="screen" scoped>
+
+  .content{
+    margin-top: 3.2rem;
+  }
 
   .filterBrandList, .filterColorList{
     width: 50%;
@@ -344,6 +351,7 @@
   import priceRange from '../components/priceRange.vue'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
+  import download from '../components/download.vue'
 
   Vue.component(Cell.name, Cell);
   Vue.component(IndexList.name, IndexList);
@@ -360,7 +368,7 @@
         total: null,
         tab: 'category',
         params: {
-          product_category: this.$route.query.id,
+          category_id: this.$route.query.id,
           page_id: 1,
           order: 'DESC', // ASC 
           sort: 'pd.name' //  p.price  p.rating
@@ -418,7 +426,8 @@
       commonNav,
       recomendItem,
       loadMore,
-      priceRange
+      priceRange,
+      download
     },
     computed: {
 

@@ -4,6 +4,7 @@
       <router-view></router-view>
     </transition>
     <div class="mask none" @click='toggleMask'></div>
+    <div class="iphone-tip" id="iphoneTip"></div>
   </div>
 </template>
 
@@ -249,7 +250,17 @@ export default {
     margin-right: 40px;
     background-size: cover;
   }
-  
+
+  .iphone-tip {
+    background: url(http://www.elleshop.com.cn/catalog/view/theme/mobile/image/iphone-tip.png);
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    display: none;
+  }
   
   /* filterBrand end */
 

@@ -1,5 +1,6 @@
 <template>
   <div id="index">
+    <download />
     <div class="indexNav">
       <div class="navTab">
         <a @click.prevent="clickTab(0)" :class="[active == 'tab-container0' ? 'on' : '']">女士</a>
@@ -8,7 +9,7 @@
         <i class="iconMenu" @click="menuToggle"></i>
       </div>
     </div>
-    <div class="page-tab-container ">
+    <div class="page-tab-container">
       <div class="page-tabbar-tab-container">
         <div id="tab-container0" v-if="active == 'tab-container0'">
           <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
@@ -196,6 +197,7 @@
   import { Toast, Indicator } from 'mint-ui'
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
+  import download from '../components/download.vue';
 
 //  TabContainer, TabContainerItem,
 
@@ -282,7 +284,8 @@
     components: {
       footBar,
       sideBar,
-      loadMore
+      loadMore,
+      download
     },
     computed: {},
     methods: {
@@ -316,6 +319,13 @@
         }else{
           util.getEl('.tab-bg'+n).style.display = 'none';
         }
+
+        if(document.body.scrollTop >= 100){
+          util.getEl('.indexNav').style.top = 0;
+        }else{
+          util.getEl('.indexNav').style.top = '2rem';
+        }
+
       },
       loadmoreData(n){
         const me = this;
@@ -355,6 +365,10 @@
   #index{
     padding-bottom: 1.5rem;
   }
+
+  .page-tab-container{
+    margin-top: 1.61031rem;
+  }
   .main {
     height: 100%;
     position: relative;
@@ -387,10 +401,8 @@
     line-height: 1.5rem;
     left: 0;
     width: 100%;
-    top: 0;
+    top: 2rem;
     z-index: 999;
-    /*background: #000000;
-    opacity: .2;*/
   }
 
   .navTab {
@@ -420,6 +432,7 @@
   }
 
   .item-mask0, .item-mask1, .item-mask2{
+    top: 2rem;
     height: 14rem;;
   }
 
