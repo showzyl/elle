@@ -43,7 +43,7 @@
       <!--</div>-->
 
       <div class="btn btnBuy" @click="download">
-        加入购物车
+        下载APP购买
       </div>
 
       <div class="" style="margin-bottom:.8rem;">

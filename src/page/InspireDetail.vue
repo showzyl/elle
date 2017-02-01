@@ -1,5 +1,6 @@
 <template>
 <div class="inspireDetail">
+  <download />
   <commonNav :title="name" iconRight="" />
   <p v-for="item in items" class="imgList">
     <img :src="item.image" alt="">
@@ -11,6 +12,7 @@
 
   .commonNav{
     position: relative;
+    top: 0;
   }
 
   .inspireNav{
@@ -40,6 +42,7 @@ import core from '../assets/lib/q.core.js'
 import store from '../assets/lib/q.store.js'
 import util from '../assets/lib/q.util.js'
 import recommend from '../components/recommend.vue'
+import download from '../components/download.vue'
 
 export default {
   data(){
@@ -91,7 +94,8 @@ export default {
   },
   components: {
     commonNav,
-    recommend
+    recommend,
+    download
   },
   computed: {
     // 有缓存

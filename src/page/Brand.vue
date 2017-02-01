@@ -1,5 +1,6 @@
 <template>
   <div class="brand">
+    <download />
     <commonNav :title="info.name" iconRight="" />
     <!--{{$route.params.id}}-->
     <div class="content0" v-if="tab === 'tab0'">
@@ -186,7 +187,7 @@
   import recomendItem from '../components/recommendItem.vue'
   import { Toast } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
-  
+  import download from '../components/download.vue'
 
   // Vue.component(Swipe.name, Swipe);
   // Vue.component(SwipeItem.name, SwipeItem);
@@ -255,7 +256,8 @@
     },
     components: {
       commonNav,
-      recomendItem
+      recomendItem,
+      download
     },
     computed: {
 
