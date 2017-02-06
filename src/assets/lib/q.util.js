@@ -198,7 +198,7 @@ export default {
 		if (this.isIphone()||this.isIpad()){
 			location.href = 'https://itunes.apple.com/us/app/elleshop-zhong-guo/id1125301005';
 		}else{
-			location.href = 'http://www.elleshop.com.cn/app/download.php';
+			location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
 		}
 		if (this.isWeixin() || this.isWeiBo()){
 			//显示在浏览器打开
