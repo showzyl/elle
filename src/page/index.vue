@@ -261,9 +261,7 @@
       // 下拉加载更多
       window.onscroll = function(e) {
         if(me.$route.path !== '/') return;
-        //console.log(e)
-        //console.log(util.getEl('.tab-bg0').style)
-        //console.log(util.getScrollHeight(), util.getWindowHeight(), util.getDocumentTop())
+
         if(me.active === 'tab-container0'){
           me.scrollTop0 = document.body.scrollTop;
           me.tabBgTaggle(0);
@@ -394,9 +392,8 @@
     right: 0.6rem;
     bottom: 0.4rem;
   }
-
   .indexNav {
-    position: fixed;
+    position: relative;
     height: 1.5rem;
     line-height: 1.5rem;
     left: 0;

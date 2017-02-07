@@ -6,7 +6,7 @@
     <div class="fl buyer-head-main">
       <div class="clearfloat">
         <div class="fl">
-          <img class="buyer-logo" src="//www.elleshop.com.cn/catalog/view/theme/mobile/image/buyer-logo.jpg">
+          <img class="buyer-logo" src="../assets/img/logo.png">
         </div>
         <div class="fl" style="margin-top: .15rem">
           <p>ELLESHOP - 我的私人买手</p>
@@ -26,6 +26,7 @@
 
   .buyer-head {
     padding: .20129rem .44283rem .20129rem .20129rem;
+    border-bottom: 1px solid #d7d7d5;
     overflow: hidden;
   }
 

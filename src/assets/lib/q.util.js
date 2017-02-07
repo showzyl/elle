@@ -3,21 +3,21 @@
 import store from './q.store'
 
 export default {
-	
+
 	toggleCollect(data, cb) {
 		// product_id
 		const me = this;
-		if(data.is_wish){
+		if (data.is_wish) {
 			data.route = 'mapi/wishlist/delete';
-		}else{
+		} else {
 			data.route = 'mapi/wishlist/add';
 		}
 		data.format = 'jsonp';
 		this.$http.jsonp(
 			window.q.interfaceHost + 'index.php?',
-		{
-			params: data
-		}).then(res => {
+			{
+				params: data
+			}).then(res => {
 			//console.log(res)
 			let data = res.body;
 			if (data.code + '' === '0') {
@@ -147,7 +147,7 @@ export default {
 				el.style.display = "block";
 				el.style.top = 0;
 			}
-			if(afterScrollTop === 0){
+			if (afterScrollTop === 0) {
 				el.style.top = '2rem';
 			}
 			beforeScrollTop = afterScrollTop;
@@ -158,13 +158,13 @@ export default {
 	fetchInterface(me, code, data, cb){
 		data.format = 'jsonp';
 		me.$http.jsonp(
-			window.q.interfaceHost +'index.php',
+			window.q.interfaceHost + 'index.php',
 			{
 				params: data
 			}
-		).then( res => {
+		).then(res => {
 			let data = res.body;
-			if( (code === 0) && (data.code+'' === '0') ){
+			if ((code === 0) && (data.code + '' === '0')) {
 				cb && cb(data.data, data.code);
 			} else {
 				cb && cb('notMatch');
@@ -172,6 +172,10 @@ export default {
 		}, err => {
 			cb && cb('error');
 		})
+	},
+
+	isAndroid(){
+		return /android/i.test(navigator.userAgent);
 	},
 
 	//判断是否为ipad平台
@@ -195,14 +199,18 @@ export default {
 	},
 
 	download(){
-		if (this.isIphone()||this.isIpad()){
-			location.href = 'https://itunes.apple.com/us/app/elleshop-zhong-guo/id1125301005';
-		}else{
+		if (this.isAndroid() && this.isWeiBo()) {
+			// 应用宝
 			location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
 		}
-		if (this.isWeixin() || this.isWeiBo()){
+		if (this.isWeixin() || this.isWeiBo()) {
 			//显示在浏览器打开
 			this.getEl('#iphoneTip').style.display = 'block';
+		}
+		if (this.isIphone() || this.isIpad()) {
+			location.href = 'https://itunes.apple.com/us/app/elleshop-zhong-guo/id1125301005';
+		} else {
+			location.href = 'http://www.elleshop.com.cn/app/download.php';
 		}
 	}
 
