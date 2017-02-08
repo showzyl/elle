@@ -8,6 +8,7 @@
         <a @click.prevent="clickTab(2)" :class="[active == 'tab-container2' ? 'on' : '']">生活</a>
         <i class="iconMenu" @click="menuToggle"></i>
       </div>
+      <div class="tab-bg0" id="tab-bg0" style="z-index: -1;"></div>
     </div>
     <div class="page-tab-container">
       <div class="page-tabbar-tab-container">
@@ -15,7 +16,7 @@
           <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
             <a :href="item.clickUrl" style="display: inline-block;">
-              <div class="tab-bg0" id="tab-bg0" style="display:none;"></div>
+              <!--<div class="tab-bg0" id="tab-bg0"></div>-->
               <div class="item-mask0"></div>
               <div class="content1">
                 <p>{{ item.object_title }}</p>
@@ -42,7 +43,7 @@
         <div id="tab-container1" v-if="active == 'tab-container1'">
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
-              <div class="tab-bg1" id="tab-bg1" style="display:none;"></div>
+              <!--<div class="tab-bg1" id="tab-bg1"></div>-->
               <div class="item-mask1"></div>
               <div class="content1">
                 <p>{{ item.object_title }}</p>
@@ -69,7 +70,7 @@
         <div class="tab-container2" v-if="active == 'tab-container2'">
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
-              <div class="tab-bg2" id="tab-bg2" style="display:none;"></div>
+              <!--<div class="tab-bg2" id="tab-bg2"></div>-->
               <div class="item-mask2"></div>
               <div class="content1">
                 <p>{{ item.object_title }}</p>
@@ -200,7 +201,6 @@
   import download from '../components/download.vue';
 
 //  TabContainer, TabContainerItem,
-
 //  Vue.component(TabContainer.name, TabContainer);
 //  Vue.component(TabContainerItem.name, TabContainerItem);
 
@@ -264,15 +264,12 @@
 
         if(me.active === 'tab-container0'){
           me.scrollTop0 = document.body.scrollTop;
-          me.tabBgTaggle(0);
           me.loadmoreData(0);
         }else if(me.active === 'tab-container1'){
           me.scrollTop1 = document.body.scrollTop;
-          me.tabBgTaggle(1);
           me.loadmoreData(1);
         }else if(me.active === 'tab-container2'){
           me.scrollTop2 = document.body.scrollTop;
-          me.tabBgTaggle(2);
           me.loadmoreData(2);
         }
 
@@ -288,8 +285,8 @@
     computed: {},
     methods: {
       menuToggle(){
-        document.body.className += 'side'
-        document.querySelector('.mask').className = 'mask'
+        document.body.className += 'side';
+        document.querySelector('.mask').className = 'mask';
       },
       fetchData(data, cb){
         const me = this;
@@ -310,21 +307,21 @@
         }, 200)
 
       },
-      tabBgTaggle(n){
-        if(document.body.scrollTop >= 400){
-          util.getEl('.tab-bg'+n).style.position = 'fixed';
-          util.getEl('.tab-bg'+n).style.display = 'block';
-        }else{
-          util.getEl('.tab-bg'+n).style.display = 'none';
-        }
-
-        if(document.body.scrollTop >= 100){
-          util.getEl('.indexNav').style.top = 0;
-        }else{
-          util.getEl('.indexNav').style.top = '2rem';
-        }
-
-      },
+//      tabBgTaggle(n){
+//        if(document.body.scrollTop >= 400){
+//          util.getEl('.tab-bg'+n).style.position = 'fixed';
+//          util.getEl('.tab-bg'+n).style.display = 'block';
+//        }else{
+//          util.getEl('.tab-bg'+n).style.display = 'none';
+//        }
+//
+//        if(document.body.scrollTop >= 100){
+//          util.getEl('.indexNav').style.top = 0;
+//        }else{
+//          util.getEl('.indexNav').style.top = '2rem';
+//        }
+//
+//      },
       loadmoreData(n){
         const me = this;
         //console.log(n)
@@ -364,9 +361,6 @@
     padding-bottom: 1.5rem;
   }
 
-  .page-tab-container{
-    /*margin-top: 1.61031rem;*/
-  }
   .main {
     height: 100%;
     position: relative;
@@ -393,12 +387,12 @@
     bottom: 0.4rem;
   }
   .indexNav {
-    position: relative;
+    position: absolute;
     height: 1.5rem;
     line-height: 1.5rem;
     left: 0;
     width: 100%;
-    top: 2rem;
+    /*top: 2rem;*/
     z-index: 999;
   }
 
@@ -412,7 +406,8 @@
     color: #000000;
     -webkit-box-flex: 1;
     text-align: center;
-    font-size: 0.5rem;
+    font-size: .42rem;
+    font-weight: bold;
   }
 
   .navTab a.on {
@@ -429,12 +424,13 @@
   }
 
   .item-mask0, .item-mask1, .item-mask2{
-    top: 2rem;
-    height: 14rem;;
+    top: 2.2rem;
+    height: 8rem;;
   }
 
   .tab-bg0, .tab-bg1, .tab-bg2{
     height: 1.5rem;
+    height: 100%;
     /*top: 100px;*/
   }
 
@@ -459,7 +455,7 @@
   .content1{
     position: absolute;
     color: #fff;
-    top: 200px;
+    top: 250px;
     width: 100%;
     text-align: center;
     z-index: 5;

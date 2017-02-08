@@ -13,7 +13,7 @@
   <div class="page-tab-container">
     <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
       
-      <mt-tab-container-item id="tab-container0" v-for="tab in tabs">
+      <mt-tab-container-item id="tab-container0">
         <ul>
           <li v-for="item in items0" :key="item.id" v-if="items0">
             <router-link :to=" '/inspire/' + item.event_id">
@@ -29,56 +29,79 @@
       <mt-tab-container-item id="tab-container1">
         <ul>
           <li v-for="item in items1" :key="item.id" v-if="items1">
-            <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
         </ul>
       </mt-tab-container-item>
+
       <mt-tab-container-item id="tab-container2">
+        <ul>
           <li v-for="item in items2" :key="item.id" v-if="items2">
-           <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
+        </ul>
       </mt-tab-container-item>
 
       <mt-tab-container-item id="tab-container3">
+        <ul>
           <li v-for="item in items3" :key="item.id" v-if="items3">
-            <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
+        </ul>
       </mt-tab-container-item>
 
       <mt-tab-container-item id="tab-container4">
+        <ul>
           <li v-for="item in items4" :key="item.id" v-if="items4">
-            <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
+        </ul>
       </mt-tab-container-item>
 
       <mt-tab-container-item id="tab-container5">
+        <ul>
           <li v-for="item in items5" :key="item.id" v-if="items5">
-           <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
+        </ul>
       </mt-tab-container-item>
 
       <mt-tab-container-item id="tab-container6">
+        <ul>
           <li v-for="item in items6" :key="item.id" v-if="items6">
-           <img :src="item.app_image" alt="">
+            <router-link :to=" '/inspire/' + item.event_id">
+              <img :src="item.app_image" alt="">
+            </router-link>
           </li>
           <li v-else>
             暂无数据
           </li>
+        </ul>
       </mt-tab-container-item>
 
     </mt-tab-container>
@@ -107,72 +130,73 @@
 
    ul li{
      height: 10rem;
+     margin-bottom: 5px;
    }
 
 
 </style>
 <script lang="babel">
 
-import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-import core from '../assets/lib/q.core.js'
-import store from '../assets/lib/q.store.js'
-import footBar from '../components/footBar.vue'
-import util from '../assets/lib/q.util.js'
-import download from '../components/download.vue'
+  import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
+  import core from '../assets/lib/q.core.js'
+  import store from '../assets/lib/q.store.js'
+  import footBar from '../components/footBar.vue'
+  import util from '../assets/lib/q.util.js'
+  import download from '../components/download.vue'
 
-export default {
-  data(){
-    return {
-      active: 'tab-container0',
-      scrolled: false,
-      tabs: [0,1,2,3,4,5,6],
-      items0: [],
-      items1: [],
-      items2: [],
-      items3: [],
-      items4: [],
-      items5: [],
-      items6: []
+  export default {
+    data(){
+      return {
+        active: 'tab-container0',
+        scrolled: false,
+        tabs: [0,1,2,3,4,5,6],
+        items0: [],
+        items1: [],
+        items2: [],
+        items3: [],
+        items4: [],
+        items5: [],
+        items6: []
+      }
+    },
+    created(){
+      const me = this;
+
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
+
+      me.tabs.forEach(function(item) {
+
+        util.fetchInterface(me, 0, {
+          event_type_id: item,
+          route: 'mapi/eventlist'
+        }, function (res) {
+          Indicator.close();
+          me['items'+item] = me['items'+item].concat(res);
+        })
+
+      });
+
+    },
+    components: {
+      footBar,
+      download
+    },
+    computed: {
+      // 有缓存
+
+    },
+    methods: {
+      // 没有缓存
+
+    },
+    mounted() {
+
+    },
+    watch: {
+
     }
-  },
-  created(){ 
-    const me = this;
-
-    Indicator.open({
-      text: '加载中...',
-      spinnerType: 'fading-circle'
-    });
-
-    me.tabs.forEach(function(item) {
-
-      util.fetchInterface(me, 0, {
-        event_type_id: item,
-        route: 'mapi/eventlist'
-      }, function (res) {
-        Indicator.close();
-        me['items'+item] = me['items'+item].concat(res);
-      })
-
-    });
-    
-  },
-  components: {
-    footBar,
-    download
-  },
-  computed: {
-    // 有缓存
-    
-  },
-  methods: {
-    // 没有缓存
-
-  },
-  mounted() {
-
-  },
-  watch: {
-
   }
-}
 </script>

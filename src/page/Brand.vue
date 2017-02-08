@@ -25,11 +25,11 @@
       
       <div class="headImag h1" :style="{backgroundImage: 'url('+ info.head_image +')' }"></div>
       <p class="detail">
-      {{info.detail}}
+        {{info.detail}}
       </p>
 
       <p class="introduce">
-      {{info.introduce}}
+        {{info.introduce}}
       </p>
       
     </div>
@@ -47,6 +47,7 @@
     </ul>
   </div>
 </template>
+
 <style media="screen" scoped>
   .brand{
     position: relative;
@@ -172,7 +173,7 @@
   }
 
   .content0{
-    margin-top: 1.5rem;
+    /*margin-top: 1.5rem;*/
   }
 
   .content0 .recommendList{
@@ -181,6 +182,7 @@
 
 
 </style>
+
 <script lang="babel">
   // import Vue from 'vue'
   import commonNav from '../components/commonNav.vue'
@@ -223,10 +225,9 @@
       me.fetchProductData({
         manufacturer_id: me.$route.params.id,
         page_id: me.pageNo
-      }, res => {
-        console.log(res);
+      }, function(res) {
         me.products = me.products.concat(res);
-      })
+      });
 
       window.onscroll = function(e){
         if( !(/brand/.test(me.$route.path)) ) return;
@@ -239,7 +240,7 @@
             me.fetchProductData({
               manufacturer_id: me.$route.params.id,
               page_id: me.pageNo
-            }, res => {
+            }, function(res){
               me['bLoadData'] = true;
               me.products = me.products.concat(res);
             })
@@ -248,10 +249,10 @@
         }
       }
 
-      util.scrollToggleCommonNav(function(){
-        if( !(/brand/.test(me.$route.path)) ) return;
-        return ( /brand/.test(me.$route.path) && me.tab === 'tab0' )
-      })
+//      util.scrollToggleCommonNav(function(){
+//        if( !(/brand/.test(me.$route.path)) ) return;
+//        return ( /brand/.test(me.$route.path) && me.tab === 'tab0' )
+//      })
 
     },
     components: {
@@ -270,7 +271,7 @@
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?',
           {params: data})
-        .then(res => {
+        .then(function(res) {
           //console.log(res)
           let data = res.body;
           cb && cb(data.data);
@@ -280,7 +281,7 @@
           // }else{
           //   Toast('暂无数据...')
           // }
-        }, err => {
+        }, function(err) {
           console.log(err)
         })
       },
@@ -292,7 +293,7 @@
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?route=mapi/manufacturer/products',
           {params: data})
-        .then(res => {
+        .then(function(res) {
           let data = res.body;
           console.log(data);
           if(data.data.product_list.length){
@@ -300,7 +301,7 @@
           } else {
             Toast('暂无数据...')
           }
-        }, err => {
+        }, function(err) {
           Toast('网络错误...')
         })
 

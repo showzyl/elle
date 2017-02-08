@@ -271,8 +271,8 @@
     display: block;
     -webkit-box-flex: 1;
     text-align: center;
-    padding: .4rem;
-    font-size: .4rem;
+    padding: .25rem;
+    font-size: .35rem;
   }
 
   .tabborder {
