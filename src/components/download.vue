@@ -82,37 +82,37 @@
 
 <script lang="babel">
 
-import { TabContainer, TabContainerItem } from 'mint-ui'
-import util from '../assets/lib/q.util.js'
+  import { TabContainer, TabContainerItem } from 'mint-ui'
+  import util from '../assets/lib/q.util.js'
 
-export default {
-  data() {
-    return {
+  export default {
+    data() {
+      return {
 
-    }
-  },
-  created(){
-
-  },
-  components: {
-
-  },
-  computed: {
-
-  },
-  methods: {
-    download(){
-      util.download();
+      }
     },
-    rmDownload(){
-      util.getEl('.buyer-head').style.display = 'none';
+    created(){
+
+    },
+    components: {
+
+    },
+    computed: {
+
+    },
+    methods: {
+      download(){
+        util.download();
+      },
+      rmDownload(){
+        util.getEl('.buyer-head').style.display = 'none';
+      }
+    },
+    mounted() {
+
+    },
+    watch: {
+
     }
-  },
-  mounted() {
-
-  },
-  watch: {
-
   }
-}
 </script>

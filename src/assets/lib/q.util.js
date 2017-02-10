@@ -199,21 +199,14 @@ export default {
 	},
 
 	download(){
-		if (this.isAndroid() && this.isWeiBo()) {
-			// 应用宝
-			location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
-		}
-		if (this.isWeixin() || this.isWeiBo()) {
+		// 只有微博下的ios提示浏览器打开
+		if ( (this.isIphone() && this.isWeiBo() ) || (this.isIpad() && this.isWeiBo() )) {
 			//显示在浏览器打开
-			this.getEl('#iphoneTip').style.display = 'block';
+			this.getEl('#iphoneTip').className = 'iphone-tip';
+			return;
 		}
-		if (this.isIphone() || this.isIpad()) {
-			location.href = 'https://itunes.apple.com/us/app/elleshop-zhong-guo/id1125301005';
-		} else {
-			location.href = 'http://www.elleshop.com.cn/app/download.php';
-		}
+		location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
 	}
-
 
 }
 

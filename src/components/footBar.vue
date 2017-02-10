@@ -87,14 +87,14 @@
   }
 
   .footBarTxt{
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     margin: 0;
   }
 
   .iconHome, .iconCatalogue, .iconLook, .iconShopinglist, .iconProfile{
     display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 23px;
+    height: 20px;
     background-size: cover;
   }
 
@@ -103,11 +103,14 @@
   }
 
   .iconCatalogue{
+    height: 17px;
     background-image: url(../assets/img/footer/tabbar_category@3x.png);
+    margin-top: 3px;
   }
 
   .iconLook{
-    width: 0.7rem;
+    width: 23px;
+    height: 20px;
     background-image: url(../assets/img/footer/tabbar_look@3x.png);
   }
 

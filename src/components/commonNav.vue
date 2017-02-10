@@ -13,54 +13,53 @@
 </template>
 
 <style media="screen" scoped>
-.iconChoseAll{
-  
-}
+  .iconChoseAll{
 
-.iconBack{
-  position: absolute;
-  display: block;
-  background-image: url(../assets/img/backbtn.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 0.6rem;
-  width: 0.8rem;
-  top: 33%;
-  left: 3%;
-}
+  }
 
-.iconMenu{
-  position: absolute;
-  display: block;
-  background-image: url(../assets/img/menubtn.png);
-  background-size: cover;
-  height: 0.8rem;
-  width: 0.7rem;
-  right: 0.6rem;
-  bottom: 0.3rem;
-}
+  .iconBack{
+    position: absolute;
+    display: block;
+    background-image: url(../assets/img/backbtn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 0.6rem;
+    width: 0.8rem;
+    top: 33%;
+    left: 3%;
+  }
 
-.commonNav{
-  position: fixed;
-  top: 2rem;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  background-color: #ffffff;
-  opacity: .8;
-  width: 100%;
-  z-index: 4;
-}
+  .iconMenu{
+    position: absolute;
+    display: block;
+    background-image: url(../assets/img/menubtn.png);
+    background-size: cover;
+    height: 0.8rem;
+    width: 0.7rem;
+    right: 0.6rem;
+    bottom: 0.3rem;
+  }
 
-.title{
-  width: 70%;
-  margin: 0 auto;
-  text-align: center;
-  font-size: .5rem;
-  overflow: hidden;
-  word-break:keep-all;/* 不换行 */
-  white-space:nowrap;/* 不换行 */
-  text-overflow:ellipsis;
-}
+  .commonNav{
+    position: relative;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background-color: #ffffff;
+    opacity: .8;
+    width: 100%;
+    z-index: 4;
+  }
+
+  .title{
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: .5rem;
+    overflow: hidden;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    text-overflow:ellipsis;
+  }
 
 </style>
 
@@ -88,7 +87,7 @@
         history.back()
       },
       clickMenu(){
-        alert('menu');
+        // alert('menu');
       }
     },
     mounted() {

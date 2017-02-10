@@ -10,8 +10,7 @@
      <li @click.prevent="tab = 'brand'" :class="[tab == 'brand' ? 'on' : '']">
       <a href="javascript:;" >品牌</a>
     </li>
-
-    <!--<div class="tabborder"></div>-->
+    <div class="tabborder"></div>
   </ul>
 
   <div class="content" v-if="tab === 'category'">
@@ -222,8 +221,8 @@
 
   .btnMoreCategary{
     width: 80%;
-    margin: 0 auto;
-    padding: .3rem;
+    margin: 0 auto .5rem;
+    padding: .2rem;
   }
 
   .header, .subBar{
@@ -237,8 +236,12 @@
     padding: .4rem;
   }
 
+  .header{
+    position: relative;
+  }
+  
   .header li{
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     border-bottom: 1px solid #d7d7d5;
   }
 
@@ -254,8 +257,7 @@
 
   .subBar a{
     color: #d7d7d5;
-    font-size: .4rem;
-    
+    font-size: .38rem;
   }
 
   .subBar a.on{
