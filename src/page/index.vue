@@ -13,11 +13,11 @@
     <div class="page-tab-container">
       <div class="page-tabbar-tab-container">
         <div id="tab-container0" v-if="active == 'tab-container0'">
-          <div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">
+          <div style="margin-bottom: .1rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
             <a :href="item.clickUrl" style="display: inline-block;">
               <!--<div class="tab-bg0" id="tab-bg0"></div>-->
-              <div class="item-mask0"></div>
+              <!--<div class="item-mask0"></div>-->
               <div class="content1">
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
@@ -44,7 +44,7 @@
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
               <!--<div class="tab-bg1" id="tab-bg1"></div>-->
-              <div class="item-mask1"></div>
+              <!--<div class="item-mask1"></div>-->
               <div class="content1">
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
@@ -71,7 +71,7 @@
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
             <a :href="item.clickUrl">
               <!--<div class="tab-bg2" id="tab-bg2"></div>-->
-              <div class="item-mask2"></div>
+              <!--<div class="item-mask2"></div>-->
               <div class="content1">
                 <p>{{ item.object_title }}</p>
                 <p>{{ item.object_description }}</p>
@@ -392,7 +392,7 @@
     line-height: 1.5rem;
     left: 0;
     width: 100%;
-    /*top: 2rem;*/
+    top: 2.2rem;
     z-index: 999;
   }
 
@@ -439,7 +439,7 @@
   }*/
 
   .maincontent{
-    margin: 15px;
+    margin: 0 15px;
   }
 
   .maincontent .tit{
@@ -448,7 +448,7 @@
   }
 
   .maincontent .desc{
-    padding: 10px 0;
+    padding: 10px 0 10px 0;
     line-height: .5rem;
   }
   
@@ -467,9 +467,7 @@
     
   }
 
-  .imgBox{
-    height: 15.5rem;
-  }
+
 
   
 

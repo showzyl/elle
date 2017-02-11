@@ -111,10 +111,6 @@
 
 <style media="screen" scoped>
 
-  .productDetail{
-    margin-top: 2rem;
-  }
-
   .numberBox{
     height: 1.2rem;
     line-height: 1.2rem;
@@ -452,9 +448,9 @@
         me.options = res.options;
       });
 
-      util.scrollToggleCommonNav(function(){
-        return ( /\/product\//.test(me.$route.path) && me.content === 'productDetail' )
-      })
+//      util.scrollToggleCommonNav(function(){
+//        return ( /\/product\//.test(me.$route.path) && me.content === 'productDetail' )
+//      })
 
     },
     components: {

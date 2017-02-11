@@ -8,6 +8,7 @@
   <recommend :products="products" />
 </div>
 </template>
+
 <style media="screen" scoped>
 
   .commonNav{
@@ -34,85 +35,86 @@
    }
 
 </style>
+
 <script lang="babel">
 
-import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
-import commonNav from '../components/commonNav.vue'
-import core from '../assets/lib/q.core.js'
-import store from '../assets/lib/q.store.js'
-import util from '../assets/lib/q.util.js'
-import recommend from '../components/recommend.vue'
-import download from '../components/download.vue'
+  import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
+  import commonNav from '../components/commonNav.vue'
+  import core from '../assets/lib/q.core.js'
+  import store from '../assets/lib/q.store.js'
+  import util from '../assets/lib/q.util.js'
+  import recommend from '../components/recommend.vue'
+  import download from '../components/download.vue'
 
-export default {
-  data(){
-    return {
-      items: [],
-      products: [],
-      name: ''
-    }
-  },
-  created(){ 
-    const me = this;
-
-    Indicator.open({
-      text: '加载中...',
-      spinnerType: 'fading-circle'
-    });
-
-    util.fetchInterface(me, 0, {
-      event_id: me.$route.params.id,
-      route: 'mapi/event'
-    }, function (res) {
-      Indicator.close();
-
-      if(res === 'notMatch'){
-        Toast({
-          message: '暂无数据...',
-          duration: 3000
-        });
-        return;
+  export default {
+    data(){
+      return {
+        items: [],
+        products: [],
+        name: ''
       }
+    },
+    created(){
+      const me = this;
 
-      if(res === 'notMatch'){
-        Toast('网络错误...');
-        return;
-      }
+      Indicator.open({
+        text: '加载中...',
+        spinnerType: 'fading-circle'
+      });
 
-      if(res.app.length){
-        me.items = res.app;
-        me.name = res.name;
-        if(res.products){
-          res.products.forEach(function(item) {
-            item.isRed = false
+      util.fetchInterface(me, 0, {
+        event_id: me.$route.params.id,
+        route: 'mapi/event'
+      }, function (res) {
+        Indicator.close();
+
+        if(res === 'notMatch'){
+          Toast({
+            message: '暂无数据...',
+            duration: 3000
           });
-          me.products = res.products
+          return;
         }
+
+        if(res === 'notMatch'){
+          Toast('网络错误...');
+          return;
+        }
+
+        if(res.app.length){
+          me.items = res.app;
+          me.name = res.name;
+          if(res.products){
+            res.products.forEach(function(item) {
+              item.isRed = false
+            });
+            me.products = res.products
+          }
+        }
+      })
+
+    },
+    components: {
+      commonNav,
+      recommend,
+      download
+    },
+    computed: {
+      // 有缓存
+
+    },
+    methods: {
+      // 没有缓存
+
+    },
+    mounted() {
+
+    },
+    watch: {
+      '$route' (to, from) {
+        // 对路由变化作出响应...
+        console.log(to, from)
       }
-    })
-
-  },
-  components: {
-    commonNav,
-    recommend,
-    download
-  },
-  computed: {
-    // 有缓存
-    
-  },
-  methods: {
-    // 没有缓存
-
-  },
-  mounted() {
-
-  },
-  watch: {
-    '$route' (to, from) {
-      // 对路由变化作出响应...
-      console.log(to, from)
     }
   }
-}
 </script>

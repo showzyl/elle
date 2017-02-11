@@ -1,14 +1,15 @@
 <template>
-  <div class="buyer-head clearfloat" >
-    <div class="fl" @click="rmDownload">
-      <img class="buyer-close" id="buyer_close" src="//www.elleshop.com.cn/catalog/view/theme/mobile/image/buyer-close.jpg">
+  <div class="container">
+    <div class="buyer-head clearfloat" >
+    <div class="fl">
+      <!--<img class="buyer-close" id="buyer_close" src="//www.elleshop.com.cn/catalog/view/theme/mobile/image/buyer-close.jpg">-->
     </div>
     <div class="fl buyer-head-main">
       <div class="clearfloat">
         <div class="fl">
           <img class="buyer-logo" src="../assets/img/logo.png">
         </div>
-        <div class="fl" style="margin-top: .15rem">
+        <div class="fl">
           <p>ELLESHOP - 我的私人买手</p>
           <p class="elleshop">ELLESHOP</p>
           <p class="buyer-star-w"><img class="buyer-star" src="//www.elleshop.com.cn/catalog/view/theme/mobile/image/buyer-star.jpg"></p>
@@ -20,12 +21,21 @@
       <p class="head-xs" id="iphoneBtn" @click="download"><a href="javascript:;">下载APP</a></p>
     </div>
   </div>
+  </div>
 </template>
 
 <style media="screen" scoped>
-
+  .container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    width: 100%;
+    z-index: 999999999;
+  }
   .buyer-head {
-    padding: .20129rem .44283rem .20129rem .20129rem;
+    /*padding: .20129rem .44283rem .20129rem .20129rem;*/
+    padding: .20129rem .44283rem;
     border-bottom: 1px solid #d7d7d5;
     overflow: hidden;
   }

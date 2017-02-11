@@ -60,7 +60,7 @@
 
   .footBarItems{
     display: -webkit-box;
-    padding: .2rem .4rem;
+    padding: .1rem .4rem;
     text-align: center;
   }
 
