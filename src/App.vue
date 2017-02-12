@@ -276,4 +276,8 @@
     background-color: red
   }*/
 
+  .filter, .classify, .inspire, .inspireDetail{
+    margin-top: 2.2rem;
+  }
+
 </style>

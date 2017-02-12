@@ -81,12 +81,16 @@
     font-weight: bold;
     height: 1.61031rem;
     line-height: 1.61031rem;
+    /*border: 1px solid;*/
+    /*border-radius: 50%;*/
+    /*padding: .3rem;*/
   }
 
   .buyer-star {
     width: 1.24799rem;
     height: .24155rem;
   }
+
 
 </style>
 

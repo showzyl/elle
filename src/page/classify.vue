@@ -24,6 +24,14 @@
       <mt-tab-container class="page-tabbar-tab-container" v-model="active1" swipeable>
         <mt-tab-container-item id="tab-container0">
           <ul class="shopList">
+
+            <!--<li class="shopItem">-->
+              <!--<router-link :to=" '/filter?name='+'new'+'&id=20' ">-->
+                <!--<div class="shopImg shopImg1"></div>-->
+                <!--<h3 class="tit">新品上架</h3>-->
+              <!--</router-link>-->
+            <!--</li>-->
+
             <li class="shopItem" v-for="item in categoryItems0">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
                 <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
@@ -35,6 +43,12 @@
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
+
+            <!--<router-link :to=" '/filter?name='+'new'+'&id=59' ">-->
+              <!--<div class="shopImg shopImg2"></div>-->
+              <!--<h3 class="tit">新品上架</h3>-->
+            <!--</router-link>-->
+
             <li class="shopItem" v-for="item in categoryItems1">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
                 <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
@@ -46,6 +60,12 @@
         </mt-tab-container-item>
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
+
+            <!--<router-link :to=" '/filter?name='+'new'+'&id=75' ">-->
+              <!--<div class="shopImg shopImg3"></div>-->
+              <!--<h3 class="tit">新品上架</h3>-->
+            <!--</router-link>-->
+
             <li class="shopItem" v-for="item in categoryItems2">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
                 <div class="shopImg" :style="{backgroundImage: 'url('+item.app_image+')'}"></div>
@@ -128,7 +148,6 @@
     
   </div>
 
-
   <div class="moreCategory" v-if="tab === 'moreCategory'">
     <!--<div class="" @click.prevent="tab = prevTab" style="margin: 20px;">-->
       <!--点我返回-->
@@ -156,10 +175,23 @@
   </div>
 
   <footBar pageName="classify" />
+
 </div>
 </template>
 
 <style media="screen" scoped>
+
+  .shopImg1{
+    background-image: url('../assets/img/recomend/new_product_1.jpg');
+  }
+
+  .shopImg2{
+    background-image: url('../assets/img/recomend/new_product_2.jpg');
+  }
+
+  .shopImg3{
+    background-image: url('../assets/img/recomend/new_product_3.jpg');
+  }
 
   .content{
     margin-bottom: 1rem;
@@ -280,6 +312,10 @@
     width: 92%;
     padding-top: 92%;
     background-size: cover;
+    /*background-size: contain;*/
+    /*width: 4.5rem;*/
+    /*height: 2.5rem;*/
+    /*background-repeat: no-repeat;*/
   }
 
   .tit{
@@ -410,24 +446,44 @@
         spinnerType: 'fading-circle'
       });
 
-      [20, 59, 75].forEach( (item,i) => {
-        me.fetchBrandData({
+      [20, 59, 75].forEach(function(item,i) {
+        util.fetchInterface(me, 0, {
+          route: 'mapi/manufacturer',
           type_id: item
-        }, res => {
+        }, function (res) {
           me['brandItems'+i] = me['brandItems'+i].concat(res);
-          setTimeout(() => {
+          setTimeout(function(){
             me.btnShow = true;
           }, 500)
         })
-      })
+      });
       
       me.fetchCategoryData({}, function(res){
+        console.log(res);
+        let list0 = [{
+          category_id: '20',
+          category_name: '新品上架',
+          //app_image: '../assets/img/recomend/new_product_1.jpg'
+        }].concat(res.list[0].subcategories);
+
+        let list1 = [{
+          category_id: '59',
+          category_name: '新品上架',
+          //app_image: '../assets/img/recomend/new_product_2.jpg'
+        }].concat(res.list[1].subcategories);
+
+        let list2 = [{
+          category_id: '75',
+          category_name: '新品上架',
+          //app_image: '../assets/img/recomend/new_product_3.jpg'
+        }].concat(res.list[2].subcategories);
+
         me.categoryItems0 = res.list[0].subcategories;
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;
       });
 
-      me.fetchMoreCategary({}, res => {
+      me.fetchMoreCategary({}, function(res) {
         me.allList = res;
       })
     },
@@ -439,31 +495,6 @@
 
     },
     methods: {
-      fetchBrandData(data, cb){
-        const me = this;
-
-        data.route = 'mapi/manufacturer';
-        data.format = 'jsonp';
-
-        this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
-          {params: data})
-        .then(res => {
-          //console.log(res)
-          let data = res.body;
-          if(data.code+'' === '0'){
-            cb && cb(data.data);
-          }else{
-            Toast('暂无数据...')
-          }
-          Indicator.close();
-        }, err => {
-          //console.log(err)
-          Toast('网络错误...')
-          Indicator.close();
-        })
-
-      },
       fetchCategoryData(data, cb){
         const me = this;
 
@@ -473,16 +504,14 @@
         this.$http.jsonp(
           window.q.interfaceHost +'index.php?',
           {params: data})
-        .then(res => {
-          //console.log(res)
+        .then(function(res) {
           let data = res.body;
-//          console.log(data.data)
           if(data.data.list){
             cb && cb(data.data);
           }else{
             Toast('暂无数据...')
           }
-        }, err => {
+        }, function(err) {
           console.log(err)
           Toast('网络错误...')
         })
@@ -497,7 +526,6 @@
             window.q.interfaceHost +'index.php?',
           {params: data})
           .then(function(res) {
-//          console.log(res);
           let data = res.body;
           if(data.data.list.length){
             cb && cb(data.data.list);

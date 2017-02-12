@@ -157,7 +157,7 @@
 </template>
 
 <style media="screen" scoped>
-  
+
   .commonNav{
     position: relative;
   }

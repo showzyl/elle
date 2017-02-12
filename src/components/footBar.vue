@@ -93,8 +93,8 @@
 
   .iconHome, .iconCatalogue, .iconLook, .iconShopinglist, .iconProfile{
     display: inline-block;
-    width: 23px;
-    height: 20px;
+    width: 20px;
+    height: 17px;
     background-size: cover;
   }
 
@@ -103,14 +103,14 @@
   }
 
   .iconCatalogue{
-    height: 17px;
+    height: 14px;
     background-image: url(../assets/img/footer/tabbar_category@3x.png);
     margin-top: 3px;
   }
 
   .iconLook{
-    width: 23px;
-    height: 20px;
+    width: 20px;
+    height: 17px;
     background-image: url(../assets/img/footer/tabbar_look@3x.png);
   }
 
