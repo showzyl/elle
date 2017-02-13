@@ -25,12 +25,12 @@
         <mt-tab-container-item id="tab-container0">
           <ul class="shopList">
 
-            <!--<li class="shopItem">-->
-              <!--<router-link :to=" '/filter?name='+'new'+'&id=20' ">-->
-                <!--<div class="shopImg shopImg1"></div>-->
-                <!--<h3 class="tit">新品上架</h3>-->
-              <!--</router-link>-->
-            <!--</li>-->
+            <li class="shopItem">
+              <router-link :to=" '/filter?name='+'新品上架'+'&id=20' ">
+                <div class="shopImg shopImg1"></div>
+                <h3 class="tit">新品上架</h3>
+              </router-link>
+            </li>
 
             <li class="shopItem" v-for="item in categoryItems0">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
@@ -44,10 +44,12 @@
         <mt-tab-container-item id="tab-container1">
           <ul class="shopList">
 
-            <!--<router-link :to=" '/filter?name='+'new'+'&id=59' ">-->
-              <!--<div class="shopImg shopImg2"></div>-->
-              <!--<h3 class="tit">新品上架</h3>-->
-            <!--</router-link>-->
+            <li class="shopItem">
+              <router-link :to=" '/filter?name='+'新品上架'+'&id=59' ">
+                <div class="shopImg shopImg2"></div>
+                <h3 class="tit">新品上架</h3>
+              </router-link>
+            </li>
 
             <li class="shopItem" v-for="item in categoryItems1">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
@@ -61,10 +63,12 @@
         <mt-tab-container-item id="tab-container2">
           <ul class="shopList">
 
-            <!--<router-link :to=" '/filter?name='+'new'+'&id=75' ">-->
-              <!--<div class="shopImg shopImg3"></div>-->
-              <!--<h3 class="tit">新品上架</h3>-->
-            <!--</router-link>-->
+            <li class="shopItem">
+              <router-link :to=" '/filter?name='+'新品上架'+'&id=75' ">
+                <div class="shopImg shopImg3"></div>
+                <h3 class="tit">新品上架</h3>
+              </router-link>
+            </li>
 
             <li class="shopItem" v-for="item in categoryItems2">
               <router-link :to=" '/filter?name=' + item.category_name + '&id=' + item.category_id ">
@@ -182,15 +186,15 @@
 <style media="screen" scoped>
 
   .shopImg1{
-    background-image: url('../assets/img/recomend/new_product_1.jpg');
+    background-image: url('http://img.elleshop.com.cn/catalog/h5/new_product_1.jpg?imageView2/1/w/320/h/320/format/jpg/interlace/1/q/80/');
   }
 
   .shopImg2{
-    background-image: url('../assets/img/recomend/new_product_2.jpg');
+    background-image: url('http://img.elleshop.com.cn/catalog/h5/new_product_2.jpg?imageView2/1/w/320/h/320/format/jpg/interlace/1/q/80/');
   }
 
   .shopImg3{
-    background-image: url('../assets/img/recomend/new_product_3.jpg');
+    background-image: url('http://img.elleshop.com.cn/catalog/h5/new_product_3.jpg?imageView2/1/w/320/h/320/format/jpg/interlace/1/q/80/');
   }
 
   .content{

@@ -15,7 +15,7 @@
         <div id="tab-container0" v-if="active == 'tab-container0'">
           <div style="margin-bottom: .1rem;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
-            <a :href="item.clickUrl" style="display: inline-block;">
+            <a :href="item.clickUrl" style="display: block;">
               <!--<div class="tab-bg0" id="tab-bg0"></div>-->
               <!--<div class="item-mask0"></div>-->
               <div class="content1">
@@ -42,7 +42,7 @@
         </div>
         <div id="tab-container1" v-if="active == 'tab-container1'">
           <div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">
-            <a :href="item.clickUrl">
+            <a :href="item.clickUrl"  style="display: block;">
               <!--<div class="tab-bg1" id="tab-bg1"></div>-->
               <!--<div class="item-mask1"></div>-->
               <div class="content1">
@@ -69,7 +69,7 @@
         </div>
         <div class="tab-container2" v-if="active == 'tab-container2'">
           <div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">
-            <a :href="item.clickUrl">
+            <a :href="item.clickUrl" style="display: block;">
               <!--<div class="tab-bg2" id="tab-bg2"></div>-->
               <!--<div class="item-mask2"></div>-->
               <div class="content1">
@@ -448,23 +448,32 @@
   }
 
   .maincontent .desc{
-    padding: 10px 0 10px 0;
+    padding: 10px 0 40px 0;
     line-height: .5rem;
   }
   
   .content1{
     position: absolute;
     color: #fff;
-    top: 250px;
+    top: 35%;
     width: 100%;
     text-align: center;
     z-index: 5;
-    font-size: .45rem;
     line-height: .7rem;
   }
 
   .tab-container {
     
+  }
+
+  .content1{
+    text-align: left;
+    font-size: .8rem;
+  }
+
+  .content1 p{
+    padding: 0 1.5rem;
+    line-height: 1.5;
   }
 
 
