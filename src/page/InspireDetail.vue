@@ -3,7 +3,10 @@
   <download />
   <commonNav :title="name" iconRight="" />
   <p v-for="item in items" class="imgList">
-    <img :src="item.image" alt="">
+    <router-link :to=" '/product/' + item.object_id " v-if="item.object_id != 0">
+      <img :src="item.image" alt="">
+    </router-link>
+    <img :src="item.image" alt="" v-else>
   </p>
   <recommend :products="products" />
 </div>

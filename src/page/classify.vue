@@ -463,25 +463,6 @@
       });
       
       me.fetchCategoryData({}, function(res){
-        console.log(res);
-        let list0 = [{
-          category_id: '20',
-          category_name: '新品上架',
-          //app_image: '../assets/img/recomend/new_product_1.jpg'
-        }].concat(res.list[0].subcategories);
-
-        let list1 = [{
-          category_id: '59',
-          category_name: '新品上架',
-          //app_image: '../assets/img/recomend/new_product_2.jpg'
-        }].concat(res.list[1].subcategories);
-
-        let list2 = [{
-          category_id: '75',
-          category_name: '新品上架',
-          //app_image: '../assets/img/recomend/new_product_3.jpg'
-        }].concat(res.list[2].subcategories);
-
         me.categoryItems0 = res.list[0].subcategories;
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;
