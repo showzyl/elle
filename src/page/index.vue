@@ -409,7 +409,7 @@
     line-height: 1.5rem;
     left: 0;
     width: 100%;
-    top: 2.2rem;
+    top: 2rem;
     z-index: 999;
   }
 
