@@ -339,6 +339,23 @@
               }, function(res){
                 //console.log(res);
                 const tab = 'renderData' + n;
+
+                res.forEach(function(item){
+                  switch(item.object_type){
+                    case '1': // Product
+                      item.clickUrl = '/#/product/'+item.object_id;
+                      break;
+                    case '2': // Brand
+                      item.clickUrl = '/#/brand/'+item.object_id;
+                      break;
+                    case '4': // inspire
+                      item.clickUrl = '/#/inspire/'+item.object_id;
+                      break;
+                    default:
+                      item.clickUrl = '#';
+                  }
+                })
+
                 //console.log(tab)
                 me[tab] = me[tab].concat(res);
                 me['bLoadData'+n] = true;
