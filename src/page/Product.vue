@@ -214,7 +214,7 @@
   }
 
   .product .swipe{
-    margin-top: 1.5rem;
+    /*margin-top: 1.5rem;*/
   }
 
   .product .swipe, .product .mint-swipe, .product .mint-swipe-item{

@@ -261,23 +261,17 @@
     background-size: 100% 100%;
     height: 100%;
     width: 100%;
-    z-index: 999;
+    z-index: 2147483647;
     position: fixed;
     top: 0;
   }
 
   /* filterBrand end */
 
-  /*.mint-swipe-item:nth-child(1){
-    background-color: red
-  }*/
 
-  /*.mint-swipe-item:first-of-type{
-    background-color: red
-  }*/
+  .filter, .classify, .inspire, .inspireDetail, .product, .brand{
+    margin-top: 2.01rem;
+  }
 
-  /*.filter, .classify, .inspire, .inspireDetail{*/
-    /*margin-top: 2.2rem;*/
-  /*}*/
 
 </style>

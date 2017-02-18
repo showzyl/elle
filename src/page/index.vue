@@ -13,7 +13,7 @@
     <div class="page-tab-container">
       <div class="page-tabbar-tab-container">
         <div id="tab-container0" v-if="active == 'tab-container0'">
-          <div style="margin-bottom: .1rem;" v-for="(item, index) in renderData0" v-if="index === 0">
+          <div style="margin: 2rem 0 .1rem 0;" v-for="(item, index) in renderData0" v-if="index === 0">
             <!--<router-link to=" 'item.clickUrl' ">-->
             <a :href="item.clickUrl" style="display: block;">
               <!--<div class="tab-bg0" id="tab-bg0"></div>-->
