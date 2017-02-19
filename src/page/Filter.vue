@@ -379,8 +379,14 @@
         params: {
           category_id: this.$route.query.id,
           page_id: 1,
-          order: 'DESC', // ASC 
-          sort: 'pd.name' //  p.price  p.rating
+          price: '',
+          size_id: '',
+          minPrice: '',
+          color_id: '',
+          maxPrice: '',
+          brand_id: '',
+          order: '', // ASC DESC
+          sort: '' //  p.price  p.rating pd.name
         },
         brands: {},
         sizes: [],
