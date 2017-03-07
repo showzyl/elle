@@ -1,7 +1,8 @@
 <template>
   <ul class="recommendList">
     <li class="recommendItem" v-for="product in products">
-      <router-link :to=" '/product/'+ product.product_id ">
+      <!--<router-link :to=" '/product/'+ product.product_id ">-->
+      <div @click="jumpUrl(product.product_id)">
         <div class="imgBox">
           <img :src="product.image" alt="">
         </div>
@@ -16,7 +17,8 @@
         <div class="recommendName">
           {{product.name}}
         </div>
-      </router-link>
+      </div>
+      <!--</router-link>-->
     </li>
   </ul>
 </template>
@@ -92,7 +94,7 @@
     word-break: break-all;
   }
 
-  
+
 
 </style>
 
@@ -107,30 +109,11 @@
         default: () => []
       }
     },
-    data() {
-      return {
-        //active: 'tab-container1'
-      }
-    },
-    created(){
-     // console.log(this.props)
-    },
-    components: {
-      
-    },
-    computed: {
-
-    },
     methods: {
-      menuToggle(){
-        
+      jumpUrl(id){
+        location.href = '/#/product/' + id;
+        location.reload();
       }
-    },
-    mounted() {
-
-    },
-    watch: {
-
     }
   }
 </script>

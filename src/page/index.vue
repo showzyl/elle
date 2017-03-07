@@ -274,6 +274,8 @@
         }
 
       }
+
+      me.switchTab();
       
     },
     components: {
@@ -301,11 +303,39 @@
       clickTab(tabNum){
         const me = this;
         me.active = 'tab-container' + tabNum;
+        let label = 'woman';
+        switch (tabNum){
+          case 0:
+            label = 'woman';
+            break;
+          case 1:
+            label = 'man';
+            break;
+          case 2:
+            label = 'life';
+            break;
+        }
+
+        location.href = '/#/?tab=' + label;
 
         setTimeout(function(){
           window.scrollTo(0, me['scrollTop' + tabNum]);
         }, 200)
 
+      },
+      switchTab(){
+        const me = this;
+        let tab = me.$route.query.tab;
+        switch (tab){
+          case 'man':
+            me.clickTab(1);
+            me.active = 'tab-container1';
+            break;
+          case 'life':
+            me.clickTab(2);
+            me.active = 'tab-container2';
+            break;
+        }
       },
 //      tabBgTaggle(n){
 //        if(document.body.scrollTop >= 400){

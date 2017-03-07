@@ -3,34 +3,6 @@
 import Index from '../page/Index.vue'
 
 
-// import Shopcar from '../page/Shopcar.vue'
-// import ConfirmOrder from '../page/ConfirmOrder.vue'
-// import Pay from '../page/Pay.vue'
-// import Profile from '../page/Profile.vue'
-// import Personal from '../page/Personal.vue'
-// import Classify from '../page/Classify.vue'
-// import Inspire from '../page/Inspire.vue'
-// import InspireDetail from '../page/InspireDetail.vue'
-// import Address from '../page/Address.vue'
-// import AddressDetail from '../page/AddressDetail.vue'
-// import Invoice from '../page/Invoice.vue'
-// import InvoiceDetail from '../page/InvoiceDetail.vue'
-// import Collect from '../page/Collect.vue'
-// import Order from '../page/Order.vue'
-// import Product from '../page/Product.vue'
-// import Filter from '../page/Filter.vue'
-// import Brand from '../page/Brand.vue'
-// import Login from '../page/Login.vue'
-// import TelReg from '../page/TelReg.vue'
-// import Findpwd from '../page/Findpwd.vue'
-// import Changepwd from '../page/Changepwd.vue'
-// import History from '../page/History.vue'
-// import Coupon from '../page/Coupon.vue'
-// import Vip from '../page/Vip.vue'
-// import Qa from '../page/Qa.vue'
-// import Test from '../page/Test.vue'
-
-
 const Shopcar = () => System.import('../page/Shopcar.vue')
 const ConfirmOrder = () => System.import('../page/ConfirmOrder.vue')
 const Pay = () => System.import('../page/Pay.vue')
