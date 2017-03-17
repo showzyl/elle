@@ -95,92 +95,6 @@
           </div>
         </div>
       </div>
-      <!--<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>-->
-        <!--<mt-tab-container-item id="tab-container0">-->
-          <!--<div style="height: 13.5rem;" v-for="(item, index) in renderData0" v-if="index === 0">-->
-            <!--&lt;!&ndash;<router-link to=" 'item.clickUrl' ">&ndash;&gt;-->
-              <!--<a :href="item.clickUrl" style="display: inline-block;">-->
-                <!--<div class="tab-bg0" id="tab-bg0" style="display:none;"></div>-->
-                <!--<div class="item-mask0"></div>-->
-                <!--<div class="content1">-->
-                  <!--<p>{{ item.object_title }}</p>-->
-                  <!--<p>{{ item.object_description }}</p>-->
-                <!--</div>-->
-                <!--<img :src="item.object_image" alt="object_image">-->
-              <!--</a>-->
-            <!--&lt;!&ndash;</router-link>&ndash;&gt;-->
-          <!--</div>-->
-
-          <!--<div class="tab-container" v-else>-->
-            <!--<a :href="item.clickUrl">-->
-              <!--<div class="imgBox">-->
-                <!--<img :src="item.object_image" alt="object_image">-->
-              <!--</div>-->
-              <!--<div class="maincontent">-->
-                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
-                <!--<p class="desc">-->
-                  <!--{{ item.object_description }}-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</a>-->
-          <!--</div>-->
-
-        <!--</mt-tab-container-item>-->
-        <!--<mt-tab-container-item id="tab-container1">-->
-          <!--<div v-for="(item, index) in renderData1" class="tab-container-one" v-if="index === 0">-->
-            <!--<a :href="item.clickUrl">-->
-              <!--<div class="tab-bg1" id="tab-bg1" style="display:none;"></div>-->
-              <!--<div class="item-mask1"></div>-->
-              <!--<div class="content1">-->
-                <!--<p>{{ item.object_title }}</p>-->
-                <!--<p>{{ item.object_description }}</p>-->
-              <!--</div>-->
-              <!--<img :src="item.object_image" alt="object_image">-->
-            <!--</a>-->
-          <!--</div>-->
-
-          <!--<div class="tab-container" v-else>-->
-            <!--<a :href="item.clickUrl">-->
-              <!--<div class="imgBox">-->
-                <!--<img :src="item.object_image" alt="object_image">-->
-              <!--</div>-->
-              <!--<div class="maincontent">-->
-                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
-                <!--<p class="desc">-->
-                  <!--{{ item.object_description }}-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</a>-->
-          <!--</div>-->
-        <!--</mt-tab-container-item>-->
-        <!--<mt-tab-container-item id="tab-container2">-->
-          <!--<div v-for="(item, index) in renderData2" class="tab-container-one" v-if="index === 0">-->
-            <!--<a :href="item.clickUrl">-->
-              <!--<div class="tab-bg2" id="tab-bg2" style="display:none;"></div>-->
-              <!--<div class="item-mask2"></div>-->
-              <!--<div class="content1">-->
-                <!--<p>{{ item.object_title }}</p>-->
-                <!--<p>{{ item.object_description }}</p>-->
-              <!--</div>-->
-              <!--<img :src="item.object_image" alt="object_image"> -->
-            <!--</a>           -->
-          <!--</div>-->
-
-          <!--<div class="tab-container" v-else>-->
-            <!--<a :href="item.clickUrl">-->
-              <!--<div class="imgBox">-->
-                <!--<img :src="item.object_image" alt="object_image">-->
-              <!--</div>-->
-              <!--<div class="maincontent">-->
-                <!--<h3 class="tit">{{ item.object_title }}</h3>-->
-                <!--<p class="desc">-->
-                  <!--{{ item.object_description }}-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</a>-->
-          <!--</div>-->
-        <!--</mt-tab-container-item>-->
-      <!--</mt-tab-container>-->
     </div>
     
     <sideBar :clickTab="clickTab" />
@@ -199,10 +113,6 @@
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
   import download from '../components/download.vue';
-
-//  TabContainer, TabContainerItem,
-//  Vue.component(TabContainer.name, TabContainer);
-//  Vue.component(TabContainerItem.name, TabContainerItem);
 
   export default {
     data() {
@@ -337,21 +247,6 @@
             break;
         }
       },
-//      tabBgTaggle(n){
-//        if(document.body.scrollTop >= 400){
-//          util.getEl('.tab-bg'+n).style.position = 'fixed';
-//          util.getEl('.tab-bg'+n).style.display = 'block';
-//        }else{
-//          util.getEl('.tab-bg'+n).style.display = 'none';
-//        }
-//
-//        if(document.body.scrollTop >= 100){
-//          util.getEl('.indexNav').style.top = 0;
-//        }else{
-//          util.getEl('.indexNav').style.top = '2rem';
-//        }
-//
-//      },
       loadmoreData(n){
         const me = this;
         //console.log(n)

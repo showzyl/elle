@@ -55,6 +55,8 @@
     left: 0;
     top: 0;
     transform: translate3D(-7.1rem, 0, 0);
+    -ms-transform: translate3D(-7.1rem, 0, 0);
+    -webkit-transform: translate3D(-7.1rem, 0, 0);
     -webkit-transition: -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
     transition: transform .2s cubic-bezier(.4, .01, .165, .99), -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
     z-index: 2147483647;
