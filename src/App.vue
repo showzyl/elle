@@ -38,6 +38,8 @@
   html,
   body {
     height: 100%;
+    /*font-family: STHeiti,Helvetica Neue;*/
+    font-family: "NeoSansStd Light" , "PingFang SC" , "Microsoft YaHei" , "微软雅黑";
   }
 
   #app {
