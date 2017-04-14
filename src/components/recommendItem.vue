@@ -111,8 +111,12 @@
     },
     methods: {
       jumpUrl(id){
-        location.href = '/#/product/' + id;
-        location.reload();
+        if(/product/ig.test(location.hash)){
+          location.href = '/#/product/' + id;
+          location.reload();
+        }else{
+          location.href = '/#/product/' + id;
+        }
       }
     }
   }
