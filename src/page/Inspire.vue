@@ -8,7 +8,7 @@
     <a @click.prevent="active = 'tab-container3'" :class="[active == 'tab-container3' ? 'on' : '']">礼物</a>
     <a @click.prevent="active = 'tab-container4'" :class="[active == 'tab-container4' ? 'on' : '']">推荐</a>
     <a @click.prevent="active = 'tab-container5'" :class="[active == 'tab-container5' ? 'on' : '']">话题</a>
-    <a @click.prevent="active = 'tab-container6'" :class="[active == 'tab-container6' ? 'on' : '']">LOOKBOOK</a>
+    <a @click.prevent="active = 'tab-container6'" :class="[active == 'tab-container6' ? 'on' : '']">直播</a>
   </div>
   <div class="page-tab-container">
     <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
