@@ -32,11 +32,27 @@
         </div>
       </div>
 
-      <ul class="imgBox">
-        <li class="" v-for="item in description">
-          <img :src="item" alt="">
-        </li>
-      </ul>
+      <div class="productIntroBox">
+        <div class="productIntroImg">
+          <img :src="productInfo.manufacturer_head_image" alt="">
+        </div>
+
+        <div class="logo" :style="{backgroundImage: 'url('+productInfo.manufacturer_logo+')'}">
+        </div>
+
+        <h3 class="tit">品牌及设计师简介:</h3>
+
+        <p class="desc">
+          {{productInfo.manufacturer_introduce}}
+        </p>
+
+      </div>
+
+      <!--<ul class="imgBox">-->
+        <!--<li class="" v-for="item in description">-->
+          <!--<img :src="item" alt="">-->
+        <!--</li>-->
+      <!--</ul>-->
 
       <!--<div class="btn btnBuy" @click="content = 'detailOption'">-->
           <!--加入购物车-->
@@ -78,7 +94,6 @@
           <span class="iconArrowBottom iconArrowBottom1" :class=" {iconArrowGray: sizes.length < 2} "></span>
         </div>
 
-
         <div class="tabborder"></div>
 
         <div class="main">
@@ -101,7 +116,6 @@
         <span class="add" @click="add"></span>
       </div>
 
-
       <div class="btn btnAddCart" @click="addToCart">确定</div>
 
     </div>
@@ -109,7 +123,24 @@
   </div>
 </template>
 
-<style media="screen" scoped>
+<style media="screen" lang="scss" scoped>
+
+  .productIntroBox{
+    padding: .4rem;
+    .tit{
+      padding: .2rem 0;
+      border-bottom: 1px solid #d7d7d5;
+    }
+    .logo{
+      height: 2.5rem;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+    .desc{
+      padding: .2rem 0 0 0;
+    }
+  }
 
   .numberBox{
     height: 1.2rem;
@@ -442,6 +473,9 @@
           name: res.name,
           price: res.price,
           manufacturer_img: res.manufacturer_img,
+          manufacturer_head_image: res.manufacturer_head_image,
+          manufacturer_introduce: res.manufacturer_introduce,
+          manufacturer_logo: res.manufacturer_logo,
           manufacturer: res.manufacturer
         };
 
