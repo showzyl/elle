@@ -308,7 +308,6 @@
       },
       clickBuy(){
         console.log(buyData);
-        //return
         location.href = '/#/test?options=' + JSON.stringify(this.options);
       }
 

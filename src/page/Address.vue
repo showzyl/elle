@@ -141,9 +141,9 @@
       me.fetchAddressData({
         customer_id,
         mobile_token
-      }, res => {
+      }, function(res){
         me.address = res;
-      })
+      });
 
     },
     components: {
@@ -163,7 +163,7 @@
           {
             params: data
           }
-        ).then( res => {
+        ).then(function(res) {
           let data = res.body;
           console.log(data);
           if(data.code+'' === '0'){
@@ -173,13 +173,13 @@
               message: '暂无数据...',
               position: 'bottom',
               duration: 3000
-            })
+            });
           }
           Indicator.close();
-        }, err => {
+        }, function(err){
           Indicator.close();
-          Toast('网络错误...')
-        })
+          Toast('网络错误...');
+        });
       },
       setDefaultAdd({id}){
         const me = this;
@@ -193,7 +193,7 @@
               format: 'jsonp'
             }
           }
-        ).then( res => {
+        ).then( function(res){
           let data = res.body;
           console.log(data);
           if(data.code+'' === '0'){
@@ -206,16 +206,15 @@
             })
           }
           Indicator.close();
-        }, err => {
+        }, function(err){
           Indicator.close();
-          Toast('网络错误...')
+          Toast('网络错误...');
         })
       },
       delAddress({id}){
-//        console.log(id);
         const me = this;
 
-        MessageBox.confirm('确定删除此地址?').then(action => {
+        MessageBox.confirm('确定删除此地址?').then(function(action){
           if(action == 'confirm'){
             this.$http.jsonp(
               window.q.interfaceHost +'index.php?',
@@ -227,7 +226,7 @@
                   format: 'jsonp'
                 }
               }
-            ).then( res => {
+            ).then(function(res){
               let data = res.body;
               console.log(data);
               if(data.code+'' === '0'){
@@ -240,9 +239,9 @@
                 })
               }
               Indicator.close();
-            }, err => {
+            }, function(err){
               Indicator.close();
-              Toast('网络错误...')
+              Toast('网络错误...');
             })
           }
         })

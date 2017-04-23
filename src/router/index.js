@@ -2,7 +2,6 @@
 
 import Index from '../page/Index.vue'
 
-
 const Shopcar = () => System.import('../page/Shopcar.vue')
 const ConfirmOrder = () => System.import('../page/ConfirmOrder.vue')
 const Pay = () => System.import('../page/Pay.vue')
@@ -28,6 +27,7 @@ const History = () => System.import('../page/History.vue')
 const Coupon = () => System.import('../page/Coupon.vue')
 const Qa = () => System.import('../page/Qa.vue')
 const Vip = () => System.import('../page/Vip.vue')
+const ActivityComment = () => System.import('../page/activity/Comment.vue')
 const Test = () => System.import('../page/Test.vue')
 
 
@@ -57,6 +57,7 @@ const routes = [
   { name: '历史记录', path: '/history', component: History },
   { name: '优惠券', path: '/coupon', component: Coupon },
   { name: 'Vip', path: '/vip', component: Vip },
+  { name: 'ActivityComment', path: '/activity/comment', component: ActivityComment },
   { name: 'QA', path: '/qa', component: Qa },
   { name: '测试', path: '/test', component: Test },
 ]
