@@ -268,8 +268,20 @@
     top: 0;
   }
 
-  /* filterBrand end */
+  .back-to-top {
+    position: fixed;
+    bottom: .3rem;
+    right: .5rem;
+    cursor: pointer;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-image: url(./assets/img/back2top.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
+  /* filterBrand end */
   .filter,
   .classify,
   .inspire,

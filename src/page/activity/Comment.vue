@@ -16,6 +16,8 @@
       <div id="cyReping" role="cylabs" data-use="reping"></div>
     </div>
 
+    <div class="back-to-top"></div>
+
   </div>
 </template>
 
@@ -34,23 +36,16 @@
 </style>
 
 <script>
-  import footBar from '../../components/footBar.vue'
-  import recommend from '../../components/recommend.vue'
   import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../../assets/lib/q.util.js'
   import download from '../../components/download.vue'
-  import store from '../../assets/lib/q.store.js'
-
-  const mobile_token = store.get('mobile_token');
-  const customer_id = store.get('customer_id');
 
   export default {
     data() {
       return {
         loading: false,
         imgData: null,
-        videoData: null,
-
+        videoData: null
       }
     },
     created(){
@@ -84,7 +79,7 @@
 
         if(res.type_id === '2'){
           res.images.map(function (item) {
-            console.log(item);
+            // console.log(item);
             switch (item.link_type_id){
               case '1':
                 // 去商品
@@ -96,7 +91,7 @@
                 break;
               case '3':
                 // 媒体
-                item.linkUrl = '/#/activity/comment?media_id=' + item.link_id;
+                item.linkUrl = '/#/activity/video?media_id=' + item.link_id;
                 break;
               case '4':
                 // 灵感
@@ -113,13 +108,18 @@
 
           me.imgData = res;
         }else if(res.type_id === '3'){
-          console.log(2);
-          res.video = 'http://hybird.rayjump.com/dsp/img/video/1280-720-15s.mp4';
           me.videoData = res;
         }
 
-        console.log(res);
-
+        let timer1 = setInterval(function () {
+          console.log('1');
+          if(util.getEl('.module-mobile-cmt-float-bar')){
+            clearInterval(timer1);
+            util.rmEl(util.getEl('.module-mobile-cmt-float-bar'));
+            util.rmEl(util.getEl('.module-mobile-cmt-header'));
+            util.rmEl(util.getEl('.list-footer-wrapper-wap'));
+          }
+        }, 200);
 
 
       });
