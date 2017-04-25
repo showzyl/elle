@@ -102,7 +102,7 @@ export default {
 		scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
 		return scrollTop;
 	},
-	
+
 	// 可视窗口高度
 	getWindowHeight() {
 		var myHeight = 0;
@@ -172,6 +172,7 @@ export default {
 				el.style.top = '2rem';
 			}
 			beforeScrollTop = afterScrollTop;
+
 		}
 	},
 
@@ -183,14 +184,14 @@ export default {
 			{
 				params: data
 			}
-		).then(res => {
+		).then(function (res) {
 			let data = res.body;
 			if ((code === 0) && (data.code + '' === '0')) {
 				cb && cb(data.data, data.code);
 			} else {
 				cb && cb('notMatch');
 			}
-		}, err => {
+		}, function (err) {
 			cb && cb('error');
 		})
 	},
@@ -227,7 +228,17 @@ export default {
 			return;
 		}
 		location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
+	},
+
+	back2Top(){
+		const me = this;
+		if (document.body.scrollTop > 0) {
+			me.bScroll = true;
+		} else {
+			me.bScroll = false;
+		}
 	}
+
 
 }
 

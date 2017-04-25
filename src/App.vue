@@ -270,7 +270,7 @@
 
   .back-to-top {
     position: fixed;
-    bottom: .3rem;
+    bottom: 3rem;
     right: .5rem;
     cursor: pointer;
     display: inline-block;
@@ -282,13 +282,13 @@
   }
 
   /* filterBrand end */
+
   .filter,
   .classify,
   .inspire,
   .inspireDetail,
   .product,
   .brand,
-  .activityComment,
   #SOHUCS #SOHU_MAIN .module-mobile-cmt-box .mobile-cmt-box{
     margin-top: 2.01rem;
   }
