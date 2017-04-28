@@ -127,7 +127,6 @@
   import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../../assets/lib/q.util.js'
   import core from '../../assets/lib/q.core.js'
-//  import Emoji from '../../assets/lib/emoji.js'
 
   export default {
     data() {
@@ -180,20 +179,34 @@
             }
           }
         ).then(function (res) {
-          console.log(res.body);
 
           if(res.body.comments.length > 6){
             res.body.comments.length = 6;
           }
 
+          var reg1 = /(\[emoji\:)(\w+)(\])/ig;
+          var reg2 = /\u\w+/ig;
+
+          res.body.comments.map(function (item) {
+            item.content = item.content.replace(reg2, function (a, b, c) {
+              const sRes = '"' + '\\' + a + '"';
+              return JSON.parse(sRes);
+            });
+            item.content = item.content.replace(reg1, function (a, b, c) {
+              if(c.length === 8){
+                const sPart1 = c.substr(0, 4);
+                const sPart2 = c.substr(4, 8);
+                const sRes = '"\\u' + sPart1 + '\\u' + sPart2 + '"';
+                return JSON.parse(sRes);
+              }else if(c.length === 4){
+                const sRes = '"\\u' + c + '"';
+                return JSON.parse(sRes);
+              }
+              return a;
+            });
+          });
+
           me.commentData = res.body.comments;
-
-          setTimeout(function () {
-            var el = document.getElementsByClassName('test')[0];
-            // console.log(Emoji.emoji(el));
-          },200);
-
-          //el.innerHTML = html;
 
         }, function (err) {
           console.log(err);
@@ -273,7 +286,6 @@
         });
       },
       transTime(ts){
-        console.log(ts);
         return core.date.format(ts);
       }
 
