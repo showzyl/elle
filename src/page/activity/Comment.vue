@@ -184,8 +184,8 @@
             res.body.comments.length = 6;
           }
 
-          var reg1 = /(\[emoji\:)(\w+)(\])/ig;
-          var reg2 = /\u\w+/ig;
+          const reg1 = /(\[emoji\:)(\w+)(\])/ig;
+          const reg2 = /\u\w+/ig;
 
           res.body.comments.map(function (item) {
             item.content = item.content.replace(reg2, function (a, b, c) {
@@ -271,17 +271,6 @@
           }else if(res.type_id === '3'){
             me.videoData = res;
           }
-
-//          let timer1 = setInterval(function () {
-//            console.log('1');
-//            if(util.getEl('.module-mobile-cmt-float-bar')){
-//              clearInterval(timer1);
-//              util.rmEl(util.getEl('.module-mobile-cmt-float-bar'));
-//              util.rmEl(util.getEl('.module-mobile-cmt-header'));
-//              util.rmEl(util.getEl('.list-footer-wrapper-wap'));
-//            }
-//          }, 200);
-
 
         });
       },
