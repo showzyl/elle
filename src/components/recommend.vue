@@ -9,6 +9,7 @@
   .recommend {
     overflow: auto;
     background: #ffffff;
+    padding-bottom: .2rem;
   }
   
   .title{

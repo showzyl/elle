@@ -15,7 +15,7 @@
       <!--<div id="cyReping" role="cylabs" data-use="reping"></div>-->
     <!--</div>-->
 
-    <div class="comment">
+    <div class="comment" v-if="commentData.length">
       <h3 class="commentTit">
         热门评论
       </h3>
@@ -42,6 +42,10 @@
       </ul>
     </div>
 
+    <p v-else class="noComment">
+      暂无精彩评论
+    </p>
+
     <div class="btn" @click="download">下载`Elleshop`查看更多独家内幕</div>
 
     <div class="back-to-top" v-show="bScroll" @click="go2Top"></div>
@@ -50,6 +54,10 @@
 </template>
 
 <style media="screen" lang="scss" scoped>
+
+  .activityComment{
+    padding-bottom: 2.1rem;
+  }
 
   video{
     display: block;
@@ -102,6 +110,11 @@
 
   .content{
     padding: .2rem .3rem 0 1.8rem;
+  }
+
+  .noComment{
+    padding: .2rem 0 0;
+    text-align: center;
   }
 
   .top{
@@ -170,6 +183,7 @@
 
         me.$http.jsonp(
           'http://changyan.sohu.com/api/2/topic/comments',
+//          'http://changyan.sohu.com/api/2/topic/load',
           {
             params: {
               client_id: 'cysVYkRBs',
@@ -207,6 +221,7 @@
           });
 
           me.commentData = res.body.comments;
+          me.commentData = [];
 
         }, function (err) {
           console.log(err);

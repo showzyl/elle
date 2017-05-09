@@ -270,7 +270,7 @@
 
   .back-to-top {
     position: fixed;
-    bottom: 3rem;
+    bottom: 2rem;
     right: .5rem;
     cursor: pointer;
     display: inline-block;
