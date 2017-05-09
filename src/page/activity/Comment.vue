@@ -46,9 +46,11 @@
       暂无精彩评论
     </p>
 
-    <div class="btn" @click="download">下载`Elleshop`查看更多独家内幕</div>
+    <!--<div class="btn" @click="download">下载`Elleshop`查看更多独家内幕</div>-->
 
     <div class="back-to-top" v-show="bScroll" @click="go2Top"></div>
+
+    <downloadFooter />
 
   </div>
 </template>
@@ -139,6 +141,7 @@
 <script>
   import { Toast, Indicator, MessageBox } from 'mint-ui'
   import util from '../../assets/lib/q.util.js'
+  import downloadFooter from '../../components/downloadFooter.vue'
   import core from '../../assets/lib/q.core.js'
 
   export default {
@@ -168,7 +171,7 @@
 
     },
     components: {
-
+      downloadFooter
     },
     methods: {
       go2Top(){
@@ -179,17 +182,22 @@
       },
       fetchComment(){
         const me = this;
-        let { media_id, topic_id } = me.$route.query;
-
+        let {
+          media_id,
+          topic_id,
+          topic_url,
+          topic_source_id
+        } = me.$route.query;
         me.$http.jsonp(
-          'http://changyan.sohu.com/api/2/topic/comments',
-//          'http://changyan.sohu.com/api/2/topic/load',
+          '//changyan.sohu.com/api/2/topic/load',
           {
             params: {
               client_id: 'cysVYkRBs',
-              media_id: media_id,
-              topic_id: topic_id,
-              format: 'jsonp'
+              hot_size: 6,
+              media_id,
+              topic_id,
+              topic_url,
+              topic_source_id
             }
           }
         ).then(function (res) {

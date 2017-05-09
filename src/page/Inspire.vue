@@ -161,7 +161,7 @@
     },
     created(){
       const me = this;
-
+      document.body.scrollTop = 0;
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'

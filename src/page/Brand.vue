@@ -210,6 +210,8 @@
     created(){
       const me = this;
 
+      document.body.scrollTop = 0;
+
       me.fetchData({
         manufacturer_id: me.$route.params.id, // 商品ID
         customer_id: '' // 用户ID

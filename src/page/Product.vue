@@ -402,6 +402,8 @@
       }
     },
     created(){
+      document.body.scrollTop = 0;
+
       const me = this;
       const route = me.$route;
       const query = route.query;
