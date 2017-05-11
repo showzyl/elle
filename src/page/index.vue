@@ -101,7 +101,7 @@
 
     <footBar pageName="index"/>
 
-    <loadMore :loading="loading" >
+    <loadMore :loading="loading" />
 
   </div>
 </template>
@@ -112,7 +112,7 @@
   import { Toast, Indicator } from 'mint-ui'
   import sideBar from '../components/sideBar.vue'
   import util from '../assets/lib/q.util.js'
-  import download from '../components/download.vue';
+  import download from '../components/download.vue'
 
   export default {
     data() {
@@ -161,7 +161,7 @@
               default:
                 item.clickUrl = '#';
             }
-          })
+          });
 
           me['renderData' + i] = me['renderData' + i].concat(data);
         })

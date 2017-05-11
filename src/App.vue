@@ -270,8 +270,8 @@
 
   .back-to-top {
     position: fixed;
-    bottom: 2rem;
-    right: .5rem;
+    bottom: 2.1rem;
+    right: .25rem;
     cursor: pointer;
     display: inline-block;
     width: 1rem;
@@ -283,15 +283,20 @@
 
   /* filterBrand end */
 
-  .filter,
   .classify,
-  .inspire,
-  .inspireDetail,
-  .product,
-  .brand,
-  #SOHUCS #SOHU_MAIN .module-mobile-cmt-box .mobile-cmt-box{
+  .inspire {
     margin-top: 2.01rem;
   }
+
+
+  .product,
+  .brand,
+  .inspireDetail,
+  .filter{
+    margin-bottom: 2.01rem;
+  }
+
+
 
 
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div class="inspireDetail">
-  <download />
+  <!--<download />-->
   <commonNav :title="name" iconRight="" />
   <p v-for="item in items" class="imgList">
     <router-link :to=" '/product/' + item.object_id " v-if="item.object_id != 0">
@@ -9,6 +9,9 @@
     <img :src="item.image" alt="" v-else>
   </p>
   <recommend :products="products" />
+
+  <downloadFooter />
+
 </div>
 </template>
 
@@ -41,13 +44,13 @@
 
 <script lang="babel">
 
-  import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
+  import { Toast, Cell, Checklist, Indicator } from 'mint-ui'
   import commonNav from '../components/commonNav.vue'
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
   import util from '../assets/lib/q.util.js'
   import recommend from '../components/recommend.vue'
-  import download from '../components/download.vue'
+  import downloadFooter from '../components/downloadFooter.vue'
 
   export default {
     data(){
@@ -100,7 +103,7 @@
     components: {
       commonNav,
       recommend,
-      download
+      downloadFooter
     },
     computed: {
       // 有缓存

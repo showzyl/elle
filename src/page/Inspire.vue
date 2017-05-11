@@ -137,12 +137,23 @@
 </style>
 <script lang="babel">
 
-  import { Toast, Cell, Checklist, Indicator, TabContainer, TabContainerItem } from 'mint-ui'
+  import Vue from 'vue'
+  import {
+    Toast,
+    Cell,
+    Checklist,
+    Indicator,
+    TabContainer,
+    TabContainerItem
+  } from 'mint-ui'
   import core from '../assets/lib/q.core.js'
   import store from '../assets/lib/q.store.js'
   import footBar from '../components/footBar.vue'
   import util from '../assets/lib/q.util.js'
   import download from '../components/download.vue'
+
+  Vue.component(TabContainer.name, TabContainer);
+  Vue.component(TabContainerItem.name, TabContainerItem);
 
   export default {
     data(){

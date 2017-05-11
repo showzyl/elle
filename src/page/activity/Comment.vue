@@ -10,14 +10,9 @@
       <video :src="videoData.video" controls="controls" autoplay="autoplay"></video>
     </div>
 
-    <!--<div class="commentBox">-->
-      <!--<div id="SOHUCS" ></div>-->
-      <!--<div id="cyReping" role="cylabs" data-use="reping"></div>-->
-    <!--</div>-->
-
     <div class="comment" v-if="commentData.length">
       <h3 class="commentTit">
-        热门评论
+        最新评论
       </h3>
       <ul class="commentList">
         <li class="commentItem" v-for="item in commentData">
@@ -42,11 +37,36 @@
       </ul>
     </div>
 
+    <div class="comment" v-if="hotData.length">
+      <h3 class="commentTit">
+        热门评论
+      </h3>
+      <ul class="commentList">
+        <li class="commentItem" v-for="item in hotData">
+
+          <div class="headerBox">
+            <div class="headerImg" :style="{'backgroundImage': 'url('+ item.passport.img_url +')'}"></div>
+            <div class="headerMid">
+              <h3>{{item.passport.nickname}}</h3>
+              <span>{{transTime(item.create_time)}}</span>
+            </div>
+            <div class="top">
+              <i class="topIcon"></i>
+              <span class="topTime">{{item.support_count}}</span>
+            </div>
+          </div>
+
+          <p class="content">
+            {{item.content}}
+          </p>
+
+        </li>
+      </ul>
+    </div>
+
     <p v-else class="noComment">
       暂无精彩评论
     </p>
-
-    <!--<div class="btn" @click="download">下载`Elleshop`查看更多独家内幕</div>-->
 
     <div class="back-to-top" v-show="bScroll" @click="go2Top"></div>
 
@@ -151,7 +171,8 @@
         imgData: null,
         videoData: null,
         bScroll: false,
-        commentData: null
+        commentData: null,
+        hotData: null
       }
     },
     created(){
@@ -206,35 +227,41 @@
             res.body.comments.length = 6;
           }
 
-          const reg1 = /(\[emoji\:)(\w+)(\])/ig;
-          const reg2 = /\u\w+/ig;
-
           res.body.comments.map(function (item) {
-            item.content = item.content.replace(reg2, function (a, b, c) {
-              const sRes = '"' + '\\' + a + '"';
-              return JSON.parse(sRes);
-            });
-            item.content = item.content.replace(reg1, function (a, b, c) {
-              if(c.length === 8){
-                const sPart1 = c.substr(0, 4);
-                const sPart2 = c.substr(4, 8);
-                const sRes = '"\\u' + sPart1 + '\\u' + sPart2 + '"';
-                return JSON.parse(sRes);
-              }else if(c.length === 4){
-                const sRes = '"\\u' + c + '"';
-                return JSON.parse(sRes);
-              }
-              return a;
-            });
+            _replaceEmoji(item);
+          });
+
+          res.body.hots.map(function (item) {
+            _replaceEmoji(item);
           });
 
           me.commentData = res.body.comments;
-          me.commentData = [];
+          me.hotData = res.body.hots;
 
         }, function (err) {
           console.log(err);
         });
 
+        function _replaceEmoji(item){
+          const reg1 = /(\[emoji\:)(\w+)(\])/ig;
+          const reg2 = /\u\w+/ig;
+          item.content = item.content.replace(reg2, function (a, b, c) {
+            const sRes = '"' + '\\' + a + '"';
+            return JSON.parse(sRes);
+          });
+          item.content = item.content.replace(reg1, function (a, b, c) {
+            if(c.length === 8){
+              const sPart1 = c.substr(0, 4);
+              const sPart2 = c.substr(4, 8);
+              const sRes = '"\\u' + sPart1 + '\\u' + sPart2 + '"';
+              return JSON.parse(sRes);
+            }else if(c.length === 4){
+              const sRes = '"\\u' + c + '"';
+              return JSON.parse(sRes);
+            }
+            return a;
+          });
+        }
 
       },
       fetchData(){

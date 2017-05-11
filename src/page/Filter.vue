@@ -1,7 +1,7 @@
 <template>
 <div class="filter">
 
-  <download />
+  <!--<download />-->
 
   <div class="content" v-show="content === 'content'">
     <commonNav :title="$route.query.name" iconRight="" />
@@ -20,6 +20,8 @@
     <p class="total">{{total || 0}} 件商品</p>
 
     <recomendItem :products="products"></recomenditem>
+
+    <downloadFooter />
 
   </div>
 
@@ -151,7 +153,7 @@
   </div>
 
 
-  <loadMore :loading="loading" bottom="10px">
+  <loadMore :loading="loading" bottom="10px" />
 
 </div>
 </template>
@@ -360,7 +362,8 @@
   import priceRange from '../components/priceRange.vue'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
-  import download from '../components/download.vue'
+//  import download from '../components/download.vue'
+  import downloadFooter from '../components/downloadFooter.vue'
 
   Vue.component(Cell.name, Cell);
   Vue.component(IndexList.name, IndexList);
@@ -442,7 +445,7 @@
       recomendItem,
       loadMore,
       priceRange,
-      download
+      downloadFooter
     },
     computed: {
 

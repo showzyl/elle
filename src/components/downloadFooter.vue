@@ -3,8 +3,8 @@
     <div class="dl">
       <img class="buyer-logo" src="../assets/img/logo.png" @click="download">
     </div>
-    <div class="dm">
-      <h3 class="tit">下载`ELLEshop`查看更多独家内幕</h3>
+    <div class="dm" @click="download">
+      <h3 class="tit">{{ title }}</h3>
       <p>已有<span class="red">6866800</span>人下载
       </p>
     </div>
@@ -12,7 +12,6 @@
       <div class="btn-down" @click="download"></div>
     </div>
   </div>
-
 </template>
 
 <style media="screen" lang="scss" scoped>
@@ -51,7 +50,7 @@
   .dm{
     margin-top: .2rem;
     color: #666666;
-    font-family: '苹方';
+    font-family: "微软雅黑","Microsoft yahei",Tahoma,Verdana,Arial,sans-serif;
     .tit{
       font-size: .43rem;
       font-weight: normal;
@@ -72,6 +71,12 @@
   import util from '../assets/lib/q.util.js'
 
   export default {
+    props: {
+      title: {
+        type: String,
+        default: '下载`ELLEshop`查看更多独家内幕'
+      }
+    },
     data() {
       return {
 
@@ -89,9 +94,6 @@
     methods: {
       download(){
         util.download();
-      },
-      rmDownload(){
-        util.getEl('.buyer-head').style.display = 'none';
       }
     },
     mounted() {

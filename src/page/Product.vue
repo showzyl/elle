@@ -1,13 +1,12 @@
 <template>
   <div class="product">
-    <download />
     <div class="productDetail" v-if="content === 'productDetail'">
       <commonNav :title="productInfo.manufacturer" iconRight="" />
       <!--{{$route.params.id}}-->
       <div class="swipe">
         <mt-swipe :auto="4000">
-          <mt-swipe-item v-for="item in images">
-            <img :src="item.popup" alt="">
+          <mt-swipe-item v-for="item in images" :key="item.popup">
+            <img :src="item.popup" alt="" >
           </mt-swipe-item>
         </mt-swipe>
       </div>
@@ -58,12 +57,14 @@
           <!--加入购物车-->
       <!--</div>-->
 
-      <div class="btn btnBuy" @click="download">
-        下载APP购买
-      </div>
+      <!--<div class="btn btnBuy" @click="download">-->
+        <!--下载APP购买-->
+      <!--</div>-->
+
+      <downloadFooter title="下载`app`购买" />
 
       <div class="" style="margin-bottom:.8rem;">
-        <recommendItem :products="recommands">
+        <recommendItem :products="recommands" />
       </div>
 
     </div>
@@ -370,7 +371,8 @@
   import { Swipe, SwipeItem, Toast, Indicator } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
-  import download from '../components/download.vue'
+//  import download from '../components/download.vue'
+  import downloadFooter from '../components/downloadFooter.vue'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
   // mutations 必须是同步 commit
   // actions 异步处理 dispatch
@@ -492,7 +494,7 @@
     components: {
       commonNav,
       recommendItem,
-      download
+      downloadFooter
     },
     computed: {
 

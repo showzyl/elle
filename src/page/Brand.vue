@@ -1,6 +1,6 @@
 <template>
   <div class="brand">
-    <download />
+    <!--<download />-->
     <commonNav :title="info.name" iconRight="" />
     <!--{{$route.params.id}}-->
     <div class="content0" v-if="tab === 'tab0'">
@@ -15,6 +15,8 @@
       </div>
 
       <recomendItem :products="products" />
+
+      <downloadFooter />
 
     </div>
 
@@ -34,7 +36,7 @@
       
     </div>
     
-    <ul class="tab">
+    <ul class="tab none">
    
       <li @click.prevent="tab = 'tab0'" :class="[tab == 'tab0' ? 'on' : '']">
         <span class="activeIcon"></span>
@@ -189,7 +191,8 @@
   import recomendItem from '../components/recommendItem.vue'
   import { Toast } from 'mint-ui'
   import util from '../assets/lib/q.util.js'
-  import download from '../components/download.vue'
+//  import download from '../components/download.vue'
+  import downloadFooter from '../components/downloadFooter.vue'
 
   // Vue.component(Swipe.name, Swipe);
   // Vue.component(SwipeItem.name, SwipeItem);
@@ -260,7 +263,7 @@
     components: {
       commonNav,
       recomendItem,
-      download
+      downloadFooter
     },
     computed: {
 
