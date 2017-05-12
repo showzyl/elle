@@ -1,9 +1,9 @@
 <template>
   <div class="activityComment">
     <div v-if="imgData" class="commentImgBox">
-      <a :href="item.linkUrl" v-for="item in imgData.images">
-        <img :src="item.image" alt="">
-      </a>
+      <!--<a :href="item.linkUrl" v-for="item in imgData.images">-->
+        <img :src="item.image" alt="" v-for="item in imgData.images" @click="jumpUrl(item.link_type_id)">
+      <!--</a>-->
     </div>
 
     <div v-if="videoData" class="commentVideo">
@@ -289,34 +289,6 @@
           }
 
           if(res.type_id === '2'){
-            res.images.map(function (item) {
-              // console.log(item);
-              switch (item.link_type_id){
-                case '1':
-                  // 去商品
-                  item.linkUrl = '/#/product/' + item.link_id;
-                  break;
-                case '2':
-                  // 品牌
-                  item.linkUrl = '/#/brand/' + item.link_id;
-                  break;
-                case '3':
-                  // 媒体
-                  item.linkUrl = '/#/activity/video?media_id=' + item.link_id;
-                  break;
-                case '4':
-                  // 灵感
-                  item.linkUrl = '/#/inspire/' + item.link_id;
-                  break;
-                case '5':
-                  // 视频资料
-                  item.linkUrl = 'javascript:;';
-                  break;
-                default:
-                  item.linkUrl = 'javascript:;';
-              }
-            });
-
             me.imgData = res;
           }else if(res.type_id === '3'){
             me.videoData = res;
@@ -326,6 +298,34 @@
       },
       transTime(ts){
         return core.date.format(ts);
+      },
+      jumpUrl(id){
+        console.log(id);
+        switch (id){
+          case '1':
+            // 去商品
+            location.href = '/#/product/' + item.link_id;
+            break;
+          case '2':
+            // 品牌
+            location.href = '/#/brand/' + item.link_id;
+            break;
+          case '3':
+            // 媒体
+            location.href = '/#/activity/comment?media_id=' + item.link_id;
+            break;
+          case '4':
+            // 视频
+            location.href = '/#/activity/video?media_id=' + item.link_id;
+            break;
+          case '5':
+          case '6':
+            // 下载app领取
+            
+            break;
+          default:
+            item.linkUrl = 'javascript:;';
+        }
       }
 
     }

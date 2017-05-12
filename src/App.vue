@@ -271,7 +271,7 @@
   .back-to-top {
     position: fixed;
     bottom: 2.1rem;
-    right: .25rem;
+    right: .4rem;
     cursor: pointer;
     display: inline-block;
     width: 1rem;

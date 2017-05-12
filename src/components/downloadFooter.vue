@@ -32,7 +32,7 @@
   .dr{
     float: right;
     .btn-down{
-      margin: .5rem .2rem .2rem;
+      margin: .5rem .4rem .2rem;
       width: 1rem;
       height: 1rem;
       background-image: url(../assets/img/downloadN.png);
@@ -43,8 +43,8 @@
   }
 
   .dl{
-    width: 1.6rem;
-    margin: .2rem;
+    width: 1rem;
+    margin: .4rem .3rem;
   }
 
   .dm{
@@ -52,9 +52,9 @@
     color: #666666;
     font-family: "微软雅黑","Microsoft yahei",Tahoma,Verdana,Arial,sans-serif;
     .tit{
-      font-size: .43rem;
+      font-size: .4rem;
       font-weight: normal;
-      margin: .2rem 0;
+      margin: .2rem 0 0;
     }
     .red{
       color: #e14f39;
@@ -74,7 +74,7 @@
     props: {
       title: {
         type: String,
-        default: '下载`ELLEshop`查看更多独家内幕'
+        default: '明星的时尚顾问 你的私人买手'
       }
     },
     data() {

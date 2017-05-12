@@ -61,7 +61,7 @@
         <!--下载APP购买-->
       <!--</div>-->
 
-      <downloadFooter title="下载`app`购买" />
+      <downloadFooter />
 
       <div class="" style="margin-bottom:.8rem;">
         <recommendItem :products="recommands" />

@@ -5,19 +5,19 @@
  - Enter your local directory, and install dependencies:
 
 ``` bash
-npm install
+yarn install
 ```
 
 ## Develop
 
 ``` bash
 # serve with hot reload at localhost:8080
-npm run dev
+yarn run dev
 ```
 
 ## Build
 
 ``` bash
 # build for production with minification
-npm run build
+yarn run build
 ```
