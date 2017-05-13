@@ -1,9 +1,10 @@
 <template>
   <div class="activityComment">
     <div v-if="imgData" class="commentImgBox">
-      <!--<a :href="item.linkUrl" v-for="item in imgData.images">-->
-        <img :src="item.image" alt="" v-for="item in imgData.images" @click="jumpUrl(item.link_type_id)">
-      <!--</a>-->
+      <p v-for="item in imgData.images">
+        <img :src="item.image" alt="" @click="jumpUrl(item.link_type_id, item.media_resource_id, item.link_id)" :id="'img-'+item.media_resource_id">
+        <video controls="controls" :src="item.link_id" v-if="item.link_type_id == 4" :id="'video-'+item.media_resource_id" style="display: none;"></video>
+      </p>
     </div>
 
     <div v-if="videoData" class="commentVideo">
@@ -159,7 +160,7 @@
 </style>
 
 <script>
-  import { Toast, Indicator, MessageBox } from 'mint-ui'
+  import { Toast, Indicator} from 'mint-ui'
   import util from '../../assets/lib/q.util.js'
   import downloadFooter from '../../components/downloadFooter.vue'
   import core from '../../assets/lib/q.core.js'
@@ -289,6 +290,13 @@
           }
 
           if(res.type_id === '2'){
+//            res.images[0] = {
+//              "media_resource_id": "3519",
+//              "image": "http://img.elleshop.com.cn/catalog/test/安以轩视频播放.jpg?imageView2/2/format/jpg/interlace/1/q/80/",
+//              "link_id": "http://img.elleshop.com.cn/media/video/anyixuan720.mp4",
+//              "link_type_id": "4",
+//              "coupon_code": ""
+//            };
             me.imgData = res;
           }else if(res.type_id === '3'){
             me.videoData = res;
@@ -299,33 +307,59 @@
       transTime(ts){
         return core.date.format(ts);
       },
-      jumpUrl(id){
+      jumpUrl(id, resource, link_id){
         console.log(id);
         switch (id){
           case '1':
             // 去商品
-            location.href = '/#/product/' + item.link_id;
+            location.href = '/#/product/' + link_id;
             break;
           case '2':
             // 品牌
-            location.href = '/#/brand/' + item.link_id;
+            location.href = '/#/brand/' + link_id;
             break;
           case '3':
+            let {
+              media_id,
+              topic_id,
+              topic_url,
+              topic_source_id
+            } = me.$route.query;
             // 媒体
-            location.href = '/#/activity/comment?media_id=' + item.link_id;
+            location.href = '/#/activity/comment?media_id=' + link_id
+              + '&media_id=' + media_id
+              + '&topic_id=' + topic_id
+              + '&topic_url=' + topic_url
+              + '&topic_source_id=' + topic_source_id
+            ;
+            location.reload();
             break;
           case '4':
-            // 视频
-            location.href = '/#/activity/video?media_id=' + item.link_id;
+            // 视频 直接播放
+            this.playVideo(id, resource);
             break;
           case '5':
           case '6':
-            // 下载app领取
-            
+            // 下载app领取 优惠券
+            Toast('请您下载app领取');
             break;
           default:
-            item.linkUrl = 'javascript:;';
+            Toast('请您下载app');
         }
+      },
+      playVideo(id, resource){
+        const oImg = util.getEl('#img-'+ resource);
+        const oVideo = util.getEl('#video-'+ resource);
+
+        oImg.style.display = 'none';
+        oVideo.style.display = 'block';
+        oVideo.play();
+
+        oVideo.addEventListener('ended', function () {
+          oImg.style.display = 'block';
+          oVideo.style.display = 'none';
+        });
+
       }
 
     }
