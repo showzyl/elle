@@ -57,11 +57,11 @@
           <!--加入购物车-->
       <!--</div>-->
 
-      <!--<div class="btn btnBuy" @click="download">-->
-        <!--下载APP购买-->
-      <!--</div>-->
+      <div class="btn btnBuy" @click="download">
+        下载APP购买
+      </div>
 
-      <downloadFooter />
+      <!--<downloadFooter />-->
 
       <div class="" style="margin-bottom:.8rem;">
         <recommendItem :products="recommands" />
@@ -372,7 +372,7 @@
   import util from '../assets/lib/q.util.js'
   import store from '../assets/lib/q.store.js'
 //  import download from '../components/download.vue'
-  import downloadFooter from '../components/downloadFooter.vue'
+//  import downloadFooter from '../components/downloadFooter.vue'
   import { mapMutations, mapGetters, mapState, mapActions } from 'vuex'
   // mutations 必须是同步 commit
   // actions 异步处理 dispatch
@@ -494,7 +494,7 @@
     components: {
       commonNav,
       recommendItem,
-      downloadFooter
+      //downloadFooter
     },
     computed: {
 

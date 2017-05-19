@@ -5,7 +5,7 @@
     </div>
     <div class="dm" @click="download">
       <h3 class="tit">{{ title }}</h3>
-      <p>已有<span class="red">6866800</span>人下载
+      <p>已有<span class="red">{{ frequence }}</span>人下载
       </p>
     </div>
     <div class="dr">
@@ -79,7 +79,7 @@
     },
     data() {
       return {
-
+        frequence: ((new Date).getTime() + '').substr(6, 10)
       }
     },
     created(){
