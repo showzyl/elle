@@ -29,6 +29,7 @@ const Qa = () => System.import('../page/Qa.vue')
 const Vip = () => System.import('../page/Vip.vue')
 const ActivityComment = () => System.import('../page/activity/Comment.vue')
 const ActivityCommentVideo = () => System.import('../page/activity/CommentVideo.vue')
+const Ct = () => System.import('../page/activity/CommentTest.vue')
 const Test = () => System.import('../page/Test.vue')
 
 
@@ -60,6 +61,7 @@ const routes = [
   { name: 'Vip', path: '/vip', component: Vip },
   { name: 'ActivityComment', path: '/activity/comment', component: ActivityComment },
   { name: 'ActivityCommentVideo', path: '/activity/video', component: ActivityCommentVideo },
+  { name: 'Ct', path: '/activity/ct', component: Ct },
   { name: 'QA', path: '/qa', component: Qa },
   { name: '测试', path: '/test', component: Test },
 ]

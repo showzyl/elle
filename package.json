@@ -3,7 +3,7 @@
   "description": "A Vue.js project",
   "author": "showzyl@qq.com",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot & cp ./src/assets/lib/jweixin-1.2.0.js ./dist/",
     "build": "rm -fr ./dist/ && cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {

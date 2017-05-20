@@ -191,7 +191,7 @@
       });
 
       Promise.all([me.fetchData(), me.fetchWxCfg()]).then(function() {
-        // me.setWxShare();
+         me.setWxShare();
       }).catch(function(reason){
         console.log(reason);
       });
