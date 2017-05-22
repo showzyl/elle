@@ -320,6 +320,7 @@
             '//api2.elleshop.com.cn/index.php?route=mapi/wxmp/getSignPackage',
             {
               params: {
+                link: encodeURIComponent(location.protocol + location.hostname + '/' +location.search),
                 format: 'jsonp'
               }
             }
