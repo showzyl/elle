@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="log"></div>
     <transition>
       <router-view></router-view>
     </transition>
@@ -11,11 +12,15 @@
 <script>
   import './assets/css/reset.css'
   import util from './assets/lib/q.util.js'
+  import logo from './assets/img/logo.png'
 
   export default {
     name: 'app',
     data () {
       return {}
+    },
+    created(){
+      document.querySelector('#icon').setAttribute('href', logo);
     },
     methods: {
       toggleMask(e){

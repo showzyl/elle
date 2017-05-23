@@ -161,6 +161,7 @@
 
 <script>
   import { Toast, Indicator} from 'mint-ui'
+  import wx from 'weixin-js-sdk'
   import util from '../../assets/lib/q.util.js'
   import downloadFooter from '../../components/downloadFooter.vue'
   import core from '../../assets/lib/q.core.js'
@@ -180,6 +181,9 @@
     },
     created(){
       const me = this;
+
+//      document.title = '我是测试页面title...';
+//      document.querySelector('#description').setAttribute('content', '我是测试desc');
 
       window.onscroll = function () {
         util.back2Top.call(me);
@@ -320,11 +324,12 @@
             '//api2.elleshop.com.cn/index.php?route=mapi/wxmp/getSignPackage',
             {
               params: {
-                link: encodeURIComponent(location.protocol + location.hostname + '/' +location.search),
+                link: encodeURIComponent(location.protocol + '//' +location.hostname + '/' +location.search),
                 format: 'jsonp'
               }
             }
           ).then(function (res) {
+            //document.querySelector('.log').innerHTML = location.protocol + '//' +location.hostname + '/' +location.search;
             if(res.body.code == 0){
               me.wxCfg = res.body.data;
               resolve();
@@ -347,9 +352,21 @@
           nonceStr: me.wxCfg.nonceStr, // 必填，生成签名的随机串
           signature: me.wxCfg.signature,// 必填，签名，见附录1
           jsApiList: [
-            'onMenuShareTimeline'
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
+
+        wx.ready(function () {
+          alert('ok...');
+        });
+
+        wx.error(function(res){
+          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+          alert(res);
+        });
+
+        document.title = me.wxShareData.title;
 
         wx.onMenuShareTimeline({
           title: me.wxShareData.title, // 分享标题
@@ -358,6 +375,25 @@
           success: function () {
             // 用户确认分享后执行的回调函数
             console.log('share success');
+            alert('share onMenuShareTimeline success...');
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+            console.log('cancel share');
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: me.wxShareData.title, // 分享标题
+          desc: me.wxShareData.title, // 分享描述
+          link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: '', // 分享图标
+          type: '', // 分享类型,music、video或link，不填默认为link
+          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            console.log('share success');
+            alert('share onMenuShareAppMessage success...');
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数
