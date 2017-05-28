@@ -48,7 +48,8 @@
 				let { media_id } = me.$route.query;
         // route=mapi/media&media_id=32
         this.$http.jsonp(
-          window.q.interfaceHost +'index.php?',
+          // window.q.interfaceHost +'index.php?',
+          'http://106.75.17.211:6603/index.php?',
           {
             params: {
 							route: 'mapi/media',

@@ -11,6 +11,8 @@
       <video :src="videoData.video" controls="controls" autoplay="autoplay"></video>
     </div>
 
+    <div class="imgTxtList"></div>
+
     <div class="comment" v-if="commentData && commentData.length">
       <h3 class="commentTit">
         最新评论
@@ -297,10 +299,40 @@
               return reject('网络错误...');;
             }
 
-            if(res.type_id === '2'){
-              me.imgData = res;
-            }else if(res.type_id === '3'){
-              me.videoData = res;
+//            if(res.type_id === '2'){
+//              me.imgData = res;
+//            }else if(res.type_id === '3'){
+//              me.videoData = res;
+//            }
+
+//            item 单品
+//						brand 品牌
+//						news 媒体
+//						video 视频
+
+            switch (res.type_id){
+              case '1':
+              	const regItem = /app:\/\/item/ig;
+								const regBrand = /app:\/\/brand/ig;
+              	const regMidea = /app:\/\/(video|news)/ig;
+
+              	// 图文混排
+								res.image_text = util.unescapeHTML(res.image_text);
+
+								res.image_text = res.image_text.replace(regItem, '//m.elleshop.com.cn/#/product/');
+								res.image_text = res.image_text.replace(regBrand, '//m.elleshop.com.cn/#/brand/');
+								res.image_text = res.image_text.replace(regMidea, '//m.elleshop.com.cn/#/activity/comment?media_id=');
+
+								util.getEl('.imgTxtList').innerHTML = res.image_text;
+                break;
+							case '2':
+								// 图片
+								me.imgData = res;
+								break;
+							case '3':
+								// 视频
+								me.videoData = res;
+								break;
             }
 
             me.wxShareData = {
@@ -422,7 +454,15 @@
 
       }
 
-    }
+    },
+		watch: {
+			'$route' (to, from) {
+				console.log(to, from);
+				if(to.query.media_id !== from.query.media_id){
+          location.reload();
+        }
+			}
+		}
   }
 </script>
 

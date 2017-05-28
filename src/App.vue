@@ -12,7 +12,7 @@
 <script>
   import './assets/css/reset.css'
   import util from './assets/lib/q.util.js'
-  import logo from './assets/img/logo.png'
+//  import logo from './assets/img/logo.png'
 
   export default {
     name: 'app',
@@ -20,7 +20,7 @@
       return {}
     },
     created(){
-      document.querySelector('#icon').setAttribute('href', logo);
+//      document.querySelector('#icon').setAttribute('href', logo);
     },
     methods: {
       toggleMask(e){
