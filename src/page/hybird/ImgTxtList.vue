@@ -31,7 +31,13 @@
 
       me.fetchData({}, res => {
         res.image_text = util.unescapeHTML(res.image_text);
-        util.getEl('.imgTxtList').innerHTML = res.image_text;
+        if(res.image_text){
+					util.getEl('.imgTxtList').innerHTML = res.image_text;
+        }else {
+        	const a = document.createElement('a');
+        	a.innerHTML = '暂无内容, 点击查看更多精彩!';
+					util.getEl('.imgTxtList').innerHTML = ''
+				}
         //me.image_text = res.image_text;
       });
 
@@ -48,8 +54,8 @@
 				let { media_id } = me.$route.query;
         // route=mapi/media&media_id=32
         this.$http.jsonp(
-          // window.q.interfaceHost +'index.php?',
-          'http://106.75.17.211:6603/index.php?',
+           window.q.interfaceHost +'index.php?',
+//          'http://106.75.17.211:6603/index.php?',
           {
             params: {
 							route: 'mapi/media',

@@ -79,7 +79,7 @@
     },
     data() {
       return {
-        frequence: ((new Date).getTime() + '').substr(6, 10)
+        frequence: ((new Date).getTime() + '').substr(2, 7)
       }
     },
     created(){

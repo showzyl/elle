@@ -84,6 +84,11 @@
     padding-bottom: 2.1rem;
   }
 
+  .imgTxtList{
+    padding: 15px;
+    line-height: 175%;
+  }
+
   video{
     display: block;
     width: 100%;
@@ -237,11 +242,11 @@
             res.body.comments.length = 6;
           }
 
-          res.body.comments.map(function (item) {
+					res.body.comments && res.body.comments.map(function (item) {
             _replaceEmoji(item);
           });
 
-          res.body.hots.map(function (item) {
+					res.body.hots && res.body.hots.map(function (item) {
             _replaceEmoji(item);
           });
 
@@ -424,7 +429,6 @@
               + '&topic_url=' + topic_url
               + '&topic_source_id=' + topic_source_id
             ;
-            location.reload();
             break;
           case '4':
             // 视频 直接播放

@@ -47,11 +47,11 @@
 
       </div>
 
-      <!--<ul class="imgBox">-->
-        <!--<li class="" v-for="item in description">-->
-          <!--<img :src="item" alt="">-->
-        <!--</li>-->
-      <!--</ul>-->
+      <ul class="imgBox">
+        <li class="" v-for="item in description">
+          <img :src="item" alt="">
+        </li>
+      </ul>
 
       <!--<div class="btn btnBuy" @click="content = 'detailOption'">-->
           <!--加入购物车-->
