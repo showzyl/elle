@@ -44,7 +44,7 @@
       <h3 class="commentTit">
         热门评论
       </h3>
-      <ul class="commentList">
+      <ul class="commentList hotComment">
         <li class="commentItem" v-for="item in hotData">
 
           <div class="headerBox">
@@ -65,6 +65,8 @@
 
         </li>
       </ul>
+      <div class="shade" v-show=" hotData.length >= 2 "></div>
+      <p class="commentGuide" @click="download" v-show=" hotData.length >= 2 ">打开ELLESHOP客户端，查看({{ downloadTimes }})条评论精彩评论</p>
     </div>
 
     <p v-else class="noComment">
@@ -79,6 +81,27 @@
 </template>
 
 <style media="screen" lang="scss" scoped>
+
+  .commentGuide{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -1rem;
+    font-size: .35rem;
+    text-align: center;
+  }
+
+  .shade{
+    position: absolute;
+    bottom: 0;
+    height: 5rem;
+    width: 100%;
+    background: -webkit-linear-gradient(top,#fefefe 0,rgba(255,51,51,0) 100%);
+    background: linear-gradient(to top,#fefefe 0,rgba(255,51,51,0) 100%);
+    pointer-events: none;
+    -webkit-transition: .25s;
+    transition: .25s;
+  }
 
   .activityComment{
     padding-bottom: 2.1rem;
@@ -106,6 +129,7 @@
 
   .comment{
     margin-bottom: 1.8rem;
+    position: relative;
   }
 
   .headerImg{
@@ -175,6 +199,7 @@
   export default {
     data() {
       return {
+      	downloadTimes: '2236',
         loading: false,
         imgData: null,
         videoData: null,
@@ -250,6 +275,9 @@
             _replaceEmoji(item);
           });
 
+					// todo rm
+//					 res.body.hots[1] = res.body.hots[0];
+
           me.commentData = res.body.comments;
           me.hotData = res.body.hots;
 
@@ -301,7 +329,7 @@
 
             if(res === 'notMatch'){
               Toast('网络错误...');
-              return reject('网络错误...');;
+              return reject('网络错误...');
             }
 
 //            if(res.type_id === '2'){
