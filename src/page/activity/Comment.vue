@@ -167,7 +167,7 @@
   }
 
   .noComment{
-    padding: .2rem 0 0;
+    padding: .2rem 0;
     text-align: center;
   }
 
@@ -207,7 +207,8 @@
         commentData: null,
         hotData: null,
         wxCfg: {},
-        wxShareData: {}
+        wxShareData: {},
+				mediaListData: null
       }
     },
     created(){
@@ -229,6 +230,8 @@
       });
 
       me.fetchComment();
+
+      me.fetchMediaList();
 
     },
     components: {
@@ -470,6 +473,35 @@
           default:
             Toast('请您下载app');
         }
+      },
+      fetchMediaList(){
+      	const me = this;
+				util.fetchInterface(me, 0, {
+          route: 'mapi/media/getMediaList',
+					media_type_id: '2',
+					order_id: '4',
+					pageSize: '3',
+					customer_id: '280887'
+        }, function (res) {
+					//Indicator.close();
+					if(res === 'notMatch'){
+						Toast({
+							message: '暂无数据...',
+							duration: 3000
+						});
+						return reject('暂无数据...');
+					}
+
+					if(res === 'notMatch'){
+						Toast('网络错误...');
+						return reject('网络错误...');
+					}
+
+					// console.log(res);
+          
+					me.mediaListData = res;
+
+        })
       },
       playVideo(id, resource){
         const oImg = util.getEl('#img-'+ resource);
