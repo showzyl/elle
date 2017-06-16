@@ -32,7 +32,7 @@ const ActivityCommentVideo = () => System.import('../page/activity/CommentVideo.
 const Ct = () => System.import('../page/activity/CommentTest.vue')
 const ImgTxtList = () => System.import('../page/hybird/ImgTxtList.vue')
 const hybirdBoy = () => System.import('../page/hybird/boy.vue')
-const hybirdGirl = () => System.import('../page/hybird/girl.vue')
+// const hybirdGirl = () => System.import('../page/hybird/girl.vue')
 const Test = () => System.import('../page/Test.vue')
 
 
@@ -67,7 +67,7 @@ const routes = [
   { name: 'Ct', path: '/activity/ct', component: Ct },
   { name: 'hybird图文混排', path: '/hybird/imglist', component: ImgTxtList },
   { name: 'hybird boy', path: '/hybird/boy', component: hybirdBoy },
-  { name: 'hybird girl', path: '/hybird/girl', component: hybirdGirl },
+  // { name: 'hybird girl', path: '/hybird/girl', component: hybirdGirl },
   { name: 'QA', path: '/qa', component: Qa },
   { name: '测试', path: '/test', component: Test },
 ]
