@@ -14,5 +14,128 @@ input{outline:none} /* out border */
 
 
 
+.tabs{
+    background: #ffffff;
+    display: -webkit-box;
+    padding: .3rem;
+}
+
+.tabs li{
+    -webkit-box-flex: 1;
+}
+
+.tabs .imgBox{
+    width: 1rem;
+    margin: 0 auto;
+}
+
+.tabs .txt{
+    text-align: center;
+    padding: .2rem 0;
+    font-size: .35rem;
+}
+
+.hot{
+    overflow: hidden;
+}
+
+.hot .tit, .focusPic .popularity, .brand .tit{
+    text-align: center;
+    padding: .2rem 0;
+    font-weight: normal;
+}
+
+.hot .hr, .popular, .brand .list{
+    display: -webkit-box;
+}
+
+.hot .hr li, .popular li, .brand .list li{
+    -webkit-box-flex: 1;
+}
+
+.hot .hl{
+    float: left;
+    width: 27.33%;
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+    border-right: 1px solid #f5f5f5;
+}
+
+.hot .hl .imgBox{
+    padding-top: .5rem;
+}
+
+.hot .hl .txt{
+    text-align: center;
+    margin-top: -.1rem;
+    padding-bottom: .6rem;
+}
+
+.hot .hr{
+    width: 72%;
+    float: left;
+}
+
+.hot .hr li{
+    border-right: 1px solid #f5f5f5;
+}
+
+.hot .hr .txt{
+    text-align: center;
+}
+
+.hot .hr .imgBox{
+    margin: 0 auto;
+    width: 1.4rem;
+    height: 1.8rem;
+}
+
+.hot .hr .txt{
+    padding-bottom: .2rem;
+}
+
+.hot .hr{
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+}
+
+.hot .hr:last-child{
+    border-top: 0 none;
+}
+
+.popular{
+    padding: .3rem 0;
+}
+
+.popular li{
+    border-right: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.popular .imgBox{
+    width: 2rem;
+    height: 2rem;
+    margin: 0 auto;
+}
+
+.popular .price{
+    text-align: center;
+    padding: 0 .3rem 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
