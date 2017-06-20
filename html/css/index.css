@@ -120,10 +120,14 @@ input{outline:none} /* out border */
 
 .popular .price{
     text-align: center;
-    padding: 0 .3rem 0;
+    padding: 0 0 .3rem 0;
 }
 
 
+.popular .txt{
+    text-align: center;
+    padding: 0 0 .3rem 0;
+}
 
 
 
