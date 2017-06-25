@@ -17,7 +17,7 @@ input{outline:none} /* out border */
 .tabs{
     background: #ffffff;
     display: -webkit-box;
-    padding: 0 .3rem .4rem 0;
+    padding: 0 .3rem 0 0;
 }
 
 
@@ -36,7 +36,7 @@ input{outline:none} /* out border */
     overflow: hidden;
 }
 
-.hot .tit, .focusPic .popularity, .brand .tit{
+.hot .tit, .focusPic .popularity, .brand .tit, .buyer{
     text-align: center;
     padding: .2rem 0;
     font-weight: normal;
