@@ -289,7 +289,9 @@
   /* filterBrand end */
 
   .classify,
-  .inspire {
+  .inspire,
+  .login
+  {
     margin-top: 2.01rem;
   }
 
@@ -297,7 +299,9 @@
   .product,
   .brand,
   .inspireDetail,
-  .filter{
+  .filter,
+  .profile
+  {
     margin-bottom: 2.01rem;
   }
 

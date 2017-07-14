@@ -145,6 +145,8 @@
 
     <div class="personal" v-if="tab === 'personal'">
 
+
+
       <div class="personalNav">
         <i class="iconBack" @click="tab = 'content'"></i>
         <h2 class="title">个人资料</h2>
@@ -537,12 +539,14 @@
   .manageList .iconRight{
     right: .5rem;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
   }
 
   .personal .personalHead{
     position: relative;
     height: 4rem;
-    /*border-top: 1px solid;*/
   }
 
   .personalHead .headImg{
@@ -713,7 +717,8 @@
   import { Toast, Indicator, DatetimePicker, Actionsheet } from 'mint-ui'
   import store from '../assets/lib/q.store.js'
   import util from '../assets/lib/q.util.js'
-  import html5ImgCompress from '../assets/lib/q.file.js'
+//  import html5ImgCompress from '../assets/lib/q.file.js'
+  import download from '../components/download.vue'
 
   Vue.component(DatetimePicker.name, DatetimePicker);
   Vue.component(Actionsheet.name, Actionsheet);
@@ -811,39 +816,45 @@
 
       },
       clickHeaderImg(){
-        const me = this;
+        const me = this
+
+				Toast({
+					message: '请下载App修改...',
+					duration: 3000
+				})
+
         //this.sheetVisible = true
 
-        util.getEl('#single').addEventListener('change', function(e){
-          new html5ImgCompress(e.target.files[0], {
-            before: function(file) {
-              console.log('单张: 压缩前...');
-            },
-            done: function (file, base64) {
-              console.log('单张: 压缩成功...');
-              console.log(file, base64);
-
-              util.fetchInterface(me, 0, {
-                route: 'mapi/account/edit',
-                headimgurl: base64,
-                customer_id,
-                mobile_token
-              }, function (res) {
-                console.log(res)
-              })
-              
-            },
-            fail: function(file) {
-              console.log('单张: 压缩失败...');
-            },
-            complate: function(file) {
-              console.log('单张: 压缩完成...');
-            },
-            notSupport: function(file) {
-              alert('浏览器不支持！');
-            }
-          });
-        });
+//        util.getEl('#single').addEventListener('change', function(e){
+//          new html5ImgCompress(e.target.files[0], {
+//            before: function(file) {
+//              console.log('单张: 压缩前...');
+//            },
+//            done: function (file, base64) {
+//              console.log('单张: 压缩成功...');
+//              console.log(file, base64);
+//
+//              util.fetchInterface(me, 0, {
+//                route: 'mapi/account/edit',
+//                headimgurl: base64,
+//                customer_id,
+//                mobile_token
+//              }, function (res) {
+//                console.log(res)
+//              })
+//
+//            },
+//            fail: function(file) {
+//              console.log('单张: 压缩失败...');
+//            },
+//            complate: function(file) {
+//              console.log('单张: 压缩完成...');
+//            },
+//            notSupport: function(file) {
+//              alert('浏览器不支持！');
+//            }
+//          });
+//        });
 
       },
       takePhoto() {
