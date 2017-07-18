@@ -73,9 +73,28 @@
       暂无精彩评论
     </p>
 
-    <div class="">
-
-    </div>
+    <ul class="mediaList">
+      <li class="item" v-for="item in mediaListData">
+        <!--:style="'background-image: url('+item.cover_image+')'"-->
+        <div class="imgBox" >
+          <img src="http://attach1.92wy.com/attachments/day_110412/11041213044998741ba276248f.jpg" alt="">
+        </div>
+        <div class="txtBox">
+          <h3 class="tit1">{{item.name}}</h3>
+          <h4 class="tit2">{{item.description_detail}}</h4>
+          <p class="iconBox">
+            <span>
+              <i class="icon-eye"></i>
+              {{item.visit_count}}
+            </span>
+            <span>
+              <i class="icon-msg"></i>
+              {{item.discuss_count}}
+            </span>
+          </p>
+        </div>
+      </li>
+    </ul>
 
     <div class="back-to-top" v-show="bScroll" @click="go2Top"></div>
 
@@ -85,6 +104,65 @@
 </template>
 
 <style media="screen" lang="scss" scoped>
+
+  .mediaList{
+    margin-top: .8rem;
+    .item{
+      overflow: hidden;
+      padding: 0 .2rem .4rem;
+      .imgBox{
+        padding-top: .2rem;
+        background-position: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 38.57%;
+        float: left;
+      }
+      .txtBox{
+        width: 55%;
+        margin-left: .3rem;
+        float: left;
+      }
+      .tit1,.tit2{
+        /*margin-top: .2rem;*/
+        font-weight: normal;
+      }
+      .tit1{
+        font-size: .5rem;
+      }
+      .iconBox{
+        margin-top: .1rem;
+      }
+      .tit2{
+        /*height: 1.1rem;*/
+        display: -webkit-box; /* 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。*/
+        text-overflow: ellipsis; /*可以用来多行文本的情况下，用省略号“…”隐藏超出范围的文本。*/
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .icon-eye, .icon-msg{
+        display: inline-block;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        vertical-align: bottom;
+        width: 20px;
+        height: 20px;
+      }
+      .icon-eye{
+        background-image: url(../../assets/img/activity/icon-eye.png);
+      }
+      .icon-msg{
+        margin-left: .4rem;
+        width: 17px;
+        background-image: url(../../assets/img/activity/icon-msg.png);
+      }
+    }
+  }
+
 
   .commentGuide{
     width: 100%;
@@ -246,6 +324,13 @@
         document.body.scrollTop = 0;
       },
       download(){
+//				const me = this;
+//				util.statPage(me, {
+//					k: 'comment_download',
+//					route_url: 'http://baidu.com'
+//				}, function (res) {
+//					console.log(res)
+//				})
         util.download();
       },
       fetchComment(){
@@ -501,7 +586,7 @@
 						return reject('网络错误...');
 					}
 
-					// console.log(res);
+//					 console.log(res);
           
 					me.mediaListData = res;
 

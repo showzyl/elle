@@ -239,6 +239,21 @@ export default {
 		}
 	},
 
+	statPage(me, data, cb){
+		data.format = 'jsonp';
+		data.route = 'mapi/media/getMediaList';
+		me.$http.jsonp(
+			window.q.interfaceHost + 'index.php',
+			{
+				params: data
+			}
+		).then(function (res) {
+			console.log(res);
+		}, function (err) {
+			cb && cb('error');
+		})
+	},
+
 	/**
 	 * @function escapeHTML 转义html脚本 < > & " '
 	 * @param a -
