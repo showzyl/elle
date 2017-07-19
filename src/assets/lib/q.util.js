@@ -220,14 +220,19 @@ export default {
 		return /WeiBo/i.test(navigator.userAgent);
 	},
 
-	download(){
+	download(me){
 		// 只有微博下的ios提示浏览器打开
 		if ((this.isIphone() && this.isWeiBo() ) || (this.isIpad() && this.isWeiBo() )) {
 			//显示在浏览器打开
 			this.getEl('#iphoneTip').className = 'iphone-tip';
 			return;
 		}
-		location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
+		const route_url = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
+		this.statPage(me, {
+			k: location.hash,
+			route_url
+		});
+		location.href = route_url;
 	},
 
 	back2Top(){
@@ -249,6 +254,7 @@ export default {
 			}
 		).then(function (res) {
 			console.log(res);
+			cb && cb(res);
 		}, function (err) {
 			cb && cb('error');
 		})

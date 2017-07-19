@@ -324,14 +324,14 @@
         document.body.scrollTop = 0;
       },
       download(){
-//				const me = this;
+				const me = this;
 //				util.statPage(me, {
 //					k: 'comment_download',
 //					route_url: 'http://baidu.com'
 //				}, function (res) {
 //					console.log(res)
 //				})
-        util.download();
+        util.download(me);
       },
       fetchComment(){
         const me = this;

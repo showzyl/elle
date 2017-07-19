@@ -93,7 +93,8 @@
     },
     methods: {
       download(){
-        util.download();
+      	const me = this
+        util.download(me);
       }
     },
     mounted() {

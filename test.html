@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ELLESHOP</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="screen-orientation" content="portrait">
+    <!-- uc强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="Keywords" content="ELLESHOP"/>
+    <meta name="Description" content="ELLESHOP"/>
+    <style>
+      body{ margin: 0px;padding: 0}
+      #text{ padding: 15px; line-height: 175%}
+      #text img{ width: 100%}
+    </style>
+  </head>
+  <body>
+    <div id="text"></div>
+    <script src="http://www.elleshop.com.cn/catalog/view/theme/monkey/javascript/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+ var id= location.href.split("=")[1] || 116;
+
+ $.getJSON("http://106.75.17.211:6603/index.php?route=mapi/event&event_id="+id+"&format=jsonp&callback=?",function(data){
+          console.log(data);
+
+
+          $("#text").html(data.data.head_image);
+      })
+    </script>
+
+  </body>
+</html>
