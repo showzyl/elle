@@ -220,7 +220,7 @@ export default {
 		return /WeiBo/i.test(navigator.userAgent);
 	},
 
-	download(me){
+	download(me, k){
 		// 只有微博下的ios提示浏览器打开
 		if ((this.isIphone() && this.isWeiBo() ) || (this.isIpad() && this.isWeiBo() )) {
 			//显示在浏览器打开
@@ -229,7 +229,7 @@ export default {
 		}
 		const route_url = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
 		this.statPage(me, {
-			k: location.hash,
+			k: k || location.hash,
 			route_url
 		});
 		location.href = route_url;

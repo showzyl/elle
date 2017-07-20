@@ -24,7 +24,7 @@
       </router-link>
     </li>
 
-    <li class="footBarItem shopcart " :class="[pageName == 'shopcar' ? 'on' : '']">
+    <li class="footBarItem shopcart none" :class="[pageName == 'shopcar' ? 'on' : '']">
       <router-link to="/shopcar">
         <i class="iconShopinglist"/></i>
         <h3 class="footBarTxt">购物车</h3>
@@ -32,7 +32,7 @@
       <span class="shopcartNumber" v-show="shopcartNumber">{{shopcartNumber}}</span>
     </li>
 
-    <li class="footBarItem " :class="[pageName == 'profile' ? 'on' : '']">
+    <li class="footBarItem none" :class="[pageName == 'profile' ? 'on' : '']">
       <router-link to="/profile">
         <i class="iconProfile"/></i>
         <h3 class="footBarTxt">我的</h3>
