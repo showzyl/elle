@@ -229,7 +229,7 @@ export default {
 		}
 		const route_url = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.elleshop';
 		this.statPage(me, {
-			k: k || location.hash,
+			key: k || location.hash,
 			route_url
 		});
 		location.href = route_url;
@@ -246,7 +246,7 @@ export default {
 
 	statPage(me, data, cb){
 		data.format = 'jsonp';
-		data.route = 'mapi/media/getMediaList';
+		data.route = 'mapi/statistics/addStatistics';
 		me.$http.jsonp(
 			window.q.interfaceHost + 'index.php',
 			{

@@ -73,11 +73,13 @@
       暂无精彩评论
     </p>
 
-    <ul class="mediaList" @click="download('mediaList')">
-      <li class="item" v-for="item in mediaListData">
+    <ul class="mediaList">
+      <li class="item" v-for="(item, i) in mediaListData" @click="download('mediaList'+i)">
         <!--:style="'background-image: url('+item.cover_image+')'"-->
         <div class="imgBox" >
-          <img src="http://attach1.92wy.com/attachments/day_110412/11041213044998741ba276248f.jpg" alt="">
+          <img :src="item.cover_image" alt="">
+          <p class="downloadbg"></p>
+          <span class="downloadtxt">下载app查看</span>
         </div>
         <div class="txtBox">
           <h3 class="tit1">{{item.name}}</h3>
@@ -111,12 +113,30 @@
       overflow: hidden;
       padding: 0 .2rem .4rem;
       .imgBox{
+        position: relative;
         padding-top: .2rem;
         background-position: top;
         background-size: cover;
         background-repeat: no-repeat;
         width: 38.57%;
         float: left;
+        .downloadbg, .downloadtxt{
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 0.6rem;
+          line-height: .6rem;
+        }
+        .downloadbg{
+          background: #000;
+          opacity: .6;
+          z-index: 1;
+        }
+        .downloadtxt{
+          z-index: 2;
+          color: #fff;
+          text-align: center;
+        }
       }
       .txtBox{
         width: 55%;
