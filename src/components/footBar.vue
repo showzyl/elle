@@ -11,7 +11,7 @@
     </li>
 
     <li class="footBarItem" :class="[pageName == 'classify' ? 'on' : '']">
-       <router-link to="/classify">
+       <router-link to="/classify?active0=tab0&active1=tab0&tab=category">
         <i class="iconCatalogue"/></i>
         <h3 class="footBarTxt">分类</h3>
       </router-link>

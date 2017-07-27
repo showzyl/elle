@@ -3,11 +3,10 @@
   <download />
 
   <ul class="header" v-show="tab === 'category' || tab === 'brand'">
-   
-    <li @click.prevent="tab = 'category'" :class="[tab == 'category' ? 'on' : '']">
+    <li @click.prevent="clickTab('category')" :class="[tab == 'category' ? 'on' : '']">
       <a href="javascript:;">品类</a>
     </li>
-     <li @click.prevent="tab = 'brand'" :class="[tab == 'brand' ? 'on' : '']">
+    <li @click.prevent="clickTab('brand')" :class="[tab == 'brand' ? 'on' : '']">
       <a href="javascript:;" >品牌</a>
     </li>
     <div class="tabborder"></div>
@@ -15,14 +14,17 @@
 
   <div class="content" v-if="tab === 'category'">
     <div class="subBar">
-      <a @click.prevent="active1 = 'tab-container0'" :class="[active1 == 'tab-container0' ? 'on' : '']">女士</a>
-      <a @click.prevent="active1 = 'tab-container1'" :class="[active1 == 'tab-container1' ? 'on' : '']">男士</a>
-      <a @click.prevent="active1 = 'tab-container2'" :class="[active1 == 'tab-container2' ? 'on' : '']">生活</a>
+      <!--<a @click.prevent="active0 = 'tab0'" :class="[active0 == 'tab0' ? 'on' : '']">女士</a>-->
+      <!--<a @click.prevent="active0 = 'tab1'" :class="[active0 == 'tab1' ? 'on' : '']">男士</a>-->
+      <!--<a @click.prevent="active0 = 'tab2'" :class="[active0 == 'tab2' ? 'on' : '']">生活</a>-->
+      <a @click.prevent="clickTab('', 'active0', 'tab0')" :class="[active0 == 'tab0' ? 'on' : '']">女士</a>
+      <a @click.prevent="clickTab('', 'active0', 'tab1')" :class="[active0 == 'tab1' ? 'on' : '']">男士</a>
+      <a @click.prevent="clickTab('', 'active0', 'tab2')" :class="[active0 == 'tab2' ? 'on' : '']">生活</a>
     </div>
 
      <div class="page-tab-container">
-      <mt-tab-container class="page-tabbar-tab-container" v-model="active1" swipeable>
-        <mt-tab-container-item id="tab-container0">
+      <mt-tab-container class="page-tabbar-tab-container" v-model="active0" swipeable>
+        <mt-tab-container-item id="tab0">
           <ul class="shopList">
 
             <li class="shopItem">
@@ -41,7 +43,7 @@
           </ul>
           <div class="btn btnMoreCategary" @click="changeCategaryTab(0)" v-show="btnShow">更多分类</div>
         </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container1">
+        <mt-tab-container-item id="tab1">
           <ul class="shopList">
 
             <li class="shopItem">
@@ -60,7 +62,7 @@
           </ul>
           <div class="btn btnMoreCategary" @click="changeCategaryTab(1)" v-show="btnShow">更多分类</div>
         </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container2">
+        <mt-tab-container-item id="tab2">
           <ul class="shopList">
 
             <li class="shopItem">
@@ -86,14 +88,17 @@
 
   <div class="content" v-if="tab === 'brand'">
     <div class="subBar">
-      <a @click.prevent="active2 = 'tab-container0'" :class="[active2 == 'tab-container0' ? 'on' : '']">女士</a>
-      <a @click.prevent="active2 = 'tab-container1'" :class="[active2 == 'tab-container1' ? 'on' : '']">男士</a>
-      <a @click.prevent="active2 = 'tab-container2'" :class="[active2 == 'tab-container2' ? 'on' : '']">生活</a>
+      <!--<a @click.prevent="active1 = 'tab0'" :class="[active1 == 'tab0' ? 'on' : '']">女士</a>-->
+      <!--<a @click.prevent="active1 = 'tab1'" :class="[active1 == 'tab1' ? 'on' : '']">男士</a>-->
+      <!--<a @click.prevent="active1 = 'tab2'" :class="[active1 == 'tab2' ? 'on' : '']">生活</a>-->
+      <a @click.prevent="clickTab('', 'active1', 'tab0')" :class="[active1 == 'tab0' ? 'on' : '']">女士</a>
+      <a @click.prevent="clickTab('', 'active1', 'tab1')" :class="[active1 == 'tab1' ? 'on' : '']">男士</a>
+      <a @click.prevent="clickTab('', 'active1', 'tab2')" :class="[active1 == 'tab2' ? 'on' : '']">生活</a>
     </div>
 
      <div class="page-tab-container">
-      <mt-tab-container class="page-tabbar-tab-container" v-model="active2" swipeable>
-        <mt-tab-container-item id="tab-container0">
+      <mt-tab-container class="page-tabbar-tab-container" v-model="active1" swipeable>
+        <mt-tab-container-item id="tab0">
           <ul class="brandList">
             <li v-for="item in brandItems0" class="brandItem">
               <router-link :to=" '/brand/' + item.manufacturer_id ">
@@ -111,7 +116,7 @@
             </li>
           </ul>
         </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container1">
+        <mt-tab-container-item id="tab1">
           <ul class="brandList">
             <li v-for="item in brandItems1" class="brandItem">
               <router-link :to=" '/brand/' + item.manufacturer_id ">
@@ -129,7 +134,7 @@
             </li>
           </ul>
         </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container2">
+        <mt-tab-container-item id="tab2">
           <ul class="brandList">
             <li v-for="item in brandItems2" class="brandItem">
               <router-link :to=" '/brand/' + item.manufacturer_id ">
@@ -423,12 +428,11 @@
   Vue.component(TabContainer.name, TabContainer)
   Vue.component(TabContainerItem.name, TabContainerItem)
 
-
   export default {
     data(){
       return {
-        active1: 'tab-container0',
-        active2: 'tab-container0',      
+        active0: 'tab0',
+        active1: 'tab0',
         tab: 'category',
         btnShow: false,
         prevTab: '',
@@ -445,12 +449,24 @@
     created(){
       const me = this;
 
+			let { active0, active1, tab } = me.$route.query
+
+      if(active0 && active1 && tab){
+				console.log('active0: ', active0)
+				console.log('active1: ', active1)
+				console.log('tab: ', tab)
+
+				me.tab = tab
+				me.active0 = active0
+				me.active1 = active1
+      }
+
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
-      });
+      })
 
-      [20, 59, 75].forEach(function(item,i) {
+      ;[20, 59, 75].forEach(function(item,i) {
         util.fetchInterface(me, 0, {
           route: 'mapi/manufacturer',
           type_id: item
@@ -460,17 +476,18 @@
             me.btnShow = true;
           }, 500)
         })
-      });
-      
+      })
+
       me.fetchCategoryData({}, function(res){
         me.categoryItems0 = res.list[0].subcategories;
         me.categoryItems1 = res.list[1].subcategories;
         me.categoryItems2 = res.list[2].subcategories;
-      });
+      })
 
       me.fetchMoreCategary({}, function(res) {
         me.allList = res;
       })
+
     },
     components: {
       footBar,
@@ -529,7 +546,26 @@
         me.prevTab = me.tab;
         me.tab = 'moreCategory';
         me.renderList = me.allList[index]['subcategories'];
-      }
+      },
+			clickTab(tab, k, v){
+				const me = this
+
+        if(tab){
+					me.tab = tab
+        }else{
+//					console.log('tabName: ', tab)
+//					console.log('k: ', k)
+//					console.log('v: ', v)
+          if(k === 'active0'){
+						me.active0 = v
+          }else if(k === 'active1'){
+						me.active1 = v
+          }
+        }
+				location.href = '/#/classify?active0=' + me.active0
+					+ '&active1=' + me.active1
+					+ '&tab=' + me.tab
+			}
     },
     mounted() {
 

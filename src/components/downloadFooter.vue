@@ -23,6 +23,7 @@
     bottom: 0;
     background-color: #ffffff;
     overflow: hidden;
+    z-index: 999;
   }
 
   .dl, .dm{
