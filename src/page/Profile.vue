@@ -14,14 +14,14 @@
 
         <h3 class="userName">{{info.firstname}}</h3>
 
-        <div class="member">
-          <router-link to="/vip">
+        <div class="member" @click="checkData('请下载app查看')">
+          <!--<router-link to="/vip">-->
             <span class="memberIcon blueMemberIcon"></span>
             <div class="memberTxt blueMember">
               BlueMember <br>
               蓝色会员
             </div>
-          </router-link>
+          <!--</router-link>-->
         </div>
 
       </div>
@@ -145,22 +145,20 @@
 
     <div class="personal" v-if="tab === 'personal'">
 
-
-
       <div class="personalNav">
         <i class="iconBack" @click="tab = 'content'"></i>
         <h2 class="title">个人资料</h2>
       </div>
 
       <div class="personalHead" @click="clickHeaderImg">
-        <input type="file" id="single" style="display: none;"/>
-        <label for="single">
+        <!--<input type="file" id="single" style="display: none;"/>-->
+        <!--<label for="single">-->
           <div class="headImg">
             <img :src="info.headimgurl" v-if="info.headimgurl" class="iconImg">
             <img src="../assets/img/profile/touxiang.png" v-else class="iconImg">
             <i class="iconRedPen"></i>
           </div>
-        </label>
+        <!--</label>-->
       </div>
 
       <ul class="personalList">
@@ -213,7 +211,7 @@
       </div>
 
       <div class="btn btnCheckData" @click="checkData">
-        √
+        修改
       </div>
 
       <mt-actionsheet
@@ -734,7 +732,7 @@
     },
     data () {
       return {
-        tab: 'personal',
+        tab: 'content',
         myform: {},
         info: {},
         pickerVisible: false,
@@ -811,9 +809,12 @@
 //        console.log(oDate.getDate());
 
       },
-      checkData(){
-        console.log(123)
-
+      checkData(s){
+//        console.log(123)
+				Toast({
+					message: s || '请下载App修改...',
+					duration: 3000
+				})
       },
       clickHeaderImg(){
         const me = this

@@ -1,5 +1,6 @@
 <template>
 <div class="login">
+  <download />
   <commonNav title="注册" iconRight=""/>
   <ul class="inputGroup">
     <li class="inputBox">
@@ -38,7 +39,7 @@
   <div class="regBtnGroup" >
     <div class="btn btn-black" @click='fnTelReg'>
       <span class="txt">
-        √
+        注册
       </span>
     </div>
   </div>
@@ -47,6 +48,7 @@
 </div>
 </template>
 <script lang="babel">
+	import download from '../components/download.vue'
   import commonNav from '../components/commonNav.vue'
   import { Checklist, Cell, Toast } from 'mint-ui';
 
@@ -54,7 +56,6 @@
     data () {
       return {
         nCount: 123,
-        value: ['梨子', '香蕉'],
         phone: null,
         pass: '',
         confirmpass: '',
@@ -66,7 +67,8 @@
     },
     components: {
       commonNav,
-      Checklist
+      Checklist,
+			download
     },
     computed: {
 
@@ -121,6 +123,11 @@
           return;
         }
 
+				if(me.pass.length < 6){
+					Toast('密码最少6位');
+					return;
+				}
+
         if(me.pass !== me.confirmpass){
           Toast('请两次输入的密码保持一致...');
           return;
@@ -142,8 +149,8 @@
         ).then( res => {
           let data = res.body;
 
-          console.log(data);
-          return;
+//          console.log(data);
+//          return;
           if(data.code === 0){
             cb && cb(data.data);
           }else{
@@ -158,7 +165,6 @@
         }, err => {
           Indicator.close();
           me.loading = false;
-          //console.log(res)
           Toast('网络错误...')
         })
 
@@ -278,6 +284,20 @@
   .choseTxt{
     margin-left: .5rem;
     font-size: .35rem;
+  }
+
+  .inputGroup{
+    padding: 2rem .5rem .5rem;
+  }
+
+  .inputBox{
+    border-bottom: 1px solid #666666;
+  }
+
+  .inputTxt{
+    width: 100%;
+    padding: .4rem 0 .4rem 0;
+    font-size: .5rem;
   }
 
 </style>
