@@ -1,20 +1,24 @@
 <template>
 
-  <div class="imgTxtList">
-    <div class="imgList">
-      <img v-for="item in imgList" :src="item.image"
-           @touchend="jumpUrl(item.link_type_id, item.media_resource_id, item.link_id)">
-    </div>
+  <div class="promotion">
+    <ul class="proList" v-for="list in proList">
+      <li class="item" :data-modulat_id="item.modulat_id" v-for="item in list" :style="'width: '+ 100 / list.length  + '%;' ">
+        <img :src="item.image" alt="">
+      </li>
+    </ul>
   </div>
-
 
 </template>
 
 <style media="screen" lang="scss" scoped>
-  .imgTxtList {
-    padding: 15px;
-    line-height: 175%;
+ .promotion{
+  .proList{
+    overflow: hidden;
+   .item{
+     float: left;
+   }
   }
+ }
 </style>
 
 <script lang="babel">
@@ -25,7 +29,7 @@
 	export default {
 		data(){
 			return {
-				imgList: null
+				proList: null
 			}
 		},
 		created(){
@@ -34,26 +38,12 @@
 			Indicator.open({
 				text: '加载中...',
 				spinnerType: 'fading-circle'
-			});
+			})
 
 			me.fetchData({}, res => {
 				console.log(res)
-        return
-				if (res.image_text) {
-					res.image_text = util.unescapeHTML(res.image_text);
-					if (res.image_text) {
-						util.getEl('.imgTxtList').innerHTML = res.image_text;
-					} else {
-						const a = document.createElement('a');
-						a.href = '/'
-						a.innerHTML = '暂无内容, 点击查看更多精彩!';
-						util.getEl('.imgTxtList').innerHTML = ''
-					}
-				} else {
-					me.imgList = res.images
-				}
-
-			});
+        me.proList = res.modulats
+			})
 
 		},
 		components: {},
@@ -61,16 +51,14 @@
 		methods: {
 			fetchData(data, cb){
 				const me = this;
-				let {media_id} = me.$route.query;
-				// route=mapi/media&media_id=32
+				let {promotion_id} = me.$route.query;
 				this.$http.jsonp(
 					window.q.interfaceHost + 'index.php?',
-//          'http://106.75.17.211:6603/index.php?',
 					{
 						params: {
-							route: 'mapi/media',
+							route: 'mapi/promotion',
 							format: 'jsonp',
-							media_id
+							promotion_id // 测试 `23`
 						}
 					}
 				).then(function (res) {
@@ -91,7 +79,6 @@
 				});
 			},
 			jumpUrl(id, resource, link_id){
-
 				switch (id) {
 					case '1':
 						// 去商品
