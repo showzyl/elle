@@ -1,12 +1,33 @@
-
 <template>
-<div class="coupon">
-  优惠券
-</div>
+  <div class="coupon">
+    <div class="header">
+      <ul class="tabs">
+        <li :class="{'tab': true, 'on': item.status}" v-for="(item, i) in tabs" @touchend="switchTab(i)">{{item.txt}}</li>
+      </ul>
+    </div>
+  </div>
 </template>
 <style media="screen" lang="scss" scoped>
   .coupon{
-    color: red;
+    /*color: red;*/
+    .tabs{
+      margin: 30px;
+      .on{
+        background-color: #d7d7d7;
+      }
+      .tab{
+        float: left;
+        border: 1px solid #d5d5d5;
+        border-right: 0 none;
+      }
+      .tab:first-child{
+        border-radius: 10px 0 0 10px;
+      }
+      .tab:nth-last-child(1){
+        border-right: 1px solid #d5d5d5;
+        border-radius: 0 10px 10px 0;
+      }
+    }
   }
 </style>
 <script lang="babel">
@@ -14,7 +35,16 @@
   export default {
     data(){
       return {
-        
+				tabs: [{
+					txt: '可使用',
+          status: true
+        }, {
+					txt: '已过期',
+					status: false
+        }, {
+					txt: '已使用',
+					status: false
+				}]
       }
     },
     created(){
@@ -65,6 +95,14 @@
       },
       addAds(){
         console.log('add')
+      },
+			switchTab(index){
+      	const me = this
+      	console.log(index)
+        me['tabs'].forEach(item => {
+      		item.status = false
+        })
+        me['tabs'][index]['status'] = true
       }
 
     },
