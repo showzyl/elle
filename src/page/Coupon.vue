@@ -1,6 +1,7 @@
 <template>
   <div class="coupon">
     <div class="header">
+      <i class="iconBack" @click="clickBack"></i>
       <ul class="tabs">
         <li :class="{'tab': true, 'on': item.status}" v-for="(item, i) in tabs" @touchend="switchTab(i)">{{item.txt}}</li>
       </ul>
@@ -10,6 +11,20 @@
 <style media="screen" lang="scss" scoped>
   .coupon{
     /*color: red;*/
+    .header{
+      position: relative;
+    }
+    .iconBack{
+      position: absolute;
+      display: block;
+      background-image: url(../assets/img/backbtn.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 0.6rem;
+      width: 0.8rem;
+      top: 33%;
+      left: 3%;
+    }
     .tabs{
       margin: 30px;
       .on{
@@ -103,7 +118,10 @@
       		item.status = false
         })
         me['tabs'][index]['status'] = true
-      }
+      },
+			clickBack(){
+				history.back()
+			}
 
     },
     mounted() {
