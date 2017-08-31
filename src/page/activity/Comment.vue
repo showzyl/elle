@@ -446,12 +446,6 @@
               return reject('网络错误...');
             }
 
-//            if(res.type_id === '2'){
-//              me.imgData = res;
-//            }else if(res.type_id === '3'){
-//              me.videoData = res;
-//            }
-
 //            item 单品
 //						brand 品牌
 //						news 媒体

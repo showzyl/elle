@@ -6,13 +6,19 @@
         <li :class="{'tab': true, 'on': item.status}" v-for="(item, i) in tabs" @touchend="switchTab(i)">{{item.txt}}</li>
       </ul>
     </div>
+
+    <ul>
+
+    </ul>
+
   </div>
 </template>
 <style media="screen" lang="scss" scoped>
   .coupon{
-    /*color: red;*/
+
     .header{
       position: relative;
+      height: 1.5rem;
     }
     .iconBack{
       position: absolute;
@@ -26,7 +32,11 @@
       left: 3%;
     }
     .tabs{
-      margin: 30px;
+      position: absolute;
+      left: 50%;
+      margin-left: -3rem;
+      margin-top: .2rem;
+      font-size: .4rem;
       .on{
         background-color: #d7d7d7;
       }
@@ -34,13 +44,14 @@
         float: left;
         border: 1px solid #d5d5d5;
         border-right: 0 none;
+        padding: .2rem .5rem;
       }
       .tab:first-child{
-        border-radius: 10px 0 0 10px;
+        border-radius: 30px 0 0 30px;
       }
       .tab:nth-last-child(1){
         border-right: 1px solid #d5d5d5;
-        border-radius: 0 10px 10px 0;
+        border-radius: 0 30px 30px 0;
       }
     }
   }
