@@ -8,7 +8,20 @@
     </div>
 
     <ul>
+      <li class="item">
+        <h4>新人红包</h4>
+        <p class="usage">
+          ¥ <span class="money">100</span>&nbsp;
+          <span class="rule">满500元使用</span>
+        </p>
+        <p class="range">
+          使用范围：购买使用范围，全球通用品牌使用
+        </p>
 
+        <p class="deadline">
+          使用期限：3017.09.03~3017.09.04
+        </p>
+      </li>
     </ul>
 
   </div>
@@ -19,6 +32,7 @@
     .header{
       position: relative;
       height: 1.5rem;
+      border-bottom: 1px solid #d7d7d7;
     }
     .iconBack{
       position: absolute;
@@ -54,6 +68,30 @@
         border-radius: 0 30px 30px 0;
       }
     }
+
+    .item{
+    margin: .2rem;
+    padding: .3rem;
+    border: 1px solid #d5d5d5;
+    font-size: .4rem;
+      .usage{
+        font-size: .5rem;
+        color: #f3897b;
+      }
+      .money{
+        font-size: 1.5rem;
+      }
+      .range{
+        border-bottom: 1px dashed #d5d5d5;
+        padding-bottom: .2rem;
+      }
+      .deadline{
+        padding-top: .2rem;
+      }
+      .range, .deadline{
+        color: #9a9a9a;
+      }
+      }
   }
 </style>
 <script lang="babel">
