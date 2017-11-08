@@ -183,7 +183,8 @@
     },
     methods: {
       download(){
-        util.download();
+        const me = this
+        util.download(me);
       },
       rmDownload(){
         util.getEl('.buyer-head').style.display = 'none';
